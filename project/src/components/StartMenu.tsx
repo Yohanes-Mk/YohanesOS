@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Monitor, Palette, Gamepad2, Quote, Terminal, Power, X, ChevronDown } from 'lucide-react';
+import {
+  Monitor,
+  Palette,
+  Gamepad2,
+  Quote,
+  Terminal,
+  Power,
+  X,
+  ChevronDown,
+  Shield
+} from 'lucide-react';
+import AdminDashboard from './AdminDashboard';
 
 interface WallpaperAccents {
   primary: string;
@@ -30,6 +41,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const [showAbout, setShowAbout] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [currentQuote, setCurrentQuote] = useState('');
 
   useEffect(() => {
@@ -79,6 +91,10 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setShowGame(true);
   };
 
+  const handleAdmin = () => {
+    setShowAdmin(true);
+  };
+
   const handleQuoteClick = () => {
     setShowQuoteModal(true);
   };
@@ -102,6 +118,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
     { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
     { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
+    { id: 'admin', label: 'Admin Dashboard', icon: Shield, action: handleAdmin },
     { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
     { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
     { id: 'power-off', label: 'Power Off', icon: Power, action: () => { onReturnToLanding(); handleClose(); } }
@@ -291,7 +308,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       {/* Quote Display Modal */}
       {showQuoteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={() => setShowQuoteModal(false)}
           />
@@ -329,6 +346,15 @@ const StartMenu: React.FC<StartMenuProps> = ({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Admin Dashboard Modal */}
+      {showAdmin && (
+        <AdminDashboard
+          theme={theme}
+          wallpaperAccents={wallpaperAccents}
+          onClose={() => setShowAdmin(false)}
+        />
       )}
     </>
   );
