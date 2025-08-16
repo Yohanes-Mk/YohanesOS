@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Monitor,
   Palette,
@@ -374,8 +374,40 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
   const [playerSet, setPlayerSet] = useState(false);
   const [highScores, setHighScores] = useState<Array<{ name: string; from: string; score: number }>>([]);
   const [showAllScores, setShowAllScores] = useState(false);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
 
   const gridSize = 20;
+
+  const changeDirection = useCallback(
+    (newDir: [number, number]) => {
+      if (!(newDir[0] === -direction[0] && newDir[1] === -direction[1])) {
+        setNextDirection(newDir);
+      }
+    },
+    [direction]
+  );
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!touchStart) return;
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStart.x;
+    const deltaY = touch.clientY - touchStart.y;
+    const absX = Math.abs(deltaX);
+    const absY = Math.abs(deltaY);
+    if (Math.max(absX, absY) > 30) {
+      if (absX > absY) {
+        changeDirection(deltaX > 0 ? [0, 1] : [0, -1]);
+      } else {
+        changeDirection(deltaY > 0 ? [1, 0] : [-1, 0]);
+      }
+    }
+    setTouchStart(null);
+  };
 
   useEffect(() => {
     const storedScores = localStorage.getItem('snakeHighScores');
@@ -438,23 +470,23 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
 
       switch (e.key) {
         case 'ArrowUp':
-          if (direction[0] !== 1) setNextDirection([-1, 0]);
+          changeDirection([-1, 0]);
           break;
         case 'ArrowDown':
-          if (direction[0] !== -1) setNextDirection([1, 0]);
+          changeDirection([1, 0]);
           break;
         case 'ArrowLeft':
-          if (direction[1] !== 1) setNextDirection([0, -1]);
+          changeDirection([0, -1]);
           break;
         case 'ArrowRight':
-          if (direction[1] !== -1) setNextDirection([0, 1]);
+          changeDirection([0, 1]);
           break;
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [direction, gameStarted]);
+  }, [changeDirection, gameStarted]);
 
   useEffect(() => {
     if (gameOver && playerSet) {
@@ -492,14 +524,16 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
         Score: {score}
       </div>
       
-      <div 
+      <div
         className={`relative mx-auto border-2 ${
           theme === 'dark' ? 'border-[#096B90] bg-[#042B44]/50' : 'border-gray-300 bg-gray-50'
         }`}
-        style={{ 
-          width: `${gridSize * 15}px`, 
-          height: `${gridSize * 15}px` 
+        style={{
+          width: `${gridSize * 15}px`,
+          height: `${gridSize * 15}px`
         }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Snake */}
         {snake.map((segment, index) => (
@@ -528,7 +562,51 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
           }}
         />
       </div>
-      
+
+      {/* Mobile D-pad */}
+      <div className="relative w-32 h-32 mx-auto mt-4 md:hidden">
+        <button
+          className={`absolute top-0 left-1/2 -translate-x-1/2 w-10 h-10 flex items-center justify-center rounded ${
+            theme === 'dark'
+              ? 'bg-[#042B44]/50 border border-[#096B90] text-[#A1CCDC]'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+          onClick={() => changeDirection([-1, 0])}
+        >
+          ⬆️
+        </button>
+        <button
+          className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-10 flex items-center justify-center rounded ${
+            theme === 'dark'
+              ? 'bg-[#042B44]/50 border border-[#096B90] text-[#A1CCDC]'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+          onClick={() => changeDirection([1, 0])}
+        >
+          ⬇️
+        </button>
+        <button
+          className={`absolute top-1/2 left-0 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded ${
+            theme === 'dark'
+              ? 'bg-[#042B44]/50 border border-[#096B90] text-[#A1CCDC]'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+          onClick={() => changeDirection([0, -1])}
+        >
+          ⬅️
+        </button>
+        <button
+          className={`absolute top-1/2 right-0 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded ${
+            theme === 'dark'
+              ? 'bg-[#042B44]/50 border border-[#096B90] text-[#A1CCDC]'
+              : 'bg-white border border-gray-300 text-gray-700'
+          }`}
+          onClick={() => changeDirection([0, 1])}
+        >
+          ➡️
+        </button>
+      </div>
+
       <div className="mt-4 space-y-2">
         {!playerSet && (
           <>
