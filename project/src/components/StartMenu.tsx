@@ -342,8 +342,19 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [nickname, setNickname] = useState('');
+  const [company, setCompany] = useState('');
+  const [playerSet, setPlayerSet] = useState(false);
+  const [highScores, setHighScores] = useState<Array<{ name: string; company: string; score: number }>>([]);
 
   const gridSize = 20;
+
+  useEffect(() => {
+    const storedScores = localStorage.getItem('snakeHighScores');
+    if (storedScores) {
+      setHighScores(JSON.parse(storedScores));
+    }
+  }, []);
 
   useEffect(() => {
     if (!gameStarted || gameOver) return;
@@ -410,7 +421,23 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [direction, gameStarted]);
 
+  useEffect(() => {
+    if (gameOver && playerSet) {
+      setHighScores(prev => {
+        const updated = [...prev, { name: nickname, company, score }]
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 5);
+        localStorage.setItem('snakeHighScores', JSON.stringify(updated));
+        return updated;
+      });
+    }
+  }, [gameOver, playerSet, nickname, company, score]);
+
   const startGame = () => {
+    if (!playerSet) {
+      if (!nickname.trim() || !company.trim()) return;
+      setPlayerSet(true);
+    }
     setSnake([[10, 10]]);
     setFood([15, 15]);
     setDirection([0, 1]);
@@ -418,6 +445,8 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
     setScore(0);
     setGameStarted(true);
   };
+
+  const canStart = playerSet || (nickname.trim() !== '' && company.trim() !== '');
 
   return (
     <div className="text-center">
@@ -464,15 +493,42 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
         />
       </div>
       
-      <div className="mt-4">
+      <div className="mt-4 space-y-2">
+        {!playerSet && (
+          <>
+            <input
+              type="text"
+              placeholder="Nickname"
+              value={nickname}
+              onChange={e => setNickname(e.target.value)}
+              className={`w-full p-2 rounded border ${
+                theme === 'dark'
+                  ? 'bg-[#042B44]/50 border-[#096B90] text-[#A1CCDC]'
+                  : 'bg-white border-gray-300 text-gray-800'
+              }`}
+            />
+            <input
+              type="text"
+              placeholder="Company"
+              value={company}
+              onChange={e => setCompany(e.target.value)}
+              className={`w-full p-2 rounded border ${
+                theme === 'dark'
+                  ? 'bg-[#042B44]/50 border-[#096B90] text-[#A1CCDC]'
+                  : 'bg-white border-gray-300 text-gray-800'
+              }`}
+            />
+          </>
+        )}
         {!gameStarted || gameOver ? (
           <button
             onClick={startGame}
+            disabled={!canStart}
             className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
               theme === 'dark'
                 ? 'bg-[#71B7D5] hover:bg-[#A1CCDC] text-white'
                 : 'bg-blue-500 hover:bg-blue-600 text-white'
-            }`}
+            } ${!canStart ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {gameOver ? `Game Over! Play Again` : 'Start Game'}
           </button>
@@ -483,6 +539,25 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
             Use arrow keys to control the snake
           </p>
         )}
+      </div>
+
+      <div className="mt-6 text-left">
+        <h4
+          className="font-bold mb-2"
+          style={{ color: theme === 'dark' ? '#A1CCDC' : '#374151' }}
+        >
+          High Scores
+        </h4>
+        <ul className={`text-sm ${
+          theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+        }`}>
+          {highScores.length === 0 && <li>No scores yet.</li>}
+          {highScores.map((s, idx) => (
+            <li key={idx}>
+              {idx + 1}. {s.name} ({s.company}) - {s.score}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
