@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Monitor, Palette, Gamepad2, Quote, Terminal, Power, X } from 'lucide-react';
+import { Monitor, Palette, Gamepad2, Quote, Terminal, Power, X, ChevronDown } from 'lucide-react';
 
 interface WallpaperAccents {
   primary: string;
@@ -338,7 +338,8 @@ const StartMenu: React.FC<StartMenuProps> = ({
 const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: WallpaperAccents }> = ({ theme, wallpaperAccents }) => {
   const [snake, setSnake] = useState([[10, 10]]);
   const [food, setFood] = useState([15, 15]);
-  const [direction, setDirection] = useState([0, 1]);
+  const [direction, setDirection] = useState<[number, number]>([0, 1]);
+  const [nextDirection, setNextDirection] = useState<[number, number]>([0, 1]);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
@@ -346,6 +347,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
   const [from, setFrom] = useState('');
   const [playerSet, setPlayerSet] = useState(false);
   const [highScores, setHighScores] = useState<Array<{ name: string; from: string; score: number }>>([]);
+  const [showAllScores, setShowAllScores] = useState(false);
 
   const gridSize = 20;
 
@@ -357,7 +359,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
         from: s.from || s.company || '',
         score: s.score
       }));
-      setHighScores(parsed);
+      setHighScores(parsed.slice(0, 20));
     }
   }, []);
 
@@ -365,9 +367,11 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
     if (!gameStarted || gameOver) return;
 
     const moveSnake = () => {
+      const currDir = nextDirection;
+      setDirection(currDir);
       setSnake(currentSnake => {
         const newSnake = [...currentSnake];
-        const head = [newSnake[0][0] + direction[0], newSnake[0][1] + direction[1]];
+        const head = [newSnake[0][0] + currDir[0], newSnake[0][1] + currDir[1]];
         
         // Check boundaries
         if (head[0] < 0 || head[0] >= gridSize || head[1] < 0 || head[1] >= gridSize) {
@@ -400,24 +404,24 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
 
     const gameInterval = setInterval(moveSnake, 150);
     return () => clearInterval(gameInterval);
-  }, [direction, food, gameStarted, gameOver]);
+  }, [nextDirection, food, gameStarted, gameOver]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (!gameStarted) return;
-      
+
       switch (e.key) {
         case 'ArrowUp':
-          if (direction[0] !== 1) setDirection([-1, 0]);
+          if (direction[0] !== 1) setNextDirection([-1, 0]);
           break;
         case 'ArrowDown':
-          if (direction[0] !== -1) setDirection([1, 0]);
+          if (direction[0] !== -1) setNextDirection([1, 0]);
           break;
         case 'ArrowLeft':
-          if (direction[1] !== 1) setDirection([0, -1]);
+          if (direction[1] !== 1) setNextDirection([0, -1]);
           break;
         case 'ArrowRight':
-          if (direction[1] !== -1) setDirection([0, 1]);
+          if (direction[1] !== -1) setNextDirection([0, 1]);
           break;
       }
     };
@@ -431,7 +435,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
       setHighScores(prev => {
         const updated = [...prev, { name: nickname, from, score }]
           .sort((a, b) => b.score - a.score)
-          .slice(0, 5);
+          .slice(0, 20);
         localStorage.setItem('snakeHighScores', JSON.stringify(updated));
         return updated;
       });
@@ -446,6 +450,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
     setSnake([[10, 10]]);
     setFood([15, 15]);
     setDirection([0, 1]);
+    setNextDirection([0, 1]);
     setGameOver(false);
     setScore(0);
     setGameStarted(true);
@@ -587,7 +592,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
             {highScores.length === 0 && (
               <li className="px-4 py-3 text-center opacity-70">No scores yet.</li>
             )}
-            {highScores.map((s, idx) => (
+            {highScores.slice(0, showAllScores ? highScores.length : 5).map((s, idx) => (
               <li
                 key={idx}
                 className={`grid grid-cols-3 gap-2 px-4 py-2 ${
@@ -598,7 +603,8 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
                     : ''
                 }`}
               >
-                <span>
+                <span className="flex items-center">
+                  {idx < 3 && <span className="mr-1">{idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}</span>}
                   {idx + 1}. {s.name}
                 </span>
                 <span className="text-center">{s.from}</span>
@@ -606,6 +612,19 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
               </li>
             ))}
           </ul>
+          {highScores.length > 5 && (
+            <button
+              onClick={() => setShowAllScores(prev => !prev)}
+              className={`w-full py-1 flex justify-center transition-colors ${
+                theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+              }`}
+            >
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${showAllScores ? 'rotate-180' : ''}`}
+              />
+            </button>
+          )}
         </div>
       </div>
     </div>
