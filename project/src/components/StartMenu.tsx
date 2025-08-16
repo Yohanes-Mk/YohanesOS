@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Monitor, Palette, Gamepad2, Quote, Terminal, Power, X } from 'lucide-react';
+import { Checkerboard } from 'react-checkers';
 
 interface WallpaperAccents {
   primary: string;
@@ -26,15 +27,14 @@ const StartMenu: React.FC<StartMenuProps> = ({
   wallpaperAccents
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
   const [currentQuote, setCurrentQuote] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Start entrance animation
-    setIsAnimating(true);
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 10);
@@ -58,10 +58,16 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setCurrentQuote(randomQuote);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleClose = () => {
     setIsVisible(false);
     setTimeout(() => {
-      setIsAnimating(false);
       onClose();
     }, 400);
   };
@@ -83,25 +89,11 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setShowQuoteModal(true);
   };
 
-  const handleQuoteRefresh = () => {
-    const quotes = [
-      "Code is poetry written in logic.",
-      "The best way to predict the future is to create it.",
-      "Simplicity is the ultimate sophistication.",
-      "Innovation distinguishes between a leader and a follower.",
-      "The only way to do great work is to love what you do.",
-      "Stay hungry, stay foolish.",
-      "Design is not just what it looks like - design is how it works."
-    ];
-    
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    setCurrentQuote(randomQuote);
-  };
 
   const menuItems = [
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
     { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
-    { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
+    { id: 'mini-game', label: isMobile ? 'Checkers Game' : 'Snake Game', icon: Gamepad2, action: handleMiniGame },
     { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
     { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
     { id: 'power-off', label: 'Power Off', icon: Power, action: () => { onReturnToLanding(); handleClose(); } }
@@ -257,22 +249,22 @@ const StartMenu: React.FC<StartMenuProps> = ({
         </div>
       )}
 
-      {/* Mini Snake Game Modal */}
+      {/* Mini Game Modal */}
       {showGame && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={() => setShowGame(false)}
           />
           <div className={`relative max-w-lg w-full rounded-2xl p-6 ${
-            theme === 'dark' 
-              ? 'bg-[#08171E]/95 border border-[#096B90]/30' 
+            theme === 'dark'
+              ? 'bg-[#08171E]/95 border border-[#096B90]/30'
               : 'bg-white border border-gray-200'
           } backdrop-blur-xl animate-in slide-in-from-bottom-4 fade-in duration-300`}
           style={{ boxShadow: `0 25px 50px -12px ${wallpaperAccents.glow}` }}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold" style={{ color: wallpaperAccents.primary }}>
-                Snake Game
+                {isMobile ? 'Checkers Game' : 'Snake Game'}
               </h3>
               <button
                 onClick={() => setShowGame(false)}
@@ -283,7 +275,16 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <X size={20} />
               </button>
             </div>
-            <SnakeGame theme={theme} />
+            {isMobile ? (
+              <div className="text-center">
+                <p className={`mb-4 ${theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'}`}>
+                  Play with me! Jon is on the other side.
+                </p>
+                <Checkerboard showRules={false} />
+              </div>
+            ) : (
+              <SnakeGame theme={theme} />
+            )}
           </div>
         </div>
       )}
