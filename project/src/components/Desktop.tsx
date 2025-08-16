@@ -153,7 +153,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
       icon: Linkedin, 
       featured: false,
       tooltip: 'Connect with me on LinkedIn',
-      onClick: () => window.open('https://linkedin.com/in/yohannes', '_blank')
+      onClick: () => window.open('https://linkedin.com/in/yohs/', '_blank')
     },
     { 
       id: 'experience', 

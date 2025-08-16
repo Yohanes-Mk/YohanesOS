@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { 
-  X, Mail, Linkedin, Github, ExternalLink, Download, MapPin, Calendar, Award, Briefcase,
-  Code2, Database, Cloud, Smartphone, Server, Globe, Terminal, GitBranch, 
-  Palette, Zap, Box, Settings, Monitor, FileCode, Layers, Cpu
+import {
+  X, Mail, Linkedin, Github, ExternalLink, Download, MapPin, Award
 } from "lucide-react";
 
 /* -------------------------------------------------------
@@ -397,10 +395,11 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <Reveal delay={200}>
         <GlassCard theme={theme} className="p-8">
           <p className={`text-lg leading-relaxed mb-6 ${subText}`}>
-            I'm Yohannes, a full-stack developer and CS/Econ student who ships clean,
-            production-minded web apps. I work React + TypeScript on the front, Node/FastAPI on
-            the back, and deploy with Docker and AWS. I like turning messy ideas into simple,
-            reliable products with good UX and readable code.
+            I'm Yohannes Nigusse, a rising junior studying Computer Science (AI/ML track) and
+            Economics. I build backend systems, RESTful APIs, and machine learning applications,
+            taking projects from concept to deployment with real-world data and users. I'm
+            comfortable in Python and Flask and enjoy applying system design principles to solve
+            research and business challenges.
           </p>
 
           <p className={`${mainText} mb-6`}>
@@ -411,11 +410,11 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Pill theme={theme} text="React + TypeScript" featured wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Node.js & FastAPI" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Docker & AWS" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="REST APIs" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Data/ML pipelines" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="Python & Flask" featured wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="RESTful APIs" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="Machine Learning" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="Data Pipelines" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="System Design" wallpaperAccents={effectiveWallpaperAccents} />
           </div>
         </GlassCard>
       </Reveal>
@@ -440,115 +439,40 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
         </p>
       </Reveal>
 
-      {/* Professional Skillset */}
-      <Reveal delay={300}>
-        <div className="space-y-6">
-          <div className="text-center">
-            <h3 className={`text-2xl font-semibold ${mainText}`}>
-              Professional <span style={{ color: effectiveWallpaperAccents.primary }}>Skillset</span>
-            </h3>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-            {[
-              { name: "React", icon: Code2 },
-              { name: "TypeScript", icon: FileCode },
-              { name: "Next.js", icon: Layers },
-              { name: "Node.js", icon: Server },
-              { name: "Python", icon: Terminal },
-              { name: "PostgreSQL", icon: Database },
-              { name: "MongoDB", icon: Database },
-              { name: "AWS", icon: Cloud },
-              { name: "Docker", icon: Box },
-              { name: "FastAPI", icon: Zap },
-              { name: "Flask", icon: Server },
-              { name: "REST APIs", icon: Globe }
-            ].map((skill, index) => (
-              <div
-                key={skill.name}
-                className={`
-                  group p-4 rounded-xl transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 animate-float
-                  ${theme === "dark"
-                    ? "bg-white/5 hover:bg-white/10 border border-white/10"
-                    : "bg-gray-50 hover:bg-white border border-gray-200"
-                  }
-                  backdrop-blur-sm
-                `}
-                style={{ 
-                  animationDelay: `${400 + index * 50}ms`,
-                  animationDuration: `${3 + (index % 3)}s`
-                }}
-              >
-                <div className="text-center">
-                  <div className="mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-                    <skill.icon size={28} className={`mx-auto ${
-                      theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
-                    }`} />
-                  </div>
-                  <div className={`text-sm font-medium ${mainText}`}>
-                    {skill.name}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      {/* Tools I Use */}
-      <Reveal delay={600}>
-        <div className="space-y-6">
-          <div className="text-center">
-            <h3 className={`text-2xl font-semibold ${mainText}`}>
-              Tools I <span className={theme === "dark" ? "text-[#71B7D5]" : "text-blue-600"}>Use</span>
-            </h3>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-            {[
-              { name: "VS Code", icon: Monitor },
-              { name: "Git", icon: GitBranch },
-              { name: "GitHub", icon: Github },
-              { name: "Figma", icon: Palette },
-              { name: "Postman", icon: Smartphone },
-              { name: "Linux", icon: Terminal },
-              { name: "Tailwind", icon: Palette },
-              { name: "Vite", icon: Zap },
-              { name: "Vercel", icon: Globe },
-              { name: "Netlify", icon: Globe },
-              { name: "Firebase", icon: Database },
-              { name: "Supabase", icon: Database }
-            ].map((tool, index) => (
-              <div
-                key={tool.name}
-                className={`
-                  group p-4 rounded-xl transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 animate-float
-                  ${theme === "dark"
-                    ? "bg-white/5 hover:bg-white/10 border border-white/10"
-                    : "bg-gray-50 hover:bg-white border border-gray-200"
-                  }
-                  backdrop-blur-sm
-                `}
-                style={{ 
-                  animationDelay: `${700 + index * 50}ms`,
-                  animationDuration: `${4 + (index % 2)}s`
-                }}
-              >
-                <div className="text-center">
-                  <div className="mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-                    <tool.icon size={24} className={`mx-auto ${
-                      theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
-                    }`} />
-                  </div>
-                  <div className={`text-sm font-medium ${mainText}`}>
-                    {tool.name}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+      {/* Skill Categories */}
+      {[
+        {
+          title: 'Languages & Frameworks',
+          items: ['Python', 'C++', 'JavaScript (Node.js)', 'SQL', 'Flask', 'scikit-learn', 'Pandas', 'NumPy', 'MediaPipe', 'Prophet', 'PyTorch (in progress)'],
+          delay: 300
+        },
+        {
+          title: 'DevOps & Deployment',
+          items: ['Git', 'GitHub Actions', 'Docker', 'Render', 'Firebase Authentication', 'Google Cloud (Cloud Functions, Storage)', 'Linux Shell (SSH)', 'Postman'],
+          delay: 450
+        },
+        {
+          title: 'Databases & Data Tools',
+          items: ['SQLite', 'Google Sheets API', 'Plotly'],
+          delay: 600
+        },
+        {
+          title: 'Applied Concepts',
+          items: ['RESTful API Design', 'CI/CD Pipelines', 'PCA Dimensionality Reduction', 'ML Model Deployment', 'Real-time Inference', 'Forecasting Models'],
+          delay: 750
+        }
+      ].map((section) => (
+        <Reveal key={section.title} delay={section.delay}>
+          <GlassCard theme={theme} className="p-8 space-y-6">
+            <h3 className={`text-2xl font-semibold text-center ${mainText}`}>{section.title}</h3>
+            <div className="flex flex-wrap gap-2 justify-center">
+              {section.items.map((item) => (
+                <Pill key={item} theme={theme} text={item} />
+              ))}
+            </div>
+          </GlassCard>
+        </Reveal>
+      ))}
     </div>
   );
 
@@ -930,25 +854,25 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <EnhancedButton
               theme={theme}
-              href="mailto:your.email@domain.com"
+              href="mailto:yohanigusse@gmail.com"
               icon={<Mail size={20} />}
               variant="primary"
             >
               Email Me
             </EnhancedButton>
-            
+
             <EnhancedButton
               theme={theme}
-              href="https://linkedin.com/in/your-handle"
+              href="https://linkedin.com/in/yohs/"
               icon={<Linkedin size={20} />}
               variant="secondary"
             >
               LinkedIn
             </EnhancedButton>
-            
+
             <EnhancedButton
               theme={theme}
-              href="https://github.com/your-handle"
+              href="https://github.com/yohannes"
               icon={<Github size={20} />}
               variant="secondary"
             >
