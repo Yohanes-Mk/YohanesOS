@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Monitor, Palette, Gamepad2, Quote, Terminal, Power, X } from 'lucide-react';
+import {
+  Monitor,
+  Palette,
+  Gamepad2,
+  Quote,
+  Terminal,
+  Power,
+  X,
+  ChevronDown,
+  Shield
+} from 'lucide-react';
+import AdminDashboard from './AdminDashboard';
 
 interface WallpaperAccents {
   primary: string;
@@ -30,6 +41,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const [showAbout, setShowAbout] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [currentQuote, setCurrentQuote] = useState('');
 
   useEffect(() => {
@@ -79,6 +91,10 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setShowGame(true);
   };
 
+  const handleAdmin = () => {
+    setShowAdmin(true);
+  };
+
   const handleQuoteClick = () => {
     setShowQuoteModal(true);
   };
@@ -102,6 +118,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
     { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
     { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
+    { id: 'admin', label: 'Admin Dashboard', icon: Shield, action: handleAdmin },
     { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
     { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
     { id: 'power-off', label: 'Power Off', icon: Power, action: () => { onReturnToLanding(); handleClose(); } }
@@ -283,7 +300,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <X size={20} />
               </button>
             </div>
-            <SnakeGame theme={theme} />
+            <SnakeGame theme={theme} wallpaperAccents={wallpaperAccents} />
           </div>
         </div>
       )}
@@ -291,7 +308,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
       {/* Quote Display Modal */}
       {showQuoteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div 
+          <div
             className="absolute inset-0 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200"
             onClick={() => setShowQuoteModal(false)}
           />
@@ -330,28 +347,57 @@ const StartMenu: React.FC<StartMenuProps> = ({
           </div>
         </div>
       )}
+
+      {/* Admin Dashboard Modal */}
+      {showAdmin && (
+        <AdminDashboard
+          theme={theme}
+          wallpaperAccents={wallpaperAccents}
+          onClose={() => setShowAdmin(false)}
+        />
+      )}
     </>
   );
 };
 
 // Simple Snake Game Component
-const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
+const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: WallpaperAccents }> = ({ theme, wallpaperAccents }) => {
   const [snake, setSnake] = useState([[10, 10]]);
   const [food, setFood] = useState([15, 15]);
-  const [direction, setDirection] = useState([0, 1]);
+  const [direction, setDirection] = useState<[number, number]>([0, 1]);
+  const [nextDirection, setNextDirection] = useState<[number, number]>([0, 1]);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const [nickname, setNickname] = useState('');
+  const [from, setFrom] = useState('');
+  const [playerSet, setPlayerSet] = useState(false);
+  const [highScores, setHighScores] = useState<Array<{ name: string; from: string; score: number }>>([]);
+  const [showAllScores, setShowAllScores] = useState(false);
 
   const gridSize = 20;
+
+  useEffect(() => {
+    const storedScores = localStorage.getItem('snakeHighScores');
+    if (storedScores) {
+      const parsed = JSON.parse(storedScores).map((s: any) => ({
+        name: s.name,
+        from: s.from || s.company || '',
+        score: s.score
+      }));
+      setHighScores(parsed.slice(0, 20));
+    }
+  }, []);
 
   useEffect(() => {
     if (!gameStarted || gameOver) return;
 
     const moveSnake = () => {
+      const currDir = nextDirection;
+      setDirection(currDir);
       setSnake(currentSnake => {
         const newSnake = [...currentSnake];
-        const head = [newSnake[0][0] + direction[0], newSnake[0][1] + direction[1]];
+        const head = [newSnake[0][0] + currDir[0], newSnake[0][1] + currDir[1]];
         
         // Check boundaries
         if (head[0] < 0 || head[0] >= gridSize || head[1] < 0 || head[1] >= gridSize) {
@@ -384,24 +430,24 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
 
     const gameInterval = setInterval(moveSnake, 150);
     return () => clearInterval(gameInterval);
-  }, [direction, food, gameStarted, gameOver]);
+  }, [nextDirection, food, gameStarted, gameOver]);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (!gameStarted) return;
-      
+
       switch (e.key) {
         case 'ArrowUp':
-          if (direction[0] !== 1) setDirection([-1, 0]);
+          if (direction[0] !== 1) setNextDirection([-1, 0]);
           break;
         case 'ArrowDown':
-          if (direction[0] !== -1) setDirection([1, 0]);
+          if (direction[0] !== -1) setNextDirection([1, 0]);
           break;
         case 'ArrowLeft':
-          if (direction[1] !== 1) setDirection([0, -1]);
+          if (direction[1] !== 1) setNextDirection([0, -1]);
           break;
         case 'ArrowRight':
-          if (direction[1] !== -1) setDirection([0, 1]);
+          if (direction[1] !== -1) setNextDirection([0, 1]);
           break;
       }
     };
@@ -410,14 +456,33 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [direction, gameStarted]);
 
+  useEffect(() => {
+    if (gameOver && playerSet) {
+      setHighScores(prev => {
+        const updated = [...prev, { name: nickname, from, score }]
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 20);
+        localStorage.setItem('snakeHighScores', JSON.stringify(updated));
+        return updated;
+      });
+    }
+  }, [gameOver, playerSet, nickname, from, score]);
+
   const startGame = () => {
+    if (!playerSet) {
+      if (!nickname.trim() || !from.trim()) return;
+      setPlayerSet(true);
+    }
     setSnake([[10, 10]]);
     setFood([15, 15]);
     setDirection([0, 1]);
+    setNextDirection([0, 1]);
     setGameOver(false);
     setScore(0);
     setGameStarted(true);
   };
+
+  const canStart = playerSet || (nickname.trim() !== '' && from.trim() !== '');
 
   return (
     <div className="text-center">
@@ -464,25 +529,129 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
         />
       </div>
       
-      <div className="mt-4">
+      <div className="mt-4 space-y-2">
+        {!playerSet && (
+          <>
+            <input
+              type="text"
+              placeholder="Nickname"
+              value={nickname}
+              onChange={e => setNickname(e.target.value)}
+              className={`w-full p-2 rounded border ${
+                theme === 'dark'
+                  ? 'bg-[#042B44]/50 border-[#096B90] text-[#A1CCDC]'
+                  : 'bg-white border-gray-300 text-gray-800'
+              }`}
+            />
+            <input
+              type="text"
+              placeholder="From (company, friend, etc.)"
+              value={from}
+              onChange={e => setFrom(e.target.value)}
+              className={`w-full p-2 rounded border ${
+                theme === 'dark'
+                  ? 'bg-[#042B44]/50 border-[#096B90] text-[#A1CCDC]'
+                  : 'bg-white border-gray-300 text-gray-800'
+              }`}
+            />
+          </>
+        )}
         {!gameStarted || gameOver ? (
           <button
             onClick={startGame}
-            className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
-              theme === 'dark'
-                ? 'bg-[#71B7D5] hover:bg-[#A1CCDC] text-white'
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
-            }`}
+            disabled={!canStart}
+            className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-white ${!canStart ? 'opacity-50 cursor-not-allowed' : ''}`}
+            style={{
+              background: `linear-gradient(to right, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})`,
+              boxShadow: `0 4px 15px ${wallpaperAccents.glow}`
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.boxShadow = `0 8px 25px ${wallpaperAccents.glow}`;
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.boxShadow = `0 4px 15px ${wallpaperAccents.glow}`;
+            }}
           >
             {gameOver ? `Game Over! Play Again` : 'Start Game'}
           </button>
         ) : (
-          <p className={`text-sm ${
-            theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
-          }`}>
+          <p
+            className="text-sm"
+            style={{ color: theme === 'dark' ? wallpaperAccents.secondary : '#4B5563' }}
+          >
             Use arrow keys to control the snake
           </p>
         )}
+      </div>
+
+      <div className="mt-6">
+        <h4
+          className="font-bold mb-3"
+          style={{ color: wallpaperAccents.primary }}
+        >
+          Leaderboard
+        </h4>
+        <div
+          className={`overflow-hidden rounded-lg border ${
+            theme === 'dark'
+              ? 'border-[#096B90] bg-[#042B44]/50'
+              : 'border-gray-300 bg-gray-50'
+          }`}
+          style={{ boxShadow: `0 4px 15px ${wallpaperAccents.glow}` }}
+        >
+          <div
+            className={`grid grid-cols-3 gap-2 px-4 py-2 text-xs font-semibold uppercase ${
+              theme === 'dark' ? 'bg-[#042B44]/70 text-[#A1CCDC]' : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            <span>Player</span>
+            <span className="text-center">From</span>
+            <span className="text-right">Score</span>
+          </div>
+          <ul
+            className={`divide-y text-sm ${
+              theme === 'dark'
+                ? 'divide-[#096B90]/30 text-[#A1CCDC]'
+                : 'divide-gray-200 text-gray-700'
+            }`}
+          >
+            {highScores.length === 0 && (
+              <li className="px-4 py-3 text-center opacity-70">No scores yet.</li>
+            )}
+            {highScores.slice(0, showAllScores ? highScores.length : 5).map((s, idx) => (
+              <li
+                key={idx}
+                className={`grid grid-cols-3 gap-2 px-4 py-2 ${
+                  idx % 2 === 0
+                    ? theme === 'dark'
+                      ? 'bg-[#042B44]/40'
+                      : 'bg-white'
+                    : ''
+                }`}
+              >
+                <span className="flex items-center">
+                  {idx < 3 && <span className="mr-1">{idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}</span>}
+                  {idx + 1}. {s.name}
+                </span>
+                <span className="text-center">{s.from}</span>
+                <span className="text-right">{s.score}</span>
+              </li>
+            ))}
+          </ul>
+          {highScores.length > 5 && (
+            <button
+              onClick={() => setShowAllScores(prev => !prev)}
+              className={`w-full py-1 flex justify-center transition-colors ${
+                theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+              }`}
+            >
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${showAllScores ? 'rotate-180' : ''}`}
+              />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
