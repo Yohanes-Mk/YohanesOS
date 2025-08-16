@@ -11,6 +11,7 @@ import {
   Shield
 } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
+import TetrisGame from './TetrisGame';
 
 interface WallpaperAccents {
   primary: string;
@@ -37,16 +38,15 @@ const StartMenu: React.FC<StartMenuProps> = ({
   wallpaperAccents
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
   const [currentQuote, setCurrentQuote] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Start entrance animation
-    setIsAnimating(true);
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 10);
@@ -70,10 +70,18 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setCurrentQuote(randomQuote);
   }, []);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const handleClose = () => {
     setIsVisible(false);
     setTimeout(() => {
-      setIsAnimating(false);
       onClose();
     }, 400);
   };
@@ -99,25 +107,11 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setShowQuoteModal(true);
   };
 
-  const handleQuoteRefresh = () => {
-    const quotes = [
-      "Code is poetry written in logic.",
-      "The best way to predict the future is to create it.",
-      "Simplicity is the ultimate sophistication.",
-      "Innovation distinguishes between a leader and a follower.",
-      "The only way to do great work is to love what you do.",
-      "Stay hungry, stay foolish.",
-      "Design is not just what it looks like - design is how it works."
-    ];
-    
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    setCurrentQuote(randomQuote);
-  };
 
   const menuItems = [
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
     { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
-    { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
+    { id: 'mini-game', label: isMobile ? 'Tetris Game' : 'Snake Game', icon: Gamepad2, action: handleMiniGame },
     { id: 'admin', label: 'Admin Dashboard', icon: Shield, action: handleAdmin },
     { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
     { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
@@ -289,7 +283,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
           style={{ boxShadow: `0 25px 50px -12px ${wallpaperAccents.glow}` }}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold" style={{ color: wallpaperAccents.primary }}>
-                Snake Game
+                {isMobile ? 'Tetris Game' : 'Snake Game'}
               </h3>
               <button
                 onClick={() => setShowGame(false)}
@@ -300,7 +294,11 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <X size={20} />
               </button>
             </div>
-            <SnakeGame theme={theme} wallpaperAccents={wallpaperAccents} />
+            {isMobile ? (
+              <TetrisGame theme={theme} wallpaperAccents={wallpaperAccents} />
+            ) : (
+              <SnakeGame theme={theme} wallpaperAccents={wallpaperAccents} />
+            )}
           </div>
         </div>
       )}
@@ -380,7 +378,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
   useEffect(() => {
     const storedScores = localStorage.getItem('snakeHighScores');
     if (storedScores) {
-      const parsed = JSON.parse(storedScores).map((s: any) => ({
+      const parsed = JSON.parse(storedScores).map((s: { name: string; from?: string; company?: string; score: number }) => ({
         name: s.name,
         from: s.from || s.company || '',
         score: s.score
