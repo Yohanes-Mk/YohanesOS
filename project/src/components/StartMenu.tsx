@@ -283,7 +283,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <X size={20} />
               </button>
             </div>
-            <SnakeGame theme={theme} />
+            <SnakeGame theme={theme} wallpaperAccents={wallpaperAccents} />
           </div>
         </div>
       )}
@@ -335,7 +335,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
 };
 
 // Simple Snake Game Component
-const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
+const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: WallpaperAccents }> = ({ theme, wallpaperAccents }) => {
   const [snake, setSnake] = useState([[10, 10]]);
   const [food, setFood] = useState([15, 15]);
   const [direction, setDirection] = useState([0, 1]);
@@ -343,16 +343,21 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
   const [score, setScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [nickname, setNickname] = useState('');
-  const [company, setCompany] = useState('');
+  const [from, setFrom] = useState('');
   const [playerSet, setPlayerSet] = useState(false);
-  const [highScores, setHighScores] = useState<Array<{ name: string; company: string; score: number }>>([]);
+  const [highScores, setHighScores] = useState<Array<{ name: string; from: string; score: number }>>([]);
 
   const gridSize = 20;
 
   useEffect(() => {
     const storedScores = localStorage.getItem('snakeHighScores');
     if (storedScores) {
-      setHighScores(JSON.parse(storedScores));
+      const parsed = JSON.parse(storedScores).map((s: any) => ({
+        name: s.name,
+        from: s.from || s.company || '',
+        score: s.score
+      }));
+      setHighScores(parsed);
     }
   }, []);
 
@@ -424,18 +429,18 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
   useEffect(() => {
     if (gameOver && playerSet) {
       setHighScores(prev => {
-        const updated = [...prev, { name: nickname, company, score }]
+        const updated = [...prev, { name: nickname, from, score }]
           .sort((a, b) => b.score - a.score)
           .slice(0, 5);
         localStorage.setItem('snakeHighScores', JSON.stringify(updated));
         return updated;
       });
     }
-  }, [gameOver, playerSet, nickname, company, score]);
+  }, [gameOver, playerSet, nickname, from, score]);
 
   const startGame = () => {
     if (!playerSet) {
-      if (!nickname.trim() || !company.trim()) return;
+      if (!nickname.trim() || !from.trim()) return;
       setPlayerSet(true);
     }
     setSnake([[10, 10]]);
@@ -446,7 +451,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
     setGameStarted(true);
   };
 
-  const canStart = playerSet || (nickname.trim() !== '' && company.trim() !== '');
+  const canStart = playerSet || (nickname.trim() !== '' && from.trim() !== '');
 
   return (
     <div className="text-center">
@@ -509,9 +514,9 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
             />
             <input
               type="text"
-              placeholder="Company"
-              value={company}
-              onChange={e => setCompany(e.target.value)}
+              placeholder="From (company, friend, etc.)"
+              value={from}
+              onChange={e => setFrom(e.target.value)}
               className={`w-full p-2 rounded border ${
                 theme === 'dark'
                   ? 'bg-[#042B44]/50 border-[#096B90] text-[#A1CCDC]'
@@ -524,40 +529,84 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light' }> = ({ theme }) => {
           <button
             onClick={startGame}
             disabled={!canStart}
-            className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
-              theme === 'dark'
-                ? 'bg-[#71B7D5] hover:bg-[#A1CCDC] text-white'
-                : 'bg-blue-500 hover:bg-blue-600 text-white'
-            } ${!canStart ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-white ${!canStart ? 'opacity-50 cursor-not-allowed' : ''}`}
+            style={{
+              background: `linear-gradient(to right, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})`,
+              boxShadow: `0 4px 15px ${wallpaperAccents.glow}`
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.boxShadow = `0 8px 25px ${wallpaperAccents.glow}`;
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.boxShadow = `0 4px 15px ${wallpaperAccents.glow}`;
+            }}
           >
             {gameOver ? `Game Over! Play Again` : 'Start Game'}
           </button>
         ) : (
-          <p className={`text-sm ${
-            theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
-          }`}>
+          <p
+            className="text-sm"
+            style={{ color: theme === 'dark' ? wallpaperAccents.secondary : '#4B5563' }}
+          >
             Use arrow keys to control the snake
           </p>
         )}
       </div>
 
-      <div className="mt-6 text-left">
+      <div className="mt-6">
         <h4
-          className="font-bold mb-2"
-          style={{ color: theme === 'dark' ? '#A1CCDC' : '#374151' }}
+          className="font-bold mb-3"
+          style={{ color: wallpaperAccents.primary }}
         >
-          High Scores
+          Leaderboard
         </h4>
-        <ul className={`text-sm ${
-          theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
-        }`}>
-          {highScores.length === 0 && <li>No scores yet.</li>}
-          {highScores.map((s, idx) => (
-            <li key={idx}>
-              {idx + 1}. {s.name} ({s.company}) - {s.score}
-            </li>
-          ))}
-        </ul>
+        <div
+          className={`overflow-hidden rounded-lg border ${
+            theme === 'dark'
+              ? 'border-[#096B90] bg-[#042B44]/50'
+              : 'border-gray-300 bg-gray-50'
+          }`}
+          style={{ boxShadow: `0 4px 15px ${wallpaperAccents.glow}` }}
+        >
+          <div
+            className={`grid grid-cols-3 gap-2 px-4 py-2 text-xs font-semibold uppercase ${
+              theme === 'dark' ? 'bg-[#042B44]/70 text-[#A1CCDC]' : 'bg-gray-200 text-gray-700'
+            }`}
+          >
+            <span>Player</span>
+            <span className="text-center">From</span>
+            <span className="text-right">Score</span>
+          </div>
+          <ul
+            className={`divide-y text-sm ${
+              theme === 'dark'
+                ? 'divide-[#096B90]/30 text-[#A1CCDC]'
+                : 'divide-gray-200 text-gray-700'
+            }`}
+          >
+            {highScores.length === 0 && (
+              <li className="px-4 py-3 text-center opacity-70">No scores yet.</li>
+            )}
+            {highScores.map((s, idx) => (
+              <li
+                key={idx}
+                className={`grid grid-cols-3 gap-2 px-4 py-2 ${
+                  idx % 2 === 0
+                    ? theme === 'dark'
+                      ? 'bg-[#042B44]/40'
+                      : 'bg-white'
+                    : ''
+                }`}
+              >
+                <span>
+                  {idx + 1}. {s.name}
+                </span>
+                <span className="text-center">{s.from}</span>
+                <span className="text-right">{s.score}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
