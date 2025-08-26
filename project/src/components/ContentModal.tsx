@@ -731,7 +731,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Recognizes 15 static ASL gestures; 94% accuracy with <100ms latency.",
               "Built preprocessing pipeline, integrated demo UI.",
             ],
-            githubLink: "/American%20Sign%20Language%28ASL%29%20Classification%20Presentation%20%281%29.pdf",
+            githubLink: "/asl-gesture.pdf",
           },
         ].map((project, index) => (
           <Reveal key={project.title} delay={300 + index * 100}>
@@ -992,8 +992,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              // TODO: Replace with actual resume download
-              window.open('/Yohannes%20Nigusse.%20Fall%202025.pdf', '_blank');
+              window.open('/resume.pdf', '_blank');
             }}
             icon={<Download size={20} />}
             variant="primary"
