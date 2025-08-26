@@ -8,7 +8,7 @@ A personal website showcasing my work as a rising junior pursuing dual degrees i
 - Seeking internships that emphasize technical ownership, scalability, and meaningful impact.
 
 ## Featured Projects
-- **AI Caption Generator** – Flask app using OpenAI's GPT API to craft Instagram captions for small businesses.
+- **Gojo-Caption-and-Title-Generator** – Flask app using OpenAI's GPT API to craft Instagram captions for small businesses.
 - **Market Price Tracker** – Python tool scraping 1,200+ products and forecasting prices with Prophet.
 - **Habit@** – Gamified habit tracker with Flask API and Firebase Auth (in progress).
 - **ASL Gesture Classifier** – MediaPipe + Random Forest model recognizing 15 ASL gestures in real time.
@@ -25,7 +25,7 @@ A personal website showcasing my work as a rising junior pursuing dual degrees i
 
 ## Contact
 Yohannes Nigusse  
-[yohanigusse@gmail.com](mailto:yohanigusse@gmail.com) • [LinkedIn](https://linkedin.com/in/yohs)
+[yohanigusse@gmail.com](mailto:yohanigusse@gmail.com) • [LinkedIn](https://www.linkedin.com/in/yohs)
 
 ## License
 MIT License

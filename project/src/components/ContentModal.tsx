@@ -404,10 +404,10 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </p>
 
           <p className={`${mainText} mb-6`}>
-            Recent highlights: an AI Caption Generator used by small businesses, a Market Price
-            Tracker with scraping, SQLite and forecasting, and an e-commerce MVP in Next.js with
-            Stripe and Postgres. I also led Python SI sessions and worked IT support, which
-            sharpened my debugging and communication under pressure.
+            Recent highlights: a Gojo Caption and Title Generator used by small businesses, a
+            Market Price Tracker with scraping, SQLite and forecasting, and an e-commerce MVP in
+            Next.js with Stripe and Postgres. I also led Python SI sessions and worked IT support,
+            which sharpened my debugging and communication under pressure.
           </p>
 
           <div className="flex flex-wrap gap-3">
@@ -669,15 +669,15 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <div className="space-y-6">
         {[
           {
-            title: "AI Caption Generator",
+            title: "Gojo-Caption-and-Title-Generator",
             status: "Deployed",
             stack: ["Flask", "OpenAI API", "Prompt Engineering", "Google Sheets API"],
             points: [
               "Auto-generates Instagram captions tailored to product descriptions; used by 50+ small businesses.",
               "Structured prompts for tone/style; deployed on Render with analytics logging.",
             ],
-            demoLink: "https://ai-caption-generator.demo.com",
-            githubLink: "https://github.com/yohannes/ai-caption-generator",
+            demoLink: "https://gojo-caption-and-title-generator.vercel.app/",
+            githubLink: "https://github.com/Yohanes-Mk/Gojo-Caption-and-Title-Generator",
             featured: true,
           },
           {
@@ -689,7 +689,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Reduced manual tracking time by ~10 hours/month for program staff.",
             ],
             demoLink: "https://cwit-attendance.demo.com",
-            githubLink: "https://github.com/yohannes/cwit-attendance-automation",
+            githubLink: "https://github.com/Yohanes-Mk/cwit-attendance-automation",
           },
           {
             title: "YohannesOS Portfolio",
@@ -699,7 +699,8 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Interactive desktop-like portfolio experience with smooth animations and OS-style interface.",
               "Features terminal mode, start menu, wallpaper system, and responsive design across all devices.",
             ],
-            githubLink: "https://github.com/yohannes/yohannes-portfolio-os",
+            demoLink: "https://yohanes-os.vercel.app/",
+            githubLink: "https://github.com/Yohanes-Mk/YohanesOS",
             featured: true,
           },
           {
@@ -710,7 +711,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Designed and deployed Flask REST API automating enrollment reporting and faculty performance tracking.",
               "Improved reporting efficiency by ~80% with role-based access control serving 1,200+ student records.",
             ],
-            githubLink: "https://github.com/yohannes/kibur-college-api",
+            githubLink: "https://github.com/Yohanes-Mk/kibur-college-api",
           },
           {
             title: "Market Price Tracker — Ante Nigus Retail",
@@ -720,7 +721,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Scrapes and tracks >1,200 product data points across 5 competitor sites.",
               "Short-term price forecasts (>85% accuracy) with interactive Plotly dashboards.",
             ],
-            githubLink: "https://github.com/yohannes/market-price-tracker",
+            githubLink: "https://github.com/Yohanes-Mk/market-price-tracker",
           },
           {
             title: "ASL Gesture Classifier",
@@ -730,8 +731,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Recognizes 15 static ASL gestures; 94% accuracy with <100ms latency.",
               "Built preprocessing pipeline, integrated demo UI.",
             ],
-            demoLink: "https://asl-classifier.demo.com",
-            githubLink: "https://github.com/yohannes/asl-gesture-classifier",
+            githubLink: "/American%20Sign%20Language%28ASL%29%20Classification%20Presentation%20%281%29.pdf",
           },
         ].map((project, index) => (
           <Reveal key={project.title} delay={300 + index * 100}>
@@ -930,25 +930,25 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <EnhancedButton
               theme={theme}
-              href="mailto:your.email@domain.com"
+              href="mailto:yohanigusse@gmail.com"
               icon={<Mail size={20} />}
               variant="primary"
             >
               Email Me
             </EnhancedButton>
-            
+
             <EnhancedButton
               theme={theme}
-              href="https://linkedin.com/in/your-handle"
+              href="https://www.linkedin.com/in/yohs"
               icon={<Linkedin size={20} />}
               variant="secondary"
             >
               LinkedIn
             </EnhancedButton>
-            
+
             <EnhancedButton
               theme={theme}
-              href="https://github.com/your-handle"
+              href="https://github.com/Yohanes-Mk"
               icon={<Github size={20} />}
               variant="secondary"
             >
@@ -993,7 +993,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
             theme={theme}
             onClick={() => {
               // TODO: Replace with actual resume download
-              window.open('/resume.pdf', '_blank');
+              window.open('/Yohannes%20Nigusse.%20Fall%202025.pdf', '_blank');
             }}
             icon={<Download size={20} />}
             variant="primary"

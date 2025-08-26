@@ -19,7 +19,7 @@ const fileSystem = {
     'home': {
       'yohannes': {
         'projects': {
-          'ai-caption-generator': { type: 'dir', description: 'Flask app for auto-generating Instagram captions' },
+          'gojo-caption-and-title-generator': { type: 'dir', description: 'Flask app for auto-generating Instagram captions and titles' },
           'yohannes-os': { type: 'dir', description: 'This portfolio OS interface' },
           'cwit-attendance': { type: 'dir', description: 'Automated attendance tracking system' },
           'market-tracker': { type: 'dir', description: 'Price tracking with ML forecasting' },
@@ -42,9 +42,9 @@ const fileSystem = {
           'coursework.txt': { type: 'file', content: 'Algorithms, Neural Networks, Data Mining, Microeconomics' }
         },
         'contact': {
-          'email.txt': { type: 'file', content: 'yohannes@example.com' },
-          'linkedin.txt': { type: 'file', content: 'linkedin.com/in/yohannes' },
-          'github.txt': { type: 'file', content: 'github.com/yohannes' }
+          'email.txt': { type: 'file', content: 'yohanigusse@gmail.com' },
+          'linkedin.txt': { type: 'file', content: 'www.linkedin.com/in/yohs' },
+          'github.txt': { type: 'file', content: 'github.com/Yohanes-Mk' }
         }
       }
     },
@@ -164,7 +164,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
       'simple, reliable products with good UX and readable code.',
       '',
       'Recent highlights:',
-      '• AI Caption Generator used by 50+ small businesses',
+      '• Gojo Caption and Title Generator used by 50+ small businesses',
       '• Market Price Tracker with ML forecasting (>85% accuracy)',
       '• College API serving 1,200+ student records',
       '',
@@ -177,7 +177,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
       '│            Featured Projects            │',
       '╰─────────────────────────────────────────╯',
       '',
-      '🤖 AI Caption Generator [DEPLOYED]',
+      '🤖 Gojo Caption and Title Generator [DEPLOYED]',
       '   Flask • OpenAI API • Google Sheets API',
       '   Auto-generates Instagram captions; used by 50+ businesses',
       '',
@@ -261,11 +261,11 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
       '╰─────────────────────────────────────────╯',
       '',
       '📧 Email',
-      '   yohannes@example.com',
+      '   yohanigusse@gmail.com',
       '',
       '🔗 Professional Links',
-      '   LinkedIn: linkedin.com/in/yohannes',
-      '   GitHub:   github.com/yohannes',
+      '   LinkedIn: www.linkedin.com/in/yohs',
+      '   GitHub:   github.com/Yohanes-Mk',
       '',
       '📍 Location',
       '   Minnesota, United States',
