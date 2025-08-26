@@ -992,8 +992,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              // TODO: Replace with actual resume download
-              window.open('/Yohannes%20Nigusse.%20Fall%202025.pdf', '_blank');
+              window.open('/resume.pdf', '_blank');
             }}
             icon={<Download size={20} />}
             variant="primary"
