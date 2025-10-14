@@ -404,10 +404,10 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </p>
 
           <p className={`${mainText} mb-6`}>
-            Recent highlights: a Gojo Caption and Title Generator used by small businesses, a
-            Market Price Tracker with scraping, SQLite and forecasting, and an e-commerce MVP in
-            Next.js with Stripe and Postgres. I also led Python SI sessions and worked IT support,
-            which sharpened my debugging and communication under pressure.
+            Recent highlights: a Gojo Caption and Title Generator used by small businesses, a 2D →
+            3D novel view synthesizer built on Zero123++, and an e-commerce MVP in Next.js with
+            Stripe and Postgres. I also led Python SI sessions and worked IT support, which
+            sharpened my debugging and communication under pressure.
           </p>
 
           <div className="flex flex-wrap gap-3">
@@ -688,7 +688,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Shipped Streamlit/Gradio apps with tunable inference controls and optional background removal.",
               "Packaged inference with Docker + Cog for reproducible CPU/GPU deployment on Hugging Face Spaces.",
             ],
-            githubLink: "https://github.com/Yohanes-Mk/2D-to-3D-Image-Reconstruction",
+            githubLink: "https://github.com/Yohanes-Mk/2d-to-3d",
           },
           {
             title: "Lip Reading with Deep Learning",
@@ -700,16 +700,6 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Deployed Streamlit app for mouth-region visualization, GIF playback, and real-time predictions.",
             ],
             githubLink: "https://github.com/Yohanes-Mk/Lip-Reading-AI-",
-          },
-          {
-            title: "Market Price Tracker — Ante Nigus Retail",
-            status: "Active",
-            stack: ["Python", "BeautifulSoup", "SQLite", "Prophet", "Plotly"],
-            points: [
-              "Scrapes and tracks >1,200 product data points across 5 competitor sites.",
-              "Short-term price forecasts (>85% accuracy) with interactive Plotly dashboards.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/Market-Price-Tracker",
           },
           {
             title: "Kibur College – Enrollment & Faculty Performance API",
@@ -1012,7 +1002,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              window.open('/resume.pdf', '_blank');
+              window.open('https://drive.google.com/file/d/1cHlD6AspC738tO8qSIogF9bRkqAAziUb/view', '_blank');
             }}
             icon={<Download size={20} />}
             variant="primary"
