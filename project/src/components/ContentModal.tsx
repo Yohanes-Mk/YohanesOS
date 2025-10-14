@@ -699,7 +699,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               "Automated video/alignment preprocessing, batching, and token mapping for training pipeline.",
               "Deployed Streamlit app for mouth-region visualization, GIF playback, and real-time predictions.",
             ],
-            githubLink: "https://github.com/Yohanes-Mk/Lip-Reading-Deep-Learning",
+            githubLink: "https://github.com/Yohanes-Mk/Lip-Reading-AI-",
           },
           {
             title: "Market Price Tracker — Ante Nigus Retail",
