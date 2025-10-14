@@ -404,10 +404,10 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </p>
 
           <p className={`${mainText} mb-6`}>
-            Recent highlights: a Gojo Caption and Title Generator used by small businesses, a
-            Market Price Tracker with scraping, SQLite and forecasting, and an e-commerce MVP in
-            Next.js with Stripe and Postgres. I also led Python SI sessions and worked IT support,
-            which sharpened my debugging and communication under pressure.
+            Recent highlights: a Gojo Caption and Title Generator used by small businesses, a 2D →
+            3D novel view synthesizer built on Zero123++, and an e-commerce MVP in Next.js with
+            Stripe and Postgres. I also led Python SI sessions and worked IT support, which
+            sharpened my debugging and communication under pressure.
           </p>
 
           <div className="flex flex-wrap gap-3">
@@ -669,39 +669,37 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <div className="space-y-6">
         {[
           {
-            title: "Gojo-Caption-and-Title-Generator",
-            status: "Deployed",
-            stack: ["Flask", "OpenAI API", "Prompt Engineering", "Google Sheets API"],
+            title: "American Sign Language Gesture Classifier",
+            status: "Research",
+            stack: ["Python", "MediaPipe", "scikit-learn", "PCA"],
             points: [
-              "Auto-generates Instagram captions tailored to product descriptions; used by 50+ small businesses.",
-              "Structured prompts for tone/style; deployed on Render with analytics logging.",
+              "Recognizes 15 static ASL gestures with <100ms latency using MediaPipe landmarks and PCA features.",
+              "Built full preprocessing and demo UI pipeline, including data augmentation and real-time inference dashboard.",
             ],
-            demoLink: "https://gojo-caption-and-title-generator.vercel.app/",
-            githubLink: "https://github.com/Yohanes-Mk/Gojo-Caption-and-Title-Generator",
+            githubLink: "/asl-gesture.pdf",
             featured: true,
           },
           {
-            title: "CWIT Attendance Automation",
+            title: "2D → 3D Novel View Synthesizer",
             status: "Completed",
-            stack: ["Python", "Google Sheets API"],
+            stack: ["Python", "PyTorch", "Zero123++", "Streamlit"],
             points: [
-              "Automated event attendance logging for the Center for Women in Technology (CWIT).",
-              "Reduced manual tracking time by ~10 hours/month for program staff.",
+              "Adapted Zero123++ diffusion model to render six camera angles from a single product photo.",
+              "Shipped Streamlit/Gradio apps with tunable inference controls and optional background removal.",
+              "Packaged inference with Docker + Cog for reproducible CPU/GPU deployment on Hugging Face Spaces.",
             ],
-            demoLink: "https://cwit-attendance.demo.com",
-            githubLink: "https://github.com/Yohanes-Mk/cwit-attendance-automation",
+            githubLink: "https://github.com/Yohanes-Mk/2d-to-3d",
           },
           {
-            title: "YohannesOS Portfolio",
-            status: "Live",
-            stack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+            title: "Lip Reading with Deep Learning",
+            status: "Completed",
+            stack: ["Python", "TensorFlow", "OpenCV", "Streamlit"],
             points: [
-              "Interactive desktop-like portfolio experience with smooth animations and OS-style interface.",
-              "Features terminal mode, start menu, wallpaper system, and responsive design across all devices.",
+              "Implemented LipNet-inspired 3D CNN + Bi-GRU stack with CTC loss for visual speech recognition.",
+              "Automated video/alignment preprocessing, batching, and token mapping for training pipeline.",
+              "Deployed Streamlit app for mouth-region visualization, GIF playback, and real-time predictions.",
             ],
-            demoLink: "https://yohanes-os.vercel.app/",
-            githubLink: "https://github.com/Yohanes-Mk/YohanesOS",
-            featured: true,
+            githubLink: "https://github.com/Yohanes-Mk/Lip-Reading-AI-",
           },
           {
             title: "Kibur College – Enrollment & Faculty Performance API",
@@ -714,24 +712,36 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
             githubLink: "https://github.com/Yohanes-Mk/kibur-college-api",
           },
           {
-            title: "Market Price Tracker — Ante Nigus Retail",
-            status: "Active",
-            stack: ["Python", "BeautifulSoup", "SQLite", "Prophet", "Plotly"],
+            title: "YohanesOS Portfolio",
+            status: "Live",
+            stack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
             points: [
-              "Scrapes and tracks >1,200 product data points across 5 competitor sites.",
-              "Short-term price forecasts (>85% accuracy) with interactive Plotly dashboards.",
+              "Interactive desktop-like portfolio experience with smooth animations and OS-style interface.",
+              "Features terminal mode, start menu, wallpaper system, and responsive design across all devices.",
             ],
-            githubLink: "https://github.com/Yohanes-Mk/market-price-tracker",
+            demoLink: "https://yohanes-os.vercel.app/",
+            githubLink: "https://github.com/Yohanes-Mk/YohanesOS",
           },
           {
-            title: "ASL Gesture Classifier",
-            status: "Research",
-            stack: ["Python", "MediaPipe", "scikit-learn", "PCA"],
+            title: "CWIT Attendance Automation",
+            status: "Completed",
+            stack: ["Python", "Google Sheets API"],
             points: [
-              "Recognizes 15 static ASL gestures; 94% accuracy with <100ms latency.",
-              "Built preprocessing pipeline, integrated demo UI.",
+              "Automated event attendance logging for the Center for Women in Technology (CWIT).",
+              "Reduced manual tracking time by ~10 hours/month for program staff.",
             ],
-            githubLink: "/asl-gesture.pdf",
+            githubLink: "https://github.com/Yohanes-Mk/cwit-attendance-automation",
+          },
+          {
+            title: "AI Caption Generator (Gojo)",
+            status: "Deployed",
+            stack: ["Flask", "OpenAI API", "Prompt Engineering", "Google Sheets API"],
+            points: [
+              "Auto-generates Instagram captions tailored to product descriptions; used by 50+ small businesses.",
+              "Structured prompts for tone/style; deployed on Render with analytics logging.",
+            ],
+            demoLink: "https://gojo-caption-and-title-generator.vercel.app/",
+            githubLink: "https://github.com/Yohanes-Mk/Gojo-Caption-and-Title-Generator",
           },
         ].map((project, index) => (
           <Reveal key={project.title} delay={300 + index * 100}>
@@ -992,7 +1002,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              window.open('/resume.pdf', '_blank');
+              window.open('https://drive.google.com/file/d/1cHlD6AspC738tO8qSIogF9bRkqAAziUb/view', '_blank');
             }}
             icon={<Download size={20} />}
             variant="primary"

@@ -342,7 +342,6 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
                   createRipple(e, wallpaperAccents.primary);
                   item.onClick();
                 }}
-                style={{ animationDelay: `${200 + index * 150}ms` }}
                 className={`
                   relative overflow-hidden
                   group relative p-8 w-40 h-40 rounded-2xl animate-in slide-in-from-top-4
@@ -355,6 +354,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
                   backdrop-blur-sm hover:shadow-2xl
                 `}
                 style={{
+                  animationDelay: `${200 + index * 150}ms`,
                   '--hover-border-color': wallpaperAccents.primary,
                   '--hover-shadow': `0 25px 50px -12px ${wallpaperAccents.glow}`,
                 } as React.CSSProperties & { [key: string]: string }}
