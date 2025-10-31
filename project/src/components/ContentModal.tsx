@@ -397,25 +397,24 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <Reveal delay={200}>
         <GlassCard theme={theme} className="p-8">
           <p className={`text-lg leading-relaxed mb-6 ${subText}`}>
-            I'm Yohannes, a full-stack developer and CS/Econ student who ships clean,
-            production-minded web apps. I work React + TypeScript on the front, Node/FastAPI on
-            the back, and deploy with Docker and AWS. I like turning messy ideas into simple,
-            reliable products with good UX and readable code.
+            I'm Yohannes, an AI engineer and CS/Econ student building real-time vision and automation
+            systems for safety, accessibility, and research teams. I connect computer vision, LLM agents,
+            and human-centered interfaces so busy operators get actionable insights without extra overhead.
           </p>
 
           <p className={`${mainText} mb-6`}>
-            Recent highlights: a Gojo Caption and Title Generator used by small businesses, a 2D →
-            3D novel view synthesizer built on Zero123++, and an e-commerce MVP in Next.js with
-            Stripe and Postgres. I also led Python SI sessions and worked IT support, which
-            sharpened my debugging and communication under pressure.
+            Recent highlights include a multi-camera surveillance platform (OpenCV + Mediapipe) that flags
+            posture anomalies in under a second, ResearchMate agents that distill academic papers into PDF reports
+            in two minutes, and Sign-Speech—a dual ASL gesture and lip-reading interpreter inspired by accessibility work.
+            Each project ships with production-ready dashboards, APIs, or Dockerized pipelines that teams can deploy quickly.
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Pill theme={theme} text="React + TypeScript" featured wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Node.js & FastAPI" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Docker & AWS" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="REST APIs" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Data/ML pipelines" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="Computer Vision Ops" featured wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="LLM + Automation" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="Python & FastAPI" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="React & Streamlit" wallpaperAccents={effectiveWallpaperAccents} />
+            <Pill theme={theme} text="Docker & DevOps" wallpaperAccents={effectiveWallpaperAccents} />
           </div>
         </GlassCard>
       </Reveal>
@@ -592,12 +591,12 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               <div className="mb-6">
                 <h4 className={`font-semibold mb-3 ${mainText}`}>Relevant Coursework</h4>
                 <div className="flex flex-wrap gap-2">
-                  {["Algorithms", "Neural Networks", "Data Mining", "Intermediate Microeconomics", "Industrial Organization"].map((course) => (
+                  {["Distributed Systems", "Operating Systems", "Database Design", "Computer Architecture", "Linear Algebra"].map((course) => (
                     <Pill key={course} theme={theme} text={course} />
                   ))}
                 </div>
               </div>
-              
+
               <div>
                 <h4 className={`font-semibold mb-3 ${mainText}`}>Activities & Organizations</h4>
                 <div className="flex flex-wrap gap-2">
@@ -610,16 +609,48 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
         </GlassCard>
       </Reveal>
 
+      {/* UMBC Experience */}
+      <Reveal delay={300}>
+        <GlassCard theme={theme} className="p-8">
+          <div className="flex items-start gap-6">
+            <div className={`p-4 rounded-2xl backdrop-blur-xl ${
+              theme === "dark" ? "bg-white/10" : "bg-white/20"
+            }`}>
+              <Calendar className={`w-8 h-8 ${
+                theme === "dark" ? "text-[#71B7D5]" : "text-blue-600"
+              }`} />
+            </div>
+
+            <div className="flex-1">
+              <h3 className={`text-2xl font-bold mb-2 ${mainText}`}>
+                University of Maryland, Baltimore County (UMBC)
+              </h3>
+              <p className={`text-lg font-semibold mb-2 ${
+                theme === "dark" ? "text-[#71B7D5]" : "text-blue-600"
+              }`}>
+                Computer Science Transfer Student • Dean's List (2023 – 2024)
+              </p>
+              <div className={`space-y-2 ${subText}`}>
+                <p>Led Python SI PASS sessions twice per week while balancing full-time coursework.</p>
+                <p>Supported CWIT technical operations and launched automation tools adopted program-wide.</p>
+              </div>
+            </div>
+          </div>
+        </GlassCard>
+      </Reveal>
+
       {/* Professional Development */}
       <Reveal delay={400}>
         <GlassCard theme={theme} className="p-6">
           <h3 className={`text-xl font-bold mb-4 ${mainText}`}>Professional Development</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
+              { name: "AI4ALL Discover AI", status: "Graduate" },
+              { name: "CodePath TIP 102", status: "Completed" },
               { name: "CodePath Web Development 101", status: "Completed" },
-              { name: "CodePath Career Prep Network", status: "Active Member" },
-              { name: "ColorStack", status: "Active Member" },
-              { name: "AI4ALL Discover AI Program", status: "Graduate" }
+              { name: "Cloud Computing Club", status: "Active Member" },
+              { name: "Student Government Tech Fee Committee", status: "Active Member" },
+              { name: "ColorStack", status: "Active Member" }
             ].map((item, index) => (
               <div key={item.name} className={`p-4 rounded-xl backdrop-blur-xl border ${
                 theme === "dark"
@@ -659,89 +690,69 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <Reveal>
         <SectionTitle theme={theme} wallpaperAccents={effectiveWallpaperAccents}>Featured Projects</SectionTitle>
       </Reveal>
-      
+
       <Reveal delay={200}>
         <p className={`text-lg leading-relaxed text-center max-w-3xl mx-auto ${subText}`}>
-          Selected, production-minded builds that showcase my technical range and problem-solving approach.
+          Real-world AI systems spanning surveillance, research intelligence, accessibility, and deployment-ready tooling.
         </p>
       </Reveal>
 
       <div className="space-y-6">
         {[
           {
-            title: "American Sign Language Gesture Classifier",
-            status: "Research",
-            stack: ["Python", "MediaPipe", "scikit-learn", "PCA"],
+            title: "Real-Time Surveillance & Analytics System",
+            status: "Active",
+            stack: ["Python", "OpenCV", "Mediapipe", "Flask", "Streamlit"],
             points: [
-              "Recognizes 15 static ASL gestures with <100ms latency using MediaPipe landmarks and PCA features.",
-              "Built full preprocessing and demo UI pipeline, including data augmentation and real-time inference dashboard.",
+              "Multi-camera posture, crowding, and abandoned-object detection with <1s latency.",
+              "Modular pipeline combining pose estimation, object tracking, and automated alerting dashboards.",
+              "Inspired by campus public safety work and piloted with Allied Universal supervisors.",
             ],
-            githubLink: "/asl-gesture.pdf",
+            githubLink: "https://github.com/Yohanes-Mk/Realtime-surveillance-system",
             featured: true,
           },
           {
-            title: "2D → 3D Novel View Synthesizer",
-            status: "Completed",
-            stack: ["Python", "PyTorch", "Zero123++", "Streamlit"],
+            title: "ResearchMate — Autonomous Research Assistant",
+            status: "Pilot",
+            stack: ["Python", "Gemini LLM", "arXiv API", "PubMed API", "ReportLab"],
             points: [
-              "Adapted Zero123++ diffusion model to render six camera angles from a single product photo.",
-              "Shipped Streamlit/Gradio apps with tunable inference controls and optional background removal.",
-              "Packaged inference with Docker + Cog for reproducible CPU/GPU deployment on Hugging Face Spaces.",
+              "Multi-agent backend orchestrating paper retrieval, summarization, and citation formatting.",
+              "Generates curated PDF briefs per topic in under two minutes with ≈85% relevance hit rate.",
+              "Co-developing an institutional pilot with Kibur College for student research automation.",
+            ],
+            githubLink: "https://github.com/Yohanes-Mk/ResearchMate",
+          },
+          {
+            title: "Sign-Speech — Two-Way Visual Interpreter",
+            status: "R&D",
+            stack: ["TensorFlow", "MediaPipe", "OpenCV", "Streamlit"],
+            points: [
+              "Builds independent ASL-to-speech and lip-reading speech-to-text pipelines inspired by LipNet.",
+              "Fusion layer in development to synchronize gesture and visual speech cues for real-time translation.",
+              "Accessible AI prototype empowering conversations between Deaf and hearing communities.",
+            ],
+          },
+          {
+            title: "2D → 3D Multi-View Generator",
+            status: "Completed",
+            stack: ["PyTorch", "Diffusers", "Zero123++", "Docker", "Streamlit"],
+            points: [
+              "GPU-accelerated diffusion pipeline producing six consistent 3D-style renders from a single image.",
+              "Integrated Rembg and Meta SAM for background removal and segmentation-driven cleanup.",
+              "Packaged with Cog + Docker for reproducible deployments and cached model downloads.",
             ],
             githubLink: "https://github.com/Yohanes-Mk/2d-to-3d",
-          },
-          {
-            title: "Lip Reading with Deep Learning",
-            status: "Completed",
-            stack: ["Python", "TensorFlow", "OpenCV", "Streamlit"],
-            points: [
-              "Implemented LipNet-inspired 3D CNN + Bi-GRU stack with CTC loss for visual speech recognition.",
-              "Automated video/alignment preprocessing, batching, and token mapping for training pipeline.",
-              "Deployed Streamlit app for mouth-region visualization, GIF playback, and real-time predictions.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/Lip-Reading-AI-",
-          },
-          {
-            title: "Kibur College – Enrollment & Faculty Performance API",
-            status: "Production",
-            stack: ["Flask", "Firebase Auth", "Google Sheets API", "REST API"],
-            points: [
-              "Designed and deployed Flask REST API automating enrollment reporting and faculty performance tracking.",
-              "Improved reporting efficiency by ~80% with role-based access control serving 1,200+ student records.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/kibur-college-api",
           },
           {
             title: "YohanesOS Portfolio",
             status: "Live",
             stack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
             points: [
-              "Interactive desktop-like portfolio experience with smooth animations and OS-style interface.",
-              "Features terminal mode, start menu, wallpaper system, and responsive design across all devices.",
+              "Desktop-inspired personal OS with start menu, wallpaper system, and immersive animations.",
+              "Includes interactive terminal mode mirroring Linux commands and structured file system data.",
             ],
             demoLink: "https://yohanes-os.vercel.app/",
             githubLink: "https://github.com/Yohanes-Mk/YohanesOS",
-          },
-          {
-            title: "CWIT Attendance Automation",
-            status: "Completed",
-            stack: ["Python", "Google Sheets API"],
-            points: [
-              "Automated event attendance logging for the Center for Women in Technology (CWIT).",
-              "Reduced manual tracking time by ~10 hours/month for program staff.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/cwit-attendance-automation",
-          },
-          {
-            title: "AI Caption Generator (Gojo)",
-            status: "Deployed",
-            stack: ["Flask", "OpenAI API", "Prompt Engineering", "Google Sheets API"],
-            points: [
-              "Auto-generates Instagram captions tailored to product descriptions; used by 50+ small businesses.",
-              "Structured prompts for tone/style; deployed on Render with analytics logging.",
-            ],
-            demoLink: "https://gojo-caption-and-title-generator.vercel.app/",
-            githubLink: "https://github.com/Yohanes-Mk/Gojo-Caption-and-Title-Generator",
           },
         ].map((project, index) => (
           <Reveal key={project.title} delay={300 + index * 100}>
@@ -826,10 +837,11 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <Reveal>
         <SectionTitle theme={theme} wallpaperAccents={effectiveWallpaperAccents}>Professional Experience</SectionTitle>
       </Reveal>
-      
+
       <Reveal delay={200}>
         <p className={`text-lg leading-relaxed text-center max-w-3xl mx-auto ${subText}`}>
-          My professional journey spans content creation, research, software engineering, and education—each role building on technical skills and leadership experience.
+          Hands-on roles across research labs, higher-ed operations, and student support where I built production AI systems,
+          automated workflows, and coached new developers.
         </p>
       </Reveal>
 
@@ -837,58 +849,48 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <div className="relative">
         {[
           {
-            title: "Content Director",
-            company: "Gojo Digitals",
-            period: "May 2025 - Present",
-            location: "Seattle, Washington, United States",
+            title: "Undergraduate Research Assistant — Brain-Computer Interface Lab",
+            company: "St. Cloud State University",
+            period: "Winter 2024 – Summer 2025",
+            location: "St. Cloud, Minnesota",
             points: [
-              "Founded and lead a digital media brand covering the Ethiopian Sports Federation in North America (ESFNA) 2025 event, growing combined TikTok and Instagram following to nearly 20K.",
-              "Produced, edited, and published 40+ high-engagement short-form videos, photo carousels, and event recaps, generating thousands of views and driving community engagement.",
-              "Showcased and built digital presence for 10+ Ethiopian restaurants and small businesses through website revamps and social media creation.",
+              "Integrated OpenBCI EEG streams with PySide6/QML control-center modules powering live drone and robot demos.",
+              "Enhanced EEG visualization widgets, manual override logic, and TensorFlow inference endpoints for the Avatar platform.",
+              "Maintained Ubuntu compute nodes, automated data pipelines, and supported IRB-compliant EEG collection sessions.",
             ],
             isActive: true,
           },
           {
-            title: "Undergraduate Research Assistant – Brain-Computer Interface Lab",
-            company: "College of Science and Engineering - St. Cloud State University",
-            period: "Jan 2025 - May 2025",
-            location: "Minnesota, United States",
-            points: [
-              "Developed EEG data preprocessing pipelines and real-time ML classifiers (logistic regression, k-NN) with sub-second latency for attention-state detection tasks.",
-              "Built a PyQt-based GUI enabling live EEG signal visualization for interactive cognitive experiments.",
-              "Managed Ubuntu-based compute environment and automated SSH-based data workflows; contributed toward forthcoming publication on EEG-driven attention prediction.",
-            ],
-          },
-          {
-            title: "Software Engineer Intern",
+            title: "Software Engineering Intern — SIS/LMS",
             company: "Kibur College",
-            period: "May 2024 - Aug 2024",
+            period: "Summer 2024",
+            location: "Remote — Addis Ababa, Ethiopia",
             points: [
-              "Built and deployed Flask-based REST API automating enrollment reporting and faculty performance tracking, improving departmental reporting efficiency by ~80%.",
-              "Integrated Firebase Authentication with role-based access control and Google Sheets API for real-time dashboards serving 1,200+ student records.",
-              "Authored API documentation and implemented robust error handling, enabling smooth adoption by the internal IT team.",
+              "Developed Flask/FastAPI microservices for enrollment, grade submission, and course registration secured with Firebase Auth + RBAC.",
+              "Automated reporting workflows for 800+ student records, cutting manual compilation time by ≈80%.",
+              "Documented OpenAPI specs and delivered CI-ready endpoints with idempotent database writes and error tracing.",
             ],
           },
           {
-            title: "SI PASS Leader",
-            company: "UMBC Training Centers",
-            period: "Aug 2023 - May 2024",
-            location: "Baltimore County, Maryland, United States",
+            title: "Technical Operations Assistant",
+            company: "Center for Women in Technology (CWIT), UMBC",
+            period: "Fall 2023 – Spring 2024",
+            location: "Baltimore, Maryland",
             points: [
-              "Led 20+ peer-assisted study sessions for Python fundamentals, recursion, data structures, and debugging with cohorts of 12–25 students.",
-              "Created targeted mock exams, coding challenges, and walkthroughs to strengthen student understanding and boost final exam scores.",
-              "Facilitated collaborative problem-solving and live debugging, helping students build practical coding skills and confidence.",
+              "Built Python + Google Sheets automation adopted as the standard attendance tracker for 200+ program participants.",
+              "Maintained internal websites, event pages, and digital collateral while coordinating multi-department communications.",
+              "Designed brochures and social assets with Adobe tools to support recruitment and alumni outreach.",
             ],
           },
           {
-            title: "Assistant for Events and Programs",
-            company: "University of Maryland Baltimore County",
-            period: "Jul 2023 - May 2024",
-            location: "Baltimore County, Maryland, United States",
+            title: "SI PASS Leader (Python)",
+            company: "University of Maryland, Baltimore County",
+            period: "Fall 2023 – Spring 2024",
+            location: "Baltimore, Maryland",
             points: [
-              "Automated attendance tracking for 100+ scholars using Python scripts integrated with Google Sheets API, reducing manual work by 40% and improving accuracy.",
-              "Updated and maintained CWIT's website with HTML/CSS to improve usability, ensure content accuracy, and enhance accessibility.",
-              "Prepared digital content and managed communications for internal and external stakeholders.",
+              "Facilitated twice-weekly peer instruction reinforcing Python fundamentals, recursion, and data structures for CSCI 201.",
+              "Created mock assessments, debugging walkthroughs, and interactive exercises tailored to exam prep.",
+              "Collaborated with faculty to track outcomes and adapt materials for recurring problem areas.",
             ],
           },
         ].map((exp, index) => (
@@ -1019,17 +1021,17 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               <div>
                 <h5 className={`font-semibold mb-2 ${mainText}`}>Experience</h5>
                 <ul className={`text-sm space-y-1 ${subText}`}>
-                  <li>• 3+ years full-stack development</li>
-                  <li>• Led development of 5+ production apps</li>
-                  <li>• Mentored junior developers</li>
+                  <li>• AI/ML + full-stack delivery across research and education</li>
+                  <li>• Built 4 flagship AI products with active pilots</li>
+                  <li>• Mentored 50+ students through SI PASS and workshops</li>
                 </ul>
               </div>
               <div>
                 <h5 className={`font-semibold mb-2 ${mainText}`}>Achievements</h5>
                 <ul className={`text-sm space-y-1 ${subText}`}>
-                  <li>• 40% page load time reduction</li>
-                  <li>• 80% reporting efficiency improvement</li>
-                  <li>• 20K+ social media following growth</li>
+                  <li>• &lt;1s surveillance anomaly detection across multi-camera feeds</li>
+                  <li>• ≈85% research-topic relevance for automated literature reviews</li>
+                  <li>• 80% reduction in manual reporting for college SIS workflows</li>
                 </ul>
               </div>
             </div>
