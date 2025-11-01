@@ -431,13 +431,14 @@ function App() {
           
           {/* Start Menu */}
           {showStartMenu && (
-            <StartMenu 
-              theme={theme} 
+            <StartMenu
+              theme={theme}
               onClose={() => setShowStartMenu(false)}
               onOpenTerminal={openTerminal}
               onReturnToLanding={returnToLanding}
               onChangeWallpaper={changeWallpaper}
               wallpaperAccents={wallpaperAccents}
+              isMobile={isMobile}
             />
           )}
         </div>

@@ -11,6 +11,7 @@ import {
   Shield
 } from 'lucide-react';
 import AdminDashboard from './AdminDashboard';
+import CheckersGame from './CheckersGame';
 
 interface WallpaperAccents {
   primary: string;
@@ -26,6 +27,7 @@ interface StartMenuProps {
   onReturnToLanding: () => void;
   onChangeWallpaper?: () => void;
   wallpaperAccents: WallpaperAccents;
+  isMobile: boolean;
 }
 
 const StartMenu: React.FC<StartMenuProps> = ({
@@ -34,7 +36,8 @@ const StartMenu: React.FC<StartMenuProps> = ({
   onOpenTerminal,
   onReturnToLanding,
   onChangeWallpaper,
-  wallpaperAccents
+  wallpaperAccents,
+  isMobile
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -117,7 +120,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const menuItems = [
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
     { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
-    { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
+    { id: 'mini-game', label: isMobile ? 'Checkers Game' : 'Snake Game', icon: Gamepad2, action: handleMiniGame },
     { id: 'admin', label: 'Admin Dashboard', icon: Shield, action: handleAdmin },
     { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
     { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
@@ -274,7 +277,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
         </div>
       )}
 
-      {/* Mini Snake Game Modal */}
+      {/* Mini Game Modal */}
       {showGame && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div 
@@ -289,7 +292,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
           style={{ boxShadow: `0 25px 50px -12px ${wallpaperAccents.glow}` }}>
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold" style={{ color: wallpaperAccents.primary }}>
-                Snake Game
+                {isMobile ? 'Checkers Game' : 'Snake Game'}
               </h3>
               <button
                 onClick={() => setShowGame(false)}
@@ -300,7 +303,11 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <X size={20} />
               </button>
             </div>
-            <SnakeGame theme={theme} wallpaperAccents={wallpaperAccents} />
+            {isMobile ? (
+              <CheckersGame theme={theme} wallpaperAccents={wallpaperAccents} />
+            ) : (
+              <SnakeGame theme={theme} wallpaperAccents={wallpaperAccents} />
+            )}
           </div>
         </div>
       )}
