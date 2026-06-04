@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { 
-  X, Mail, Linkedin, Github, ExternalLink, Download, MapPin, Calendar, Award, Briefcase,
+  X, Mail, Linkedin, Github, ExternalLink, Download, MapPin, Calendar, Award,
   Code2, Database, Cloud, Smartphone, Server, Globe, Terminal, GitBranch, 
-  Palette, Zap, Box, Settings, Monitor, FileCode, Layers, Cpu
+  Palette, Zap, Box, Monitor, FileCode, Layers
 } from "lucide-react";
+import { portfolioData } from "../data/portfolioData";
 
 /* -------------------------------------------------------
    Small utilities (no external libs)
@@ -71,6 +72,27 @@ interface ContentModalProps {
   onClose: () => void;
   wallpaperAccents: WallpaperAccents;
 }
+
+const skillIconMap = {
+  Code2,
+  FileCode,
+  Layers,
+  Server,
+  Terminal,
+  Database,
+  Cloud,
+  Box,
+  Zap,
+  Globe,
+  Monitor,
+  GitBranch,
+  Github,
+  Palette,
+  Smartphone,
+};
+
+const getSkillIcon = (icon: string) =>
+  skillIconMap[icon as keyof typeof skillIconMap] ?? Code2;
 
 /* -------------------------------------------------------
    Enhanced UI Components
@@ -272,8 +294,7 @@ const TimelineItem: React.FC<{
   location?: string;
   points: string[];
   isActive?: boolean;
-  index: number;
-}> = ({ theme, title, company, period, location, points, isActive = false, index }) => (
+}> = ({ theme, title, company, period, location, points, isActive = false }) => (
   <div className="relative flex gap-6 group">
     {/* Timeline line and dot */}
     <div className="flex flex-col items-center">
@@ -382,6 +403,8 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
   const mainText = theme === "dark" ? "text-[#A1CCDC]" : "text-gray-800";
   const subText = theme === "dark" ? "text-[#71B7D5]" : "text-gray-600";
+  const scsuEducation = portfolioData.education[0];
+  const umbcEducation = portfolioData.education[1];
 
   /* ------------ RENDER: ABOUT ------------- */
   const About = (
@@ -397,24 +420,25 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       <Reveal delay={200}>
         <GlassCard theme={theme} className="p-8">
           <p className={`text-lg leading-relaxed mb-6 ${subText}`}>
-            I'm Yohannes, an AI engineer and CS/Econ student building real-time vision and automation
-            systems for safety, accessibility, and research teams. I connect computer vision, LLM agents,
-            and human-centered interfaces so busy operators get actionable insights without extra overhead.
+            {portfolioData.about.intro}
           </p>
 
-          <p className={`${mainText} mb-6`}>
-            Recent highlights include a multi-camera surveillance platform (OpenCV + Mediapipe) that flags
-            posture anomalies in under a second, ResearchMate agents that distill academic papers into PDF reports
-            in two minutes, and Sign-Speech—a dual ASL gesture and lip-reading interpreter inspired by accessibility work.
-            Each project ships with production-ready dashboards, APIs, or Dockerized pipelines that teams can deploy quickly.
-          </p>
+          {portfolioData.about.highlights.map((highlight) => (
+            <p key={highlight} className={`${mainText} mb-6`}>
+              {highlight}
+            </p>
+          ))}
 
           <div className="flex flex-wrap gap-3">
-            <Pill theme={theme} text="Computer Vision Ops" featured wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="LLM + Automation" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Python & FastAPI" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="React & Streamlit" wallpaperAccents={effectiveWallpaperAccents} />
-            <Pill theme={theme} text="Docker & DevOps" wallpaperAccents={effectiveWallpaperAccents} />
+            {portfolioData.about.tags.map((tag, index) => (
+              <Pill
+                key={tag}
+                theme={theme}
+                text={tag}
+                featured={index === 0}
+                wallpaperAccents={effectiveWallpaperAccents}
+              />
+            ))}
           </div>
         </GlassCard>
       </Reveal>
@@ -449,20 +473,9 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-            {[
-              { name: "React", icon: Code2 },
-              { name: "TypeScript", icon: FileCode },
-              { name: "Next.js", icon: Layers },
-              { name: "Node.js", icon: Server },
-              { name: "Python", icon: Terminal },
-              { name: "PostgreSQL", icon: Database },
-              { name: "MongoDB", icon: Database },
-              { name: "AWS", icon: Cloud },
-              { name: "Docker", icon: Box },
-              { name: "FastAPI", icon: Zap },
-              { name: "Flask", icon: Server },
-              { name: "REST APIs", icon: Globe }
-            ].map((skill, index) => (
+            {portfolioData.skills.professional.map((skill, index) => {
+              const SkillIcon = getSkillIcon(skill.icon);
+              return (
               <div
                 key={skill.name}
                 className={`
@@ -480,7 +493,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               >
                 <div className="text-center">
                   <div className="mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-                    <skill.icon size={28} className={`mx-auto ${
+                    <SkillIcon size={28} className={`mx-auto ${
                       theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
                     }`} />
                   </div>
@@ -489,7 +502,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </Reveal>
@@ -504,20 +517,9 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
-            {[
-              { name: "VS Code", icon: Monitor },
-              { name: "Git", icon: GitBranch },
-              { name: "GitHub", icon: Github },
-              { name: "Figma", icon: Palette },
-              { name: "Postman", icon: Smartphone },
-              { name: "Linux", icon: Terminal },
-              { name: "Tailwind", icon: Palette },
-              { name: "Vite", icon: Zap },
-              { name: "Vercel", icon: Globe },
-              { name: "Netlify", icon: Globe },
-              { name: "Firebase", icon: Database },
-              { name: "Supabase", icon: Database }
-            ].map((tool, index) => (
+            {portfolioData.skills.tools.map((tool, index) => {
+              const ToolIcon = getSkillIcon(tool.icon);
+              return (
               <div
                 key={tool.name}
                 className={`
@@ -535,7 +537,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               >
                 <div className="text-center">
                   <div className="mb-2 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12">
-                    <tool.icon size={24} className={`mx-auto ${
+                    <ToolIcon size={24} className={`mx-auto ${
                       theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
                     }`} />
                   </div>
@@ -544,7 +546,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </Reveal>
@@ -575,23 +577,23 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
             
             <div className="flex-1">
               <h3 className={`text-2xl font-bold mb-2 ${mainText}`}>
-                St. Cloud State University
+                {scsuEducation.school}
               </h3>
               <p className={`text-lg font-semibold mb-2 ${
                 theme === "dark" ? "text-[#71B7D5]" : "text-blue-600"
               }`}>
-                B.S. Computer Science (AI/ML), B.A. Economics
+                {scsuEducation.degree}
               </p>
               <div className="flex items-center gap-4 mb-4">
-                <span className={`${subText}`}>GPA: 3.6</span>
+                <span className={`${subText}`}>GPA: {scsuEducation.gpa}</span>
                 <span className={`${subText}`}>•</span>
-                <span className={`${subText}`}>Expected Dec 2026</span>
+                <span className={`${subText}`}>Expected {scsuEducation.expected}</span>
               </div>
               
               <div className="mb-6">
                 <h4 className={`font-semibold mb-3 ${mainText}`}>Relevant Coursework</h4>
                 <div className="flex flex-wrap gap-2">
-                  {["Distributed Systems", "Operating Systems", "Database Design", "Computer Architecture", "Linear Algebra"].map((course) => (
+                  {scsuEducation.coursework.map((course) => (
                     <Pill key={course} theme={theme} text={course} />
                   ))}
                 </div>
@@ -600,8 +602,9 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               <div>
                 <h4 className={`font-semibold mb-3 ${mainText}`}>Activities & Organizations</h4>
                 <div className="flex flex-wrap gap-2">
-                  <Pill theme={theme} text="Cloud Computing Club" featured />
-                  <Pill theme={theme} text="Student Government Tech Fee Committee" />
+                  {scsuEducation.activities.map((activity, index) => (
+                    <Pill key={activity} theme={theme} text={activity} featured={index === 0} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -623,16 +626,17 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
             <div className="flex-1">
               <h3 className={`text-2xl font-bold mb-2 ${mainText}`}>
-                University of Maryland, Baltimore County (UMBC)
+                {umbcEducation.school}
               </h3>
               <p className={`text-lg font-semibold mb-2 ${
                 theme === "dark" ? "text-[#71B7D5]" : "text-blue-600"
               }`}>
-                Computer Science Transfer Student • Dean's List (2023 – 2024)
+                {umbcEducation.degree}
               </p>
               <div className={`space-y-2 ${subText}`}>
-                <p>Led Python SI PASS sessions twice per week while balancing full-time coursework.</p>
-                <p>Supported CWIT technical operations and launched automation tools adopted program-wide.</p>
+                {umbcEducation.summary?.map((summary) => (
+                  <p key={summary}>{summary}</p>
+                ))}
               </div>
             </div>
           </div>
@@ -644,14 +648,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
         <GlassCard theme={theme} className="p-6">
           <h3 className={`text-xl font-bold mb-4 ${mainText}`}>Professional Development</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { name: "AI4ALL Discover AI", status: "Graduate" },
-              { name: "CodePath TIP 102", status: "Completed" },
-              { name: "CodePath Web Development 101", status: "Completed" },
-              { name: "Cloud Computing Club", status: "Active Member" },
-              { name: "Student Government Tech Fee Committee", status: "Active Member" },
-              { name: "ColorStack", status: "Active Member" }
-            ].map((item, index) => (
+            {portfolioData.professionalDevelopment.map((item) => (
               <div key={item.name} className={`p-4 rounded-xl backdrop-blur-xl border ${
                 theme === "dark"
                   ? "bg-white/5 border-white/10"
@@ -698,63 +695,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       </Reveal>
 
       <div className="space-y-6">
-        {[
-          {
-            title: "Real-Time Surveillance & Analytics System",
-            status: "Active",
-            stack: ["Python", "OpenCV", "Mediapipe", "Flask", "Streamlit"],
-            points: [
-              "Multi-camera posture, crowding, and abandoned-object detection with <1s latency.",
-              "Modular pipeline combining pose estimation, object tracking, and automated alerting dashboards.",
-              "Inspired by campus public safety work and piloted with Allied Universal supervisors.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/Realtime-surveillance-system",
-            featured: true,
-          },
-          {
-            title: "ResearchMate — Autonomous Research Assistant",
-            status: "Pilot",
-            stack: ["Python", "Gemini LLM", "arXiv API", "PubMed API", "ReportLab"],
-            points: [
-              "Multi-agent backend orchestrating paper retrieval, summarization, and citation formatting.",
-              "Generates curated PDF briefs per topic in under two minutes with ≈85% relevance hit rate.",
-              "Co-developing an institutional pilot with Kibur College for student research automation.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/ResearchMate",
-          },
-          {
-            title: "Sign-Speech — Two-Way Visual Interpreter",
-            status: "R&D",
-            stack: ["TensorFlow", "MediaPipe", "OpenCV", "Streamlit"],
-            points: [
-              "Builds independent ASL-to-speech and lip-reading speech-to-text pipelines inspired by LipNet.",
-              "Fusion layer in development to synchronize gesture and visual speech cues for real-time translation.",
-              "Accessible AI prototype empowering conversations between Deaf and hearing communities.",
-            ],
-          },
-          {
-            title: "2D → 3D Multi-View Generator",
-            status: "Completed",
-            stack: ["PyTorch", "Diffusers", "Zero123++", "Docker", "Streamlit"],
-            points: [
-              "GPU-accelerated diffusion pipeline producing six consistent 3D-style renders from a single image.",
-              "Integrated Rembg and Meta SAM for background removal and segmentation-driven cleanup.",
-              "Packaged with Cog + Docker for reproducible deployments and cached model downloads.",
-            ],
-            githubLink: "https://github.com/Yohanes-Mk/2d-to-3d",
-          },
-          {
-            title: "YohanesOS Portfolio",
-            status: "Live",
-            stack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-            points: [
-              "Desktop-inspired personal OS with start menu, wallpaper system, and immersive animations.",
-              "Includes interactive terminal mode mirroring Linux commands and structured file system data.",
-            ],
-            demoLink: "https://yohanes-os.vercel.app/",
-            githubLink: "https://github.com/Yohanes-Mk/YohanesOS",
-          },
-        ].map((project, index) => (
+        {portfolioData.projects.map((project, index) => (
           <Reveal key={project.title} delay={300 + index * 100}>
             <GlassCard theme={theme} className={`p-6 ${project.featured ? 'ring-2 ring-[#71B7D5]/30' : ''}`}>
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-4">
@@ -811,7 +752,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
               {/* Project Details */}
               <ul className={`space-y-2 ${subText}`}>
-                {project.points.map((point, pointIndex) => (
+                {project.description.map((point, pointIndex) => (
                   <li key={pointIndex} className="flex items-start gap-3">
                     <div className={`w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0 ${
                       theme === "dark" ? "bg-[#71B7D5]" : "bg-blue-500"
@@ -847,53 +788,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
       {/* Timeline */}
       <div className="relative">
-        {[
-          {
-            title: "Undergraduate Research Assistant — Brain-Computer Interface Lab",
-            company: "St. Cloud State University",
-            period: "Winter 2024 – Summer 2025",
-            location: "St. Cloud, Minnesota",
-            points: [
-              "Integrated OpenBCI EEG streams with PySide6/QML control-center modules powering live drone and robot demos.",
-              "Enhanced EEG visualization widgets, manual override logic, and TensorFlow inference endpoints for the Avatar platform.",
-              "Maintained Ubuntu compute nodes, automated data pipelines, and supported IRB-compliant EEG collection sessions.",
-            ],
-            isActive: true,
-          },
-          {
-            title: "Software Engineering Intern — SIS/LMS",
-            company: "Kibur College",
-            period: "Summer 2024",
-            location: "Remote — Addis Ababa, Ethiopia",
-            points: [
-              "Developed Flask/FastAPI microservices for enrollment, grade submission, and course registration secured with Firebase Auth + RBAC.",
-              "Automated reporting workflows for 800+ student records, cutting manual compilation time by ≈80%.",
-              "Documented OpenAPI specs and delivered CI-ready endpoints with idempotent database writes and error tracing.",
-            ],
-          },
-          {
-            title: "Technical Operations Assistant",
-            company: "Center for Women in Technology (CWIT), UMBC",
-            period: "Fall 2023 – Spring 2024",
-            location: "Baltimore, Maryland",
-            points: [
-              "Built Python + Google Sheets automation adopted as the standard attendance tracker for 200+ program participants.",
-              "Maintained internal websites, event pages, and digital collateral while coordinating multi-department communications.",
-              "Designed brochures and social assets with Adobe tools to support recruitment and alumni outreach.",
-            ],
-          },
-          {
-            title: "SI PASS Leader (Python)",
-            company: "University of Maryland, Baltimore County",
-            period: "Fall 2023 – Spring 2024",
-            location: "Baltimore, Maryland",
-            points: [
-              "Facilitated twice-weekly peer instruction reinforcing Python fundamentals, recursion, and data structures for CSCI 201.",
-              "Created mock assessments, debugging walkthroughs, and interactive exercises tailored to exam prep.",
-              "Collaborated with faculty to track outcomes and adapt materials for recurring problem areas.",
-            ],
-          },
-        ].map((exp, index) => (
+        {portfolioData.experience.map((exp, index) => (
           <Reveal key={exp.title + index} delay={200 + index * 100}>
             <TimelineItem
               theme={theme}
@@ -903,7 +798,6 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               location={exp.location}
               points={exp.points}
               isActive={exp.isActive}
-              index={index}
             />
           </Reveal>
         ))}
@@ -936,13 +830,13 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           </div>
           
           <p className={`text-lg mb-8 ${subText}`}>
-            I'm always interested in discussing new projects, creative ideas, or opportunities to be part of your visions.
+            {portfolioData.contact.intro}
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <EnhancedButton
               theme={theme}
-              href="mailto:yohanigusse@gmail.com"
+              href={`mailto:${portfolioData.contact.email}`}
               icon={<Mail size={20} />}
               variant="primary"
             >
@@ -951,7 +845,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
             <EnhancedButton
               theme={theme}
-              href="https://www.linkedin.com/in/yohs"
+              href={portfolioData.contact.linkedin}
               icon={<Linkedin size={20} />}
               variant="secondary"
             >
@@ -960,7 +854,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
             <EnhancedButton
               theme={theme}
-              href="https://github.com/Yohanes-Mk"
+              href={portfolioData.contact.github}
               icon={<Github size={20} />}
               variant="secondary"
             >
@@ -1004,7 +898,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              window.open('https://drive.google.com/file/d/1cHlD6AspC738tO8qSIogF9bRkqAAziUb/view', '_blank');
+              window.open(portfolioData.resume.link, '_blank');
             }}
             icon={<Download size={20} />}
             variant="primary"
@@ -1021,17 +915,17 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               <div>
                 <h5 className={`font-semibold mb-2 ${mainText}`}>Experience</h5>
                 <ul className={`text-sm space-y-1 ${subText}`}>
-                  <li>• AI/ML + full-stack delivery across research and education</li>
-                  <li>• Built 4 flagship AI products with active pilots</li>
-                  <li>• Mentored 50+ students through SI PASS and workshops</li>
+                  {portfolioData.resume.summary.experience.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
                 </ul>
               </div>
               <div>
                 <h5 className={`font-semibold mb-2 ${mainText}`}>Achievements</h5>
                 <ul className={`text-sm space-y-1 ${subText}`}>
-                  <li>• &lt;1s surveillance anomaly detection across multi-camera feeds</li>
-                  <li>• ≈85% research-topic relevance for automated literature reviews</li>
-                  <li>• 80% reduction in manual reporting for college SIS workflows</li>
+                  {portfolioData.resume.summary.achievements.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
                 </ul>
               </div>
             </div>

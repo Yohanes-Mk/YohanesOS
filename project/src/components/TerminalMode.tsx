@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
+import { portfolioData } from '../data/portfolioData';
 
 interface TerminalModeProps {
   theme: 'dark' | 'light';
@@ -13,38 +14,60 @@ type TerminalEntry = {
   timestamp: Date;
 };
 
+type FileSystemFile = {
+  type: 'file';
+  content: string;
+  description?: string;
+};
+
+type FileSystemDirectoryMarker = {
+  type: 'dir';
+  description: string;
+};
+
+type FileSystemDirectory = {
+  [key: string]: FileSystemEntry;
+};
+
+type FileSystemEntry = FileSystemFile | FileSystemDirectoryMarker | FileSystemDirectory;
+
+const isDirectory = (entry: FileSystemEntry): entry is FileSystemDirectory =>
+  typeof entry === 'object' && entry !== null && !('type' in entry);
+
 // File system structure
-const fileSystem = {
+const fileSystem: Record<'/', FileSystemDirectory> = {
   '/': {
     'home': {
       'yohannes': {
-        'projects': {
-          'realtime-surveillance-system': { type: 'dir', description: 'Multi-camera CV analytics with Mediapipe + OpenCV' },
-          'researchmate': { type: 'dir', description: 'Autonomous literature review pipeline with Gemini + APIs' },
-          'sign-speech': { type: 'dir', description: 'Two-way ASL gesture and lip-reading interpreter' },
-          '2d-to-3d-generator': { type: 'dir', description: 'Zero123++-powered diffusion pipeline for multi-view renders' },
-          'yohanes-os': { type: 'dir', description: 'This portfolio OS interface' }
-        },
+        'projects': Object.fromEntries(
+          portfolioData.projects.map((project) => [
+            project.fileSlug,
+            { type: 'dir', description: project.fileDescription }
+          ])
+        ),
         'documents': {
           'resume.pdf': { type: 'file', content: 'Yohannes Resume - Full-Stack Developer' },
           'cover-letter.txt': { type: 'file', content: 'Professional cover letter template' }
         },
-        'skills': {
-          'frontend.txt': { type: 'file', content: 'React, TypeScript, Next.js, Tailwind CSS, Streamlit' },
-          'backend.txt': { type: 'file', content: 'Python, FastAPI, Flask, Node.js, REST APIs' },
-          'ml_cv.txt': { type: 'file', content: 'OpenCV, MediaPipe, TensorFlow, PyTorch, Diffusers' },
-          'databases.txt': { type: 'file', content: 'PostgreSQL, SQLite, Firebase, MongoDB' },
-          'cloud.txt': { type: 'file', content: 'AWS, Docker, Render, Vercel, GitHub Actions' }
-        },
+        'skills': Object.fromEntries(
+          Object.entries(portfolioData.skills.files).map(([fileName, content]) => [
+            fileName,
+            { type: 'file', content }
+          ])
+        ),
         'education': {
-          'scsu.txt': { type: 'file', content: 'St. Cloud State University — B.S. Computer Science (AI/ML), B.A. Economics • GPA 3.6 • Expected Dec 2026' },
-          'umbc.txt': { type: 'file', content: 'University of Maryland, Baltimore County — Computer Science transfer student • Dean\'s List (2023-2024)' },
-          'coursework.txt': { type: 'file', content: 'Distributed Systems, Operating Systems, Database Design, Computer Architecture, Linear Algebra' }
+          ...Object.fromEntries(
+            portfolioData.education.map((education) => [
+              education.fileName,
+              { type: 'file', content: education.fileContent }
+            ])
+          ),
+          'coursework.txt': { type: 'file', content: portfolioData.education[0].coursework.join(', ') }
         },
         'contact': {
-          'email.txt': { type: 'file', content: 'yohanigusse@gmail.com' },
-          'linkedin.txt': { type: 'file', content: 'www.linkedin.com/in/yohs' },
-          'github.txt': { type: 'file', content: 'github.com/Yohanes-Mk' }
+          'email.txt': { type: 'file', content: portfolioData.contact.email },
+          'linkedin.txt': { type: 'file', content: portfolioData.contact.linkedinDisplay },
+          'github.txt': { type: 'file', content: portfolioData.contact.githubDisplay }
         }
       }
     },
@@ -63,6 +86,82 @@ const fileSystem = {
 };
 
 let currentPath = '/home/yohannes';
+
+const formatProjectLines = () => [
+  '╭─────────────────────────────────────────╮',
+  '│            Featured Projects            │',
+  '╰─────────────────────────────────────────╯',
+  '',
+  ...portfolioData.projects.flatMap((project) => [
+    `${project.terminalIcon} ${project.title} [${project.terminalStatus}]`,
+    `   ${project.terminalStack.join(' • ')}`,
+    `   ${project.terminalDescription}`,
+    ''
+  ]),
+  'Use "cd projects" and "ls" to explore project directories!',
+  ''
+];
+
+const formatSkillLines = () => [
+  '╭─────────────────────────────────────────╮',
+  '│            Technical Skills             │',
+  '╰─────────────────────────────────────────╯',
+  '',
+  ...portfolioData.skills.terminalCategories.flatMap((category) => [
+    category.label,
+    `   ${category.items.join(' • ')}`,
+    ''
+  ]),
+  'Use "cd skills" and "cat <file>" to see detailed skill lists!',
+  ''
+];
+
+const formatEducationLines = () => {
+  const scsuEducation = portfolioData.education[0];
+  const umbcEducation = portfolioData.education[1];
+
+  return [
+    '╭─────────────────────────────────────────╮',
+    '│              Education                  │',
+    '╰─────────────────────────────────────────╯',
+    '',
+    `🎓 ${scsuEducation.school} — ${scsuEducation.location}`,
+    `   ${scsuEducation.terminalDegree}`,
+    `   GPA: ${scsuEducation.gpa} • Expected Graduation: ${scsuEducation.expected}`,
+    '',
+    `🎓 ${umbcEducation.terminalSchool}`,
+    `   Computer Science transfer (${umbcEducation.period}) • Dean's List`,
+    '',
+    '📚 Recent Coursework',
+    ...scsuEducation.terminalCoursework.map((course) => `   • ${course}`),
+    '',
+    '🏆 Programs & Memberships',
+    ...scsuEducation.terminalPrograms.map((program) => `   • ${program}`),
+    ''
+  ];
+};
+
+const formatContactLines = () => [
+  '╭─────────────────────────────────────────╮',
+  '│           Contact Information           │',
+  '╰─────────────────────────────────────────╯',
+  '',
+  '📧 Email',
+  `   ${portfolioData.contact.email}`,
+  '',
+  '🔗 Professional Links',
+  `   LinkedIn: ${portfolioData.contact.linkedinDisplay}`,
+  `   GitHub:   ${portfolioData.contact.githubDisplay}`,
+  '',
+  '📍 Location',
+  `   ${portfolioData.contact.location}`,
+  '',
+  '💼 Current Status',
+  `   ${portfolioData.contact.status}`,
+  '',
+  'Use "cd contact" and "cat <file>" for specific contact files!',
+  ''
+];
 
 const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
   const [input, setInput] = useState('');
@@ -99,10 +198,10 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
   // Helper functions
   const getPathObject = (path: string) => {
     const parts = path.split('/').filter(p => p);
-    let current: any = fileSystem['/'];
+    let current: FileSystemEntry = fileSystem['/'];
     
     for (const part of parts) {
-      if (current[part]) {
+      if (isDirectory(current) && current[part]) {
         current = current[part];
       } else {
         return null;
@@ -156,123 +255,29 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
       '│              About Yohannes             │',
       '╰─────────────────────────────────────────╯',
       '',
-      'AI Engineer & CS/Econ Student focused on real-time vision systems',
+      portfolioData.about.terminalHeadline,
       '',
-      'I design modular ML pipelines that blend computer vision,',
-      'LLMs, and automation to solve operational bottlenecks in',
-      'public safety, accessibility, and research analytics. My work',
-      'ships as production-ready dashboards, APIs, and interfaces',
-      'that teams can operate with confidence.',
+      ...portfolioData.about.terminalSummary,
       '',
       'Recent highlights:',
-      '• Real-Time Surveillance & Analytics System protecting campus facilities',
-      '• ResearchMate multi-agent literature review engine (≈85% topic relevance)',
-      '• Sign-Speech interpreter bridging ASL gestures and lip-reading in real time',
+      `• ${portfolioData.projects[0].title} protecting campus facilities`,
+      `• ${portfolioData.projects[1].title.split(' — ')[0]} multi-agent literature review engine (≈85% topic relevance)`,
+      `• ${portfolioData.projects[2].title.split(' — ')[0]} interpreter bridging ASL gestures and lip-reading in real time`,
       '',
-      'Currently: Undergraduate researcher at St. Cloud State University',
-      'Status: Open to AI/ML engineering internships & collaborations',
+      `Currently: ${portfolioData.about.currentStatus}`,
+      `Status: ${portfolioData.about.availability}`,
       ''
     ],
-    projects: [
-      '╭─────────────────────────────────────────╮',
-      '│            Featured Projects            │',
-      '╰─────────────────────────────────────────╯',
-      '',
-      '🎥 Real-Time Surveillance & Analytics System [IN PROGRESS]',
-      '   Python • OpenCV • Mediapipe • Flask • Streamlit',
-      '   Multi-camera posture, crowding, and abandoned object detection with <1s latency',
-      '',
-      '🧠 ResearchMate — Autonomous Research Assistant [PILOT]',
-      '   Python • Gemini LLM • arXiv API • PubMed API',
-      '   Multi-agent pipeline summarizing literature into polished PDFs in under 2 minutes',
-      '',
-      '🤟 Sign-Speech — Two-Way Visual Interpreter [R&D]',
-      '   TensorFlow • MediaPipe • OpenCV • Streamlit',
-      '   Combines ASL gesture recognition and lip-reading for accessible communication',
-      '',
-      '🖼️  2D → 3D Multi-View Generator [COMPLETED]',
-      '   PyTorch • Diffusers • Zero123++ • Docker',
-      '   Generates six consistent 3D views with optional background removal + SAM segmentation',
-      '',
-      '💻 YohanesOS Portfolio [LIVE]',
-      '   React • TypeScript • Tailwind CSS',
-      '   OS-inspired personal site with terminal + desktop modes',
-      '',
-      'Use "cd projects" and "ls" to explore project directories!',
-      ''
-    ],
-    skills: [
-      '╭─────────────────────────────────────────╮',
-      '│            Technical Skills             │',
-      '╰─────────────────────────────────────────╯',
-      '',
-      '🎨 Frontend & UX',
-      '   React • TypeScript • Tailwind CSS • Streamlit',
-      '',
-      '⚙️  Backend & APIs',
-      '   FastAPI • Flask • Node.js • REST • Firebase Auth',
-      '',
-      '🧠  AI & Computer Vision',
-      '   OpenCV • MediaPipe • TensorFlow • PyTorch • Diffusers',
-      '',
-      '🗄️  Data & Ops',
-      '   PostgreSQL • SQLite • MongoDB • GitHub Actions • Docker',
-      '',
-      '🛠️  Tooling',
-      '   Git • Linux • Figma • Postman • Adobe Suite',
-      '',
-      'Use "cd skills" and "cat <file>" to see detailed skill lists!',
-      ''
-    ],
-    education: [
-      '╭─────────────────────────────────────────╮',
-      '│              Education                  │',
-      '╰─────────────────────────────────────────╯',
-      '',
-      '🎓 St. Cloud State University — St. Cloud, MN',
-      '   B.S. Computer Science (AI/ML) & B.A. Economics',
-      '   GPA: 3.6 • Expected Graduation: Dec 2026',
-      '',
-      '🎓 University of Maryland, Baltimore County',
-      '   Computer Science transfer (2023–2024) • Dean\'s List',
-      '',
-      '📚 Recent Coursework',
-      '   • Distributed Systems & Operating Systems',
-      '   • Database Theory & Computer Architecture',
-      '   • Linear Algebra, Probability & Statistics',
-      '',
-      '🏆 Programs & Memberships',
-      '   • AI4ALL Discover AI • CodePath TIP 102 & Web 101',
-      '   • Cloud Computing Club • Student Government Tech Fee Committee',
-      ''
-    ],
-    contact: [
-      '╭─────────────────────────────────────────╮',
-      '│           Contact Information           │',
-      '╰─────────────────────────────────────────╯',
-      '',
-      '📧 Email',
-      '   yohanigusse@gmail.com',
-      '',
-      '🔗 Professional Links',
-      '   LinkedIn: www.linkedin.com/in/yohs',
-      '   GitHub:   github.com/Yohanes-Mk',
-      '',
-      '📍 Location',
-      '   Minnesota, United States',
-      '',
-      '💼 Current Status',
-      '   Open to AI/ML engineering internships and research collaborations',
-      '',
-      'Use "cd contact" and "cat <file>" for specific contact files!',
-      ''
-    ]
+    projects: formatProjectLines(),
+    skills: formatSkillLines(),
+    education: formatEducationLines(),
+    contact: formatContactLines()
   };
 
   // Linux-style commands
   const executeLinuxCommand = (cmd: string, args: string[]): string[] => {
     switch (cmd) {
-      case 'ls':
+      case 'ls': {
         const targetPath = args[0] ? resolvePath(args[0]) : currentPath;
         const targetObj = getPathObject(targetPath);
         
@@ -280,25 +285,27 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
           return [`ls: cannot access '${args[0] || currentPath}': No such file or directory`];
         }
         
-        if (targetObj.type === 'file') {
+        if ('type' in targetObj && targetObj.type === 'file') {
           return [args[0] || targetPath.split('/').pop() || ''];
         }
         
-        const items = Object.keys(targetObj).filter(key => key !== 'type' && key !== 'content' && key !== 'description');
+        const directoryObj = isDirectory(targetObj) ? targetObj : {};
+        const items = Object.keys(directoryObj).filter(key => key !== 'type' && key !== 'content' && key !== 'description');
         if (items.length === 0) {
           return [''];
         }
         
         return items.map(item => {
-          const itemObj = targetObj[item];
-          const isDir = itemObj && typeof itemObj === 'object' && !itemObj.type;
+          const itemObj = directoryObj[item];
+          const isDir = isDirectory(itemObj);
           return isDir ? `${item}/` : item;
         });
+      }
 
       case 'pwd':
         return [currentPath];
 
-      case 'cd':
+      case 'cd': {
         if (!args[0]) {
           currentPath = '/home/yohannes';
           return [''];
@@ -311,14 +318,15 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
           return [`cd: no such file or directory: ${args[0]}`];
         }
         
-        if (newObj.type === 'file') {
+        if ('type' in newObj && newObj.type === 'file') {
           return [`cd: not a directory: ${args[0]}`];
         }
         
         currentPath = newPath;
         return [''];
+      }
 
-      case 'cat':
+      case 'cat': {
         if (!args[0]) {
           return ['cat: missing file operand'];
         }
@@ -330,21 +338,22 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
           return [`cat: ${args[0]}: No such file or directory`];
         }
         
-        if (fileObj.type !== 'file') {
+        if (!('type' in fileObj) || fileObj.type !== 'file') {
           return [`cat: ${args[0]}: Is a directory`];
         }
         
         return [fileObj.content || 'Empty file'];
+      }
 
-      case 'tree':
-        const buildTree = (obj: any, prefix = '', isLast = true): string[] => {
+      case 'tree': {
+        const buildTree = (obj: FileSystemDirectory, prefix = ''): string[] => {
           const result: string[] = [];
           const items = Object.keys(obj).filter(key => key !== 'type' && key !== 'content' && key !== 'description');
           
           items.forEach((item, index) => {
             const isLastItem = index === items.length - 1;
             const itemObj = obj[item];
-            const isDir = itemObj && typeof itemObj === 'object' && !itemObj.type;
+            const isDir = isDirectory(itemObj);
             const connector = isLastItem ? '└── ' : '├── ';
             const itemName = isDir ? `${item}/` : item;
             
@@ -352,7 +361,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
             
             if (isDir) {
               const newPrefix = prefix + (isLastItem ? '    ' : '│   ');
-              result.push(...buildTree(itemObj, newPrefix, isLastItem));
+              result.push(...buildTree(itemObj, newPrefix));
             }
           });
           
@@ -366,23 +375,26 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
         
         return [
           currentPath,
-          ...buildTree(treeObj)
+          ...(isDirectory(treeObj) ? buildTree(treeObj) : [])
         ];
+      }
 
       case 'whoami':
         return ['yohannes'];
 
-      case 'uname':
+      case 'uname': {
         if (args[0] === '-a') {
           return ['YohannesOS 2.1.0 yohannes-portfolio x86_64 GNU/Linux'];
         }
         return ['YohannesOS'];
+      }
 
       case 'date':
         return [new Date().toString()];
 
-      case 'echo':
+      case 'echo': {
         return [args.join(' ')];
+      }
 
       default:
         return null;
