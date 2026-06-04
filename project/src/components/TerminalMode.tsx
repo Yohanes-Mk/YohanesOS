@@ -87,6 +87,9 @@ const fileSystem: Record<'/', FileSystemDirectory> = {
 
 let currentPath = '/home/yohannes';
 
+const getProjectTitleBySlug = (fileSlug: string) =>
+  portfolioData.projects.find((project) => project.fileSlug === fileSlug)?.title ?? fileSlug;
+
 const formatProjectLines = () => [
   '╭─────────────────────────────────────────╮',
   '│            Featured Projects            │',
@@ -260,9 +263,9 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
       ...portfolioData.about.terminalSummary,
       '',
       'Recent highlights:',
-      `• ${portfolioData.projects[0].title} protecting campus facilities`,
-      `• ${portfolioData.projects[1].title.split(' — ')[0]} multi-agent literature review engine (≈85% topic relevance)`,
-      `• ${portfolioData.projects[2].title.split(' — ')[0]} interpreter bridging ASL gestures and lip-reading in real time`,
+      `• ${getProjectTitleBySlug('ai-event-aggregator')} demoed live at NSBE 2026`,
+      `• ${getProjectTitleBySlug('researchmate').split(' — ')[0]} multi-agent literature review engine (~85% topic relevance)`,
+      `• ${getProjectTitleBySlug('sign-speech').split(' — ')[0]} interpreter bridging ASL gestures and lip-reading in real time`,
       '',
       `Currently: ${portfolioData.about.currentStatus}`,
       `Status: ${portfolioData.about.availability}`,
