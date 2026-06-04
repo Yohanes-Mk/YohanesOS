@@ -898,7 +898,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              window.open(portfolioData.resume.link, '_blank');
+              window.open("/resume.pdf", "_blank");
             }}
             icon={<Download size={20} />}
             variant="primary"

@@ -1,46 +1,100 @@
 export const portfolioData = {
   about: {
     intro:
-      "I'm Yohannes, an AI engineer and CS/Econ student building real-time vision and automation systems for safety, accessibility, and research teams. I connect computer vision, LLM agents, and human-centered interfaces so busy operators get actionable insights without extra overhead.",
+      "I'm Yohannes, an Applied AI Engineer and CS/Econ student building LLM-powered backends, RAG pipelines, and full-stack AI systems. Incoming Tech Summer Analyst at Accenture — I've shipped everything from a production AI content aggregator demoed at NSBE to a full-stack anonymous social platform and a RAG admissions chatbot in production.",
     highlights: [
-      "Recent highlights include a multi-camera surveillance platform (OpenCV + Mediapipe) that flags posture anomalies in under a second, ResearchMate agents that distill academic papers into PDF reports in two minutes, and Sign-Speech—a dual ASL gesture and lip-reading interpreter inspired by accessibility work.",
-      "Each project ships with production-ready dashboards, APIs, or Dockerized pipelines that teams can deploy quickly."
+      "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026) — offer secured through NSBE 2026 career fair after demoing AI Event & Content Aggregator live to recruiters.",
+      "Built and shipped production-grade AI projects: an end-to-end LLM content pipeline ingesting 8 YouTube channels + 25 DMV tech event feeds with context-aware ranking, a RAG admissions chatbot (pgvector + two-stage retrieval), and a full-stack anonymous social platform. Each is fully defensible line-by-line.",
+      "Each project ships with production-ready APIs, monitoring layers, or Dockerized pipelines."
     ],
     tags: [
-      "Computer Vision Ops",
-      "LLM + Automation",
+      "RAG Pipelines",
+      "LLM Engineering",
       "Python & FastAPI",
-      "React & Streamlit",
+      "React & Full-Stack",
       "Docker & DevOps"
     ],
     terminalHeadline:
-      "AI Engineer & CS/Econ Student focused on real-time vision systems",
+      "Applied AI Engineer · Incoming Accenture Tech Summer Analyst",
     terminalSummary: [
-      "I design modular ML pipelines that blend computer vision,",
-      "LLMs, and automation to solve operational bottlenecks in",
-      "public safety, accessibility, and research analytics. My work",
-      "ships as production-ready dashboards, APIs, and interfaces",
-      "that teams can operate with confidence."
+      "Applied AI Engineering: LLM pipelines, RAG systems,",
+      "production backends, and full-stack AI products.",
+      "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026).",
+      "CS + Economics @ SCSU · 3.92 GPA · Graduating Dec 2027."
     ],
     currentStatus:
-      "Undergraduate researcher at St. Cloud State University",
+      "Incoming Accenture Tech Summer Analyst — Seattle, WA (Summer 2026)",
     availability:
-      "Open to AI/ML engineering internships & collaborations"
+      "Accenture Tech Summer Analyst (Summer 2026). Open to Fall 2026 internships, research collaborations, and side projects."
   },
   projects: [
+    {
+      title: "AI Event & Content Aggregator",
+      status: "Live",
+      terminalStatus: "LIVE",
+      stack: ["Python", "PostgreSQL", "SQLAlchemy", "OpenAI API", "Streamlit", "Docker"],
+      terminalStack: ["Python", "PostgreSQL", "OpenAI API", "Streamlit", "Docker"],
+      description: [
+        "End-to-end solo AI pipeline — ingests 8 YouTube channels and 25 iCal event feeds via feedparser/icalendar, summarizes with gpt-4o-mini structured output, and delivers personalized HTML digests by email.",
+        "Context-aware curator agent re-ranks the same content pool differently per user profile (engineer vs. founder vs. PM) using LLM reasoning over a live user context document — swappable live via Streamlit console.",
+        "Production monitoring layer with run lifecycle tracking, per-stage metrics, and per-item error capture — pipeline degrades gracefully on failures. Demoed live at NSBE 2026 Baltimore."
+      ],
+      terminalDescription:
+        "LLM pipeline with context-aware ranking, production monitoring, and live Streamlit demo. NSBE 2026 flagship project.",
+      fileSlug: "ai-event-aggregator",
+      fileDescription: "End-to-end AI content pipeline with curator agent and monitoring layer",
+      githubLink: "https://github.com/Yohanes-Mk/ai-event-aggregator",
+      terminalIcon: "📡",
+      featured: true
+    },
+    {
+      title: "NearbyTalk — Anonymous Local Social Platform",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["React", "FastAPI", "MongoDB", "JWT", "Docker"],
+      terminalStack: ["React", "FastAPI", "MongoDB", "JWT", "Docker"],
+      description: [
+        "Full-stack anonymous social platform (Yik Yak-style) with city and university-gated feeds.",
+        "Email domain verification for .edu access control, JWT-based stateless auth, threaded posts, and tri-state voting with karma tracking.",
+        "FastAPI REST backend with MongoDB document storage — runs locally via Docker."
+      ],
+      terminalDescription:
+        "Anonymous social platform with geo-gated feeds, .edu verification, and JWT auth",
+      fileSlug: "nearbytalk",
+      fileDescription: "Full-stack anonymous social platform — React + FastAPI + MongoDB",
+      githubLink: "https://github.com/Yohanes-Mk",
+      terminalIcon: "💬"
+    },
+    {
+      title: "Fleet Command: Strategic Conquest",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["Unity", "C#", "Claude API"],
+      terminalStack: ["Unity", "C#", "Claude API"],
+      description: [
+        "Hybrid 4X strategy / deck-building game in Unity with hex-grid conquest and card-based combat.",
+        "AI-powered opponents integrated via Anthropic Claude API — full game state serialized to JSON for LLM decision-making across strategic and tactical layers.",
+        "Rule-based fallback AI for offline play. Built as SE 482 Computer Animation & Visualization final project at SCSU."
+      ],
+      terminalDescription:
+        "4X strategy game with Claude API-powered AI opponents and JSON state serialization",
+      fileSlug: "fleet-command",
+      fileDescription: "Unity 4X game with LLM-driven opponents via Claude API",
+      terminalIcon: "♟️"
+    },
     {
       title: "Real-Time Surveillance & Analytics System",
       status: "Active",
       terminalStatus: "IN PROGRESS",
-      stack: ["Python", "OpenCV", "Mediapipe", "Flask", "Streamlit"],
-      terminalStack: ["Python", "OpenCV", "Mediapipe", "Flask", "Streamlit"],
+      stack: ["Python", "YOLO", "MediaPipe", "Flask", "SQLite", "Streamlit", "Docker"],
+      terminalStack: ["Python", "YOLO", "MediaPipe", "Flask", "Docker"],
       description: [
-        "Multi-camera posture, crowding, and abandoned-object detection with <1s latency.",
-        "Modular pipeline combining pose estimation, object tracking, and automated alerting dashboards.",
-        "Inspired by campus public safety work and piloted with Allied Universal supervisors."
+        "Multi-stage computer vision pipeline: YOLO object detection → MediaPipe pose estimation → centroid tracker for persistent cross-frame IDs → fall detection, abandoned object, and crowd density logic.",
+        "Flask API exposes detection events triggering real-time email and WhatsApp alerts; all events logged to SQLite/CSV for downstream analytics.",
+        "Streamlit analytics dashboard for detection history and pipeline performance review. Containerized with Docker."
       ],
       terminalDescription:
-        "Multi-camera posture, crowding, and abandoned object detection with <1s latency",
+        "Multi-stage CV pipeline: YOLO → MediaPipe → centroid tracker → real-time alert APIs and analytics dashboard",
       fileSlug: "realtime-surveillance-system",
       fileDescription: "Multi-camera CV analytics with Mediapipe + OpenCV",
       githubLink:
@@ -50,14 +104,14 @@ export const portfolioData = {
     },
     {
       title: "ResearchMate — Autonomous Research Assistant",
-      status: "Pilot",
-      terminalStatus: "PILOT",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
       stack: ["Python", "Gemini LLM", "arXiv API", "PubMed API", "ReportLab"],
       terminalStack: ["Python", "Gemini LLM", "arXiv API", "PubMed API"],
       description: [
-        "Multi-agent backend orchestrating paper retrieval, summarization, and citation formatting.",
-        "Generates curated PDF briefs per topic in under two minutes with ≈85% relevance hit rate.",
-        "Co-developing an institutional pilot with Kibur College for student research automation."
+        "Multi-agent pipeline orchestrating paper retrieval, summarization, and citation formatting across arXiv and PubMed APIs using Gemini LLM.",
+        "Generates curated PDF briefs per topic in under two minutes with ~85% relevance hit rate via validation and relevance filtering layers.",
+        "Earlier project — Gemini-based architecture. Demonstrates multi-agent orchestration and modular pipeline design."
       ],
       terminalDescription:
         "Multi-agent pipeline summarizing literature into polished PDFs in under 2 minutes",
@@ -122,61 +176,67 @@ export const portfolioData = {
   ],
   skills: {
     professional: [
-      { name: "React", icon: "Code2" },
-      { name: "TypeScript", icon: "FileCode" },
-      { name: "Next.js", icon: "Layers" },
-      { name: "Node.js", icon: "Server" },
       { name: "Python", icon: "Terminal" },
-      { name: "PostgreSQL", icon: "Database" },
-      { name: "MongoDB", icon: "Database" },
-      { name: "AWS", icon: "Cloud" },
-      { name: "Docker", icon: "Box" },
       { name: "FastAPI", icon: "Zap" },
       { name: "Flask", icon: "Server" },
-      { name: "REST APIs", icon: "Globe" }
+      { name: "React", icon: "Code2" },
+      { name: "TypeScript", icon: "FileCode" },
+      { name: "PostgreSQL", icon: "Database" },
+      { name: "MongoDB", icon: "Database" },
+      { name: "Docker", icon: "Box" },
+      { name: "REST APIs", icon: "Globe" },
+      { name: "OpenAI API", icon: "Zap" },
+      { name: "Anthropic API", icon: "Zap" },
+      { name: "RAG Pipelines", icon: "Layers" },
+      { name: "LangChain", icon: "Layers" },
+      { name: "pgvector", icon: "Database" },
+      { name: "SQLAlchemy", icon: "Database" },
+      { name: "AWS", icon: "Cloud" },
+      { name: "GitHub Actions", icon: "GitBranch" },
+      { name: "Streamlit", icon: "Monitor" }
     ],
     tools: [
       { name: "VS Code", icon: "Monitor" },
+      { name: "Claude Code", icon: "Terminal" },
       { name: "Git", icon: "GitBranch" },
       { name: "GitHub", icon: "Github" },
-      { name: "Figma", icon: "Palette" },
       { name: "Postman", icon: "Smartphone" },
       { name: "Linux", icon: "Terminal" },
-      { name: "Tailwind", icon: "Palette" },
-      { name: "Vite", icon: "Zap" },
+      { name: "Figma", icon: "Palette" },
       { name: "Vercel", icon: "Globe" },
-      { name: "Netlify", icon: "Globe" },
+      { name: "Render", icon: "Globe" },
       { name: "Firebase", icon: "Database" },
-      { name: "Supabase", icon: "Database" }
+      { name: "Tailwind", icon: "Palette" },
+      { name: "Vite", icon: "Zap" }
     ],
     terminalCategories: [
       {
-        label: "🎨 Frontend & UX",
-        items: ["React", "TypeScript", "Tailwind CSS", "Streamlit"]
+        label: "🧠  AI & LLM Engineering",
+        items: ["RAG Pipelines", "LangChain", "OpenAI API", "Anthropic API", "sentence-transformers", "pgvector", "Prompt Engineering"]
       },
       {
         label: "⚙️  Backend & APIs",
-        items: ["FastAPI", "Flask", "Node.js", "REST", "Firebase Auth"]
+        items: ["FastAPI", "Flask", "Python", "PostgreSQL", "SQLAlchemy", "MongoDB", "SQLite", "REST", "Docker"]
       },
       {
-        label: "🧠  AI & Computer Vision",
-        items: ["OpenCV", "MediaPipe", "TensorFlow", "PyTorch", "Diffusers"]
+        label: "🎨  Frontend & UX",
+        items: ["React", "TypeScript", "Tailwind CSS", "Streamlit", "HTML/CSS"]
       },
       {
-        label: "🗄️  Data & Ops",
-        items: ["PostgreSQL", "SQLite", "MongoDB", "GitHub Actions", "Docker"]
+        label: "🔬  ML & Computer Vision",
+        items: ["OpenCV", "MediaPipe", "YOLO", "TensorFlow", "PyTorch", "Scikit-learn"]
       },
       {
-        label: "🛠️  Tooling",
-        items: ["Git", "Linux", "Figma", "Postman", "Adobe Suite"]
+        label: "🛠️  DevOps & Tooling",
+        items: ["GitHub Actions", "Docker", "Linux", "AWS", "Vercel", "Render", "Git"]
       }
     ],
     files: {
-      "frontend.txt": "React, TypeScript, Next.js, Tailwind CSS, Streamlit",
-      "backend.txt": "Python, FastAPI, Flask, Node.js, REST APIs",
-      "ml_cv.txt": "OpenCV, MediaPipe, TensorFlow, PyTorch, Diffusers",
-      "databases.txt": "PostgreSQL, SQLite, Firebase, MongoDB",
-      "cloud.txt": "AWS, Docker, Render, Vercel, GitHub Actions"
+      "ai_llm.txt": "RAG Pipelines, LangChain, OpenAI API, Anthropic API, sentence-transformers, pgvector, Prompt Engineering",
+      "backend.txt": "Python, FastAPI, Flask, PostgreSQL, SQLAlchemy, MongoDB, SQLite, Docker, REST APIs",
+      "frontend.txt": "React, TypeScript, Tailwind CSS, Streamlit, HTML/CSS",
+      "ml_cv.txt": "OpenCV, MediaPipe, YOLO, TensorFlow, PyTorch, Scikit-learn, Diffusers",
+      "cloud.txt": "AWS, Docker, GitHub Actions, Vercel, Render, Firebase"
     }
   },
   education: [
@@ -184,32 +244,37 @@ export const portfolioData = {
       school: "St. Cloud State University",
       degree: "B.S. Computer Science (AI/ML), B.A. Economics",
       terminalDegree: "B.S. Computer Science (AI/ML) & B.A. Economics",
-      gpa: "3.6",
-      expected: "Dec 2026",
+      gpa: "3.92",
+      expected: "Dec 2027",
       location: "St. Cloud, MN",
       coursework: [
+        "AI & Neural Networks",
         "Distributed Systems",
         "Operating Systems",
-        "Database Design",
+        "Database Theory & Design",
+        "Object-Oriented Software Development",
+        "Programming Language Concepts",
         "Computer Architecture",
-        "Linear Algebra"
+        "Linear Algebra",
+        "Probability & Statistics"
       ],
       activities: [
+        "NSBE (National Society of Black Engineers)",
         "Cloud Computing Club",
         "Student Government Tech Fee Committee"
       ],
       terminalCoursework: [
-        "Distributed Systems & Operating Systems",
-        "Database Theory & Computer Architecture",
-        "Linear Algebra, Probability & Statistics"
+        "AI & Neural Networks · Distributed Systems · Operating Systems",
+        "Database Theory & Design · OOP Software Development",
+        "Programming Language Concepts · Linear Algebra · Statistics"
       ],
       terminalPrograms: [
-        "AI4ALL Discover AI • CodePath TIP 102 & Web 101",
-        "Cloud Computing Club • Student Government Tech Fee Committee"
+        "AI4ALL Discover AI · CodePath AI 110 · CodePath TIP 102 & Web 101",
+        "NSBE · Cloud Computing Club · Student Government Tech Fee Committee"
       ],
       fileName: "scsu.txt",
       fileContent:
-        "St. Cloud State University — B.S. Computer Science (AI/ML), B.A. Economics • GPA 3.6 • Expected Dec 2026"
+        "St. Cloud State University — B.S. Computer Science (AI/ML), B.A. Economics • GPA 3.92 • Expected Dec 2027"
     },
     {
       school: "University of Maryland, Baltimore County (UMBC)",
@@ -226,25 +291,63 @@ export const portfolioData = {
     }
   ],
   professionalDevelopment: [
+    { name: "Accenture Tech Summer Analyst", status: "Incoming — Summer 2026" },
+    { name: "CodePath AI 110", status: "Completed" },
     { name: "AI4ALL Discover AI", status: "Graduate" },
     { name: "CodePath TIP 102", status: "Completed" },
     { name: "CodePath Web Development 101", status: "Completed" },
+    { name: "NSBE", status: "Active Member" },
     { name: "Cloud Computing Club", status: "Active Member" },
     { name: "Student Government Tech Fee Committee", status: "Active Member" },
     { name: "ColorStack", status: "Active Member" }
   ],
   experience: [
     {
-      title: "Undergraduate Research Assistant — Brain-Computer Interface Lab",
-      company: "St. Cloud State University",
-      period: "Winter 2024 – Summer 2025",
-      location: "St. Cloud, Minnesota",
+      title: "Technology Architecture Analyst Intern",
+      company: "Accenture",
+      period: "May 2026 – Present",
+      location: "Seattle, Washington",
       points: [
-        "Integrated OpenBCI EEG streams with PySide6/QML control-center modules powering live drone and robot demos.",
-        "Enhanced EEG visualization widgets, manual override logic, and TensorFlow inference endpoints for the Avatar platform.",
-        "Maintained Ubuntu compute nodes, automated data pipelines, and supported IRB-compliant EEG collection sessions."
+        "Incoming Tech Summer Analyst — offer secured through NSBE 2026 recruiting pipeline (Baltimore, March 2026) after demoing the AI Event & Content Aggregator live at the career fair.",
+        "Advanced through two interview rounds on April 24, 2026; verbal offer extended April 28, 2026.",
+        "Role sits within Accenture's Technology Architecture track of the Technology Summer Analyst program."
       ],
       isActive: true
+    },
+    {
+      title: "Freelance Full-Stack & AI Developer",
+      company: "Independent",
+      period: "Fall 2025 – Present",
+      location: "Remote",
+      points: [
+        "Building a role-based water treatment client management system (So Safe) with automated SMS/email notifications via Twilio and SendGrid — three isolated user roles: Technician, Customer, Admin.",
+        "Rebuilding Kibur College's website (full rebrand) and developing a RAG chatbot over institutional documents using pgvector and cross-encoder re-ranking.",
+        "Building website and AI feature integration for BeteSeb Academy."
+      ],
+      isActive: true
+    },
+    {
+      title: "AI Admissions Assistant — CO-OP",
+      company: "Kibur College",
+      period: "Jan 2026 – May 2026",
+      location: "Remote — Addis Ababa, Ethiopia",
+      points: [
+        "Built a multi-channel RAG-based admissions chatbot handling prospective student queries over Telegram and email as the sole developer across the full pipeline.",
+        "Designed two-stage retrieval system: all-MiniLM-L6-v2 for candidate retrieval + ms-marco-MiniLM-L-6-v2 cross-encoder re-ranking before LLM generation — improved answer precision over single-stage retrieval.",
+        "Embedded institutional knowledge base into PostgreSQL with pgvector; built standalone staff dashboard (SQLite-backed, own subdomain) enabling non-technical staff to update the knowledge base without touching code."
+      ]
+    },
+    {
+      title: "Undergraduate Research Assistant — Brain-Computer Interface Lab",
+      company: "St. Cloud State University",
+      period: "Jan 2025 – May 2025",
+      location: "St. Cloud, Minnesota",
+      points: [
+        "Developed EEG data preprocessing pipelines and real-time ML classifiers (logistic regression, k-NN) achieving sub-second latency for attention-state detection tasks.",
+        "Maintained and debugged the Avatar platform's EEG data anonymization pipeline, fixing file organization logic to correctly classify brainwave recordings by thought category for IRB-compliant ML training.",
+        "Implemented RSA key management scripts for a shared AI HPC server; resolved PySide6/QML UI inconsistencies across an 8-tab drone/robot/model control application.",
+        "Maintained Ubuntu compute nodes, resolved merge conflicts, and supported deployment workflows for a multi-contributor research platform."
+      ]
     },
     {
       title: "Software Engineering Intern — SIS/LMS",
@@ -269,14 +372,14 @@ export const portfolioData = {
       ]
     },
     {
-      title: "SI PASS Leader (Python)",
+      title: "SI PASS Leader — Calculus I & II",
       company: "University of Maryland, Baltimore County",
       period: "Fall 2023 – Spring 2024",
       location: "Baltimore, Maryland",
       points: [
-        "Facilitated twice-weekly peer instruction reinforcing Python fundamentals, recursion, and data structures for CSCI 201.",
-        "Created mock assessments, debugging walkthroughs, and interactive exercises tailored to exam prep.",
-        "Collaborated with faculty to track outcomes and adapt materials for recurring problem areas."
+        "Facilitated twice-weekly peer-assisted study sessions for 12–25 students in Calculus I and II, reinforcing problem-solving fundamentals and exam preparation.",
+        "Created practice problems and mock assessments tailored to recurring exam problem areas.",
+        "Collaborated with faculty to track outcomes and adapt session materials based on student performance trends."
       ]
     }
   ],
@@ -287,7 +390,8 @@ export const portfolioData = {
     github: "https://github.com/Yohanes-Mk",
     githubDisplay: "github.com/Yohanes-Mk",
     location: "Minnesota, United States",
-    status: "Open to AI/ML engineering internships and research collaborations",
+    status:
+      "Incoming Accenture Tech Summer Analyst · Open to Fall 2026 internships and research collaborations",
     intro:
       "I'm always interested in discussing new projects, creative ideas, or opportunities to be part of your visions."
   },
@@ -296,14 +400,16 @@ export const portfolioData = {
       "https://drive.google.com/file/d/1cHlD6AspC738tO8qSIogF9bRkqAAziUb/view",
     summary: {
       experience: [
-        "AI/ML + full-stack delivery across research and education",
-        "Built 4 flagship AI products with active pilots",
+        "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026)",
+        "AI/ML + full-stack delivery across research, education, and freelance clients",
+        "Built 5+ production AI projects — RAG pipelines, LLM agents, full-stack apps",
         "Mentored 50+ students through SI PASS and workshops"
       ],
       achievements: [
-        "<1s surveillance anomaly detection across multi-camera feeds",
-        "≈85% research-topic relevance for automated literature reviews",
-        "80% reduction in manual reporting for college SIS workflows"
+        "Accenture offer landed via live project demo at NSBE 2026 Baltimore",
+        "Two-stage RAG retrieval (bi-encoder + cross-encoder) deployed in production",
+        "80% reduction in manual reporting for college SIS workflows",
+        "Context-aware LLM curator agent with real-time profile-swap demo"
       ]
     }
   }
