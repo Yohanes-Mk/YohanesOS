@@ -495,6 +495,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
           type={activeContent}
           theme={theme}
           onClose={() => setActiveContent(null)}
+          wallpaperAccents={wallpaperAccents}
         />
       )}
     </div>

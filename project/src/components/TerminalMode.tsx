@@ -508,7 +508,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
             {entry.input && (
               <div className="flex">
                 <span className={theme === 'dark' ? 'text-[#71B7D5]' : 'text-blue-600'}>{getPrompt()} </span>
-                <span className={theme === 'dark' ? 'text-white' : 'text-gray-100'}>{entry.input}</span>
+                <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{entry.input}</span>
               </div>
             )}
             {entry.output.map((line, index) => (
