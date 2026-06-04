@@ -156,7 +156,7 @@ export const portfolioData = {
       terminalIcon: "🖼️"
     },
     {
-      title: "YohanesOS Portfolio",
+      title: "YohannesOS Portfolio",
       status: "Live",
       terminalStatus: "LIVE",
       stack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
@@ -396,8 +396,7 @@ export const portfolioData = {
       "I'm always interested in discussing new projects, creative ideas, or opportunities to be part of your visions."
   },
   resume: {
-    link:
-      "https://drive.google.com/file/d/1cHlD6AspC738tO8qSIogF9bRkqAAziUb/view",
+    link: "/resume.pdf",
     summary: {
       experience: [
         "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026)",
