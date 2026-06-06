@@ -4,6 +4,7 @@ import LandingScreen from './components/LandingScreen';
 import Desktop from './components/Desktop';
 import TerminalMode from './components/TerminalMode';
 import StartMenu from './components/StartMenu';
+import AdminDashboard from './components/AdminDashboard';
 
 type AppState = 'landing' | 'booting' | 'desktop' | 'terminal';
 type Theme = 'dark' | 'light';
@@ -66,6 +67,7 @@ function App() {
   const [brightness, setBrightness] = useState(80);
   const [wallpaperIndex, setWallpaperIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [showAdmin, setShowAdmin] = useState(false);
 
   // Wallpaper gradients
   const wallpapers = [
@@ -445,7 +447,19 @@ function App() {
       )}
       
       {appState === 'terminal' && (
-        <TerminalMode theme={theme} onClose={closeTerminal} />
+        <TerminalMode
+          theme={theme}
+          onClose={closeTerminal}
+          onAdminUnlock={() => setShowAdmin(true)}
+        />
+      )}
+
+      {showAdmin && (
+        <AdminDashboard
+          theme={theme}
+          wallpaperAccents={wallpaperAccents}
+          onClose={() => setShowAdmin(false)}
+        />
       )}
 
     </div>

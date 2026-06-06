@@ -5,6 +5,7 @@ import { portfolioData } from '../data/portfolioData';
 interface TerminalModeProps {
   theme: 'dark' | 'light';
   onClose: () => void;
+  onAdminUnlock?: () => void;
 }
 
 type TerminalEntry = {
@@ -166,7 +167,7 @@ const formatContactLines = () => [
   ''
 ];
 
-const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
+const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlock }) => {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<TerminalEntry[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -251,6 +252,9 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
       '  clear         - Clear terminal',
       '  exit          - Return to desktop',
       '  uname         - System information',
+      '',
+      'Secrets:',
+      '  sudo admin    - ??',
       ''
     ],
     about: [
@@ -418,6 +422,17 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
     } else if (command === 'exit') {
       onClose();
       return;
+    } else if (command === 'sudo' && args[0] === 'admin') {
+      if (onAdminUnlock) {
+        output = [
+          '🔓 Access granted.',
+          'Opening admin panel...',
+          ''
+        ];
+        setTimeout(() => onAdminUnlock(), 600);
+      } else {
+        output = ['sudo: admin: permission denied', ''];
+      }
     } else if (commands[command as keyof typeof commands]) {
       output = commands[command as keyof typeof commands];
     } else {

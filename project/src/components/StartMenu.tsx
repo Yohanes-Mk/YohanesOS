@@ -8,10 +8,8 @@ import {
   Terminal,
   Power,
   X,
-  ChevronDown,
-  Shield
+  ChevronDown
 } from 'lucide-react';
-import AdminDashboard from './AdminDashboard';
 
 interface WallpaperAccents {
   primary: string;
@@ -95,7 +93,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const [showAbout, setShowAbout] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
-  const [showAdmin, setShowAdmin] = useState(false);
   const [quoteIndex, setQuoteIndex] = useState(() => Math.floor(Math.random() * QUOTES.length));
   const [seenIndices, setSeenIndices] = useState<number[]>([]);
 
@@ -127,10 +124,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
     setShowGame(true);
   };
 
-  const handleAdmin = () => {
-    setShowAdmin(true);
-  };
-
   const handleQuoteClick = () => {
     setShowQuoteModal(true);
   };
@@ -155,7 +148,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
     { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
     { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
-    { id: 'admin', label: 'Admin Dashboard', icon: Shield, action: handleAdmin },
     { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
     { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
     { id: 'power-off', label: 'Power Off', icon: Power, action: () => { onReturnToLanding(); handleClose(); } }
@@ -422,15 +414,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
             </div>
           </div>
         </div>
-      )}
-
-      {/* Admin Dashboard Modal */}
-      {showAdmin && (
-        <AdminDashboard
-          theme={theme}
-          wallpaperAccents={wallpaperAccents}
-          onClose={() => setShowAdmin(false)}
-        />
       )}
     </>
   );
