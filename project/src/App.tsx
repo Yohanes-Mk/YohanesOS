@@ -9,6 +9,14 @@ import AdminDashboard from './components/AdminDashboard';
 type AppState = 'landing' | 'booting' | 'desktop' | 'terminal';
 type Theme = 'dark' | 'light';
 
+const WALLPAPER_NAMES = [
+  'Studio Mist',
+  'Ocean Signal',
+  'Neon Orbit',
+  'Evergreen Grid',
+  'Solar Drift'
+] as const;
+
 // Wallpaper-based design system
 const getWallpaperAccents = (wallpaperIndex: number, theme: 'dark' | 'light') => {
   const accents = {
@@ -440,6 +448,7 @@ function App() {
               onOpenTerminal={openTerminal}
               onReturnToLanding={returnToLanding}
               onChangeWallpaper={changeWallpaper}
+              currentWallpaperName={WALLPAPER_NAMES[wallpaperIndex]}
               wallpaperAccents={wallpaperAccents}
             />
           )}

@@ -24,6 +24,7 @@ interface StartMenuProps {
   onOpenTerminal: () => void;
   onReturnToLanding: () => void;
   onChangeWallpaper?: () => void;
+  currentWallpaperName: string;
   wallpaperAccents: WallpaperAccents;
 }
 
@@ -87,6 +88,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
   onOpenTerminal,
   onReturnToLanding,
   onChangeWallpaper,
+  currentWallpaperName,
   wallpaperAccents
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -145,12 +147,49 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const currentQuote = QUOTES[quoteIndex];
 
   const menuItems = [
-    { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
-    { id: 'wallpaper', label: 'Change Wallpaper', icon: Palette, action: onChangeWallpaper || (() => {}) },
-    { id: 'mini-game', label: 'Snake Game', icon: Gamepad2, action: handleMiniGame },
-    { id: 'quote', label: 'Quote of the Day', icon: Quote, action: handleQuoteClick },
-    { id: 'terminal', label: 'Terminal', icon: Terminal, action: () => { onOpenTerminal(); handleClose(); } },
-    { id: 'power-off', label: 'Power Off', icon: Power, action: () => { onReturnToLanding(); handleClose(); } }
+    {
+      id: 'about-os',
+      label: 'About YohannesOS',
+      icon: Monitor,
+      action: handleAbout,
+      meta: 'Portfolio OS with terminal-first easter eggs'
+    },
+    {
+      id: 'wallpaper',
+      label: 'Change Wallpaper',
+      icon: Palette,
+      action: onChangeWallpaper || (() => {}),
+      meta: `Current: ${currentWallpaperName}`,
+      preview: true
+    },
+    {
+      id: 'mini-game',
+      label: 'Snake Game',
+      icon: Gamepad2,
+      action: handleMiniGame,
+      meta: 'Arcade break with a local leaderboard'
+    },
+    {
+      id: 'quote',
+      label: 'Quote of the Day',
+      icon: Quote,
+      action: handleQuoteClick,
+      meta: 'Curated feed with no repeats this session'
+    },
+    {
+      id: 'terminal',
+      label: 'Terminal',
+      icon: Terminal,
+      action: () => { onOpenTerminal(); handleClose(); },
+      meta: 'Explore files, commands, and hidden routes'
+    },
+    {
+      id: 'power-off',
+      label: 'Power Off',
+      icon: Power,
+      action: () => { onReturnToLanding(); handleClose(); },
+      meta: 'Return to the boot screen'
+    }
   ];
 
   return (
@@ -273,9 +312,31 @@ const StartMenu: React.FC<StartMenuProps> = ({
                     className="transition-all duration-200"
                   />
                 </div>
-                <span className={`text-sm font-medium transition-colors duration-100 ${
-                  theme === 'dark' ? 'group-hover:text-white' : 'group-hover:text-gray-900'
-                }`}>{item.label}</span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className={`text-sm font-medium transition-colors duration-100 ${
+                      theme === 'dark' ? 'group-hover:text-white' : 'group-hover:text-gray-900'
+                    }`}>
+                      {item.label}
+                    </span>
+                    {item.preview ? (
+                      <span
+                        className="h-3 w-3 shrink-0 rounded-full border border-white/30"
+                        style={{
+                          background: `linear-gradient(135deg, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})`,
+                          boxShadow: `0 0 10px ${wallpaperAccents.glow}`
+                        }}
+                      />
+                    ) : null}
+                  </div>
+                  {item.meta ? (
+                    <div className={`truncate text-xs ${
+                      theme === 'dark' ? 'text-[#71B7D5]/80' : 'text-gray-500'
+                    }`}>
+                      {item.meta}
+                    </div>
+                  ) : null}
+                </div>
               </button>
             ))}
           </div>
@@ -309,14 +370,49 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <X size={20} />
               </button>
             </div>
-            <div className={`space-y-3 text-sm ${
-              theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
-            }`}>
-              <p><strong>Version:</strong> 2.1.0</p>
-              <p><strong>Built with:</strong> React, TypeScript, Tailwind CSS</p>
-              <p><strong>Features:</strong> Desktop environment, Terminal, Smooth animations</p>
-              <p><strong>Creator:</strong> Yohannes - Full-stack developer passionate about creating unique digital experiences</p>
-              <p className="pt-2 text-xs opacity-75">This portfolio OS showcases modern web technologies in an interactive desktop-like interface.</p>
+            <div className="space-y-5">
+              <div
+                className={`rounded-2xl border p-4 ${
+                  theme === 'dark'
+                    ? 'border-[#096B90]/30 bg-[#042B44]/40'
+                    : 'border-gray-200 bg-gray-50'
+                }`}
+              >
+                <p className={`text-sm leading-relaxed ${
+                  theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+                }`}>
+                  YohannesOS is my portfolio reimagined as a playful operating system: part desktop toy, part terminal showcase, part proof that technical work can still feel human.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3 text-sm">
+                <div className={`rounded-xl p-3 ${
+                  theme === 'dark' ? 'bg-[#042B44]/35 text-[#A1CCDC]' : 'bg-gray-50 text-gray-700'
+                }`}>
+                  <div className="text-xs uppercase tracking-wide opacity-70">Version</div>
+                  <div className="mt-1 font-semibold">2.1.0</div>
+                </div>
+                <div className={`rounded-xl p-3 ${
+                  theme === 'dark' ? 'bg-[#042B44]/35 text-[#A1CCDC]' : 'bg-gray-50 text-gray-700'
+                }`}>
+                  <div className="text-xs uppercase tracking-wide opacity-70">Current Theme</div>
+                  <div className="mt-1 font-semibold">{currentWallpaperName}</div>
+                </div>
+              </div>
+
+              <div className={`space-y-2 text-sm ${
+                theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+              }`}>
+                <p><strong>Built with:</strong> React, TypeScript, Tailwind CSS, and a lot of interface curiosity.</p>
+                <p><strong>Favorite touches:</strong> Terminal easter eggs, interactive start menu tools, animated desktop transitions, and wallpaper-driven theming.</p>
+                <p><strong>Creator:</strong> Yohannes, building polished AI/software experiences that still leave room for personality.</p>
+              </div>
+
+              <p className={`text-xs leading-relaxed ${
+                theme === 'dark' ? 'text-[#71B7D5]/75' : 'text-gray-500'
+              }`}>
+                If a recruiter opens this and immediately clicks Terminal, we are probably going to get along.
+              </p>
             </div>
           </div>
         </div>
