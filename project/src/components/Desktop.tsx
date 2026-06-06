@@ -51,7 +51,7 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode; theme: 'dark'
 };
 
 // Floating geometric overlay
-const GeometricOverlay: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: WallpaperAccents }> = ({ theme, wallpaperAccents }) => (
+const GeometricOverlay: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: WallpaperAccents }> = ({ wallpaperAccents }) => (
   <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
     {/* Floating geometric shapes */}
     <div 
@@ -96,14 +96,12 @@ interface WallpaperAccents {
 
 interface DesktopProps {
   theme: 'dark' | 'light';
-  onOpenTerminal: () => void;
-  onReturnToLanding: () => void;
   wallpaperAccents: WallpaperAccents;
 }
 
 type ContentType = 'about' | 'projects' | 'education' | 'skills' | 'resume' | 'experience' | 'contact' | null;
 
-const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLanding, wallpaperAccents }) => {
+const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
   const [activeContent, setActiveContent] = useState<ContentType>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number; color: string }>>([]);
@@ -237,6 +235,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
                       createRipple(e, wallpaperAccents.primary);
                       item.onClick();
                     }}
+                    aria-label={item.label}
                     style={{ 
                       animationDelay: `${300 + index * 100}ms`,
                       animationDuration: `${4 + (index % 3)}s`
@@ -342,6 +341,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
                   createRipple(e, wallpaperAccents.primary);
                   item.onClick();
                 }}
+                aria-label={item.label}
                 className={`
                   relative overflow-hidden
                   group relative p-8 w-40 h-40 rounded-2xl animate-in slide-in-from-top-4
@@ -412,6 +412,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
                   createRipple(e, wallpaperAccents.primary);
                   item.onClick();
                 }}
+                aria-label={item.label}
                 style={{ animationDelay: `${400 + index * 100}ms` }}
                 className={`
                   relative overflow-hidden
@@ -455,6 +456,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, onOpenTerminal, onReturnToLand
                   createRipple(e, wallpaperAccents.primary);
                   item.onClick();
                 }}
+                aria-label={item.label}
                 style={{ animationDelay: `${600 + index * 100}ms` }}
                 className={`
                   relative overflow-hidden

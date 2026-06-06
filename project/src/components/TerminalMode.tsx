@@ -499,6 +499,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose }) => {
         </div>
         <button
           onClick={onClose}
+          aria-label="Close terminal"
           className={`transition-colors ${
             theme === 'dark' 
               ? 'text-[#A1CCDC] hover:text-[#71B7D5]' 

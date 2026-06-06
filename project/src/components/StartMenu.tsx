@@ -37,7 +37,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
   wallpaperAccents
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
@@ -45,8 +44,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const [currentQuote, setCurrentQuote] = useState('');
 
   useEffect(() => {
-    // Start entrance animation
-    setIsAnimating(true);
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 10);
@@ -73,7 +70,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const handleClose = () => {
     setIsVisible(false);
     setTimeout(() => {
-      setIsAnimating(false);
       onClose();
     }, 400);
   };
@@ -97,21 +93,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
 
   const handleQuoteClick = () => {
     setShowQuoteModal(true);
-  };
-
-  const handleQuoteRefresh = () => {
-    const quotes = [
-      "Code is poetry written in logic.",
-      "The best way to predict the future is to create it.",
-      "Simplicity is the ultimate sophistication.",
-      "Innovation distinguishes between a leader and a follower.",
-      "The only way to do great work is to love what you do.",
-      "Stay hungry, stay foolish.",
-      "Design is not just what it looks like - design is how it works."
-    ];
-    
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    setCurrentQuote(randomQuote);
   };
 
   const menuItems = [
@@ -166,6 +147,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
             </h3>
             <button
               onClick={handleClose}
+              aria-label="Close start menu"
               className={`p-1 rounded transition-all duration-200 hover:scale-110 active:scale-95 ${
                 theme === 'dark' 
                   ? 'text-[#71B7D5] hover:bg-[#096B90]/20' 
@@ -200,6 +182,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
               <button
                 key={item.id}
                 onClick={() => handleItemClick(item.action)}
+                aria-label={item.label}
                 className={`
                   w-full flex items-center gap-3 p-3 rounded-lg text-left
                   transition-all duration-100 ease-out transform hover:scale-[1.02] active:scale-95 will-change-transform
@@ -253,6 +236,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 About YohannesOS
               </h3>
               <button
+                aria-label="Close about dialog"
                 onClick={() => setShowAbout(false)}
                 className={`p-1 rounded hover:scale-110 transition-transform duration-150 ${
                   theme === 'dark' ? 'text-[#71B7D5] hover:bg-[#096B90]/20' : 'text-gray-500 hover:bg-gray-100'
@@ -292,6 +276,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 Snake Game
               </h3>
               <button
+                aria-label="Close snake game dialog"
                 onClick={() => setShowGame(false)}
                 className={`p-1 rounded hover:scale-110 transition-transform duration-150 ${
                   theme === 'dark' ? 'text-[#71B7D5] hover:bg-[#096B90]/20' : 'text-gray-500 hover:bg-gray-100'
@@ -374,13 +359,14 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
   const [playerSet, setPlayerSet] = useState(false);
   const [highScores, setHighScores] = useState<Array<{ name: string; from: string; score: number }>>([]);
   const [showAllScores, setShowAllScores] = useState(false);
+  type SnakeHighScore = { name: string; from?: string; company?: string; score: number };
 
   const gridSize = 20;
 
   useEffect(() => {
     const storedScores = localStorage.getItem('snakeHighScores');
     if (storedScores) {
-      const parsed = JSON.parse(storedScores).map((s: any) => ({
+      const parsed = (JSON.parse(storedScores) as SnakeHighScore[]).map((s) => ({
         name: s.name,
         from: s.from || s.company || '',
         score: s.score
@@ -641,6 +627,7 @@ const SnakeGame: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wallpaper
           {highScores.length > 5 && (
             <button
               onClick={() => setShowAllScores(prev => !prev)}
+              aria-label={showAllScores ? 'Collapse leaderboard' : 'Expand leaderboard'}
               className={`w-full py-1 flex justify-center transition-colors ${
                 theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
               }`}

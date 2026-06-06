@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Monitor, Power, Sun, Moon, Volume2, VolumeX, Minus, Plus, Smartphone } from 'lucide-react';
+import { Power, Sun, Moon, Volume2, VolumeX, Minus, Plus } from 'lucide-react';
 
 interface LandingScreenProps {
   onPowerOn: () => void;
@@ -54,6 +54,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({
         }`}>
           <button
             onClick={onDecreaseBrightness}
+            aria-label="Decrease brightness"
             className={`p-1 rounded transition-all duration-150 hover:scale-105 ${
               theme === 'dark'
                 ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -70,6 +71,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({
           </span>
           <button
             onClick={onIncreaseBrightness}
+            aria-label="Increase brightness"
             className={`p-1 rounded transition-all duration-150 hover:scale-105 ${
               theme === 'dark'
                 ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -83,6 +85,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({
 
         <button
           onClick={onToggleMute}
+          aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
           className={`p-3 rounded-full backdrop-blur-md border transition-all duration-150 hover:scale-105 ${
             theme === 'dark'
               ? 'bg-[#08171E]/80 border-[#096B90]/30 hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -95,6 +98,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({
         
         <button
           onClick={onToggleTheme}
+          aria-label="Toggle theme"
           className={`p-3 rounded-full backdrop-blur-md border transition-all duration-150 hover:scale-105 ${
             theme === 'dark'
               ? 'bg-[#08171E]/80 border-[#096B90]/30 hover:bg-[#096B90]/30 text-[#A1CCDC]'

@@ -1,4 +1,5 @@
 node_modules/
 dist/
+project/dist/
 .DS_Store
 CODEX_TASKS.md

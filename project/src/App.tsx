@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Monitor, Power, Volume2, VolumeX, Sun, Moon, Terminal, Clock, Menu, X, Minus, Plus, Smartphone } from 'lucide-react';
+import { Monitor, Volume2, VolumeX, Sun, Moon, Terminal, Menu, Minus, Plus, Smartphone } from 'lucide-react';
 import LandingScreen from './components/LandingScreen';
 import Desktop from './components/Desktop';
 import TerminalMode from './components/TerminalMode';
 import StartMenu from './components/StartMenu';
-import AudioManager from './components/AudioManager';
 
 type AppState = 'landing' | 'booting' | 'desktop' | 'terminal';
 type Theme = 'dark' | 'light';
@@ -195,8 +194,6 @@ function App() {
         ? darkWallpapers[wallpaperIndex]
         : wallpapers[wallpaperIndex]
     }`}>
-      <AudioManager isMuted={isMuted} />
-      
       {/* Vignette overlay */}
       <div className={`fixed inset-0 pointer-events-none transition-opacity duration-1000 ${
         appState === 'landing' ? 'opacity-30' : 'opacity-100'
@@ -299,8 +296,6 @@ function App() {
           
           <Desktop 
             theme={theme} 
-            onOpenTerminal={openTerminal} 
-            onReturnToLanding={returnToLanding}
             wallpaperAccents={wallpaperAccents}
           />
           
@@ -314,6 +309,7 @@ function App() {
               {/* Left side - Start button */}
               <button
                 onClick={toggleStartMenu}
+                aria-label={showStartMenu ? 'Close start menu' : 'Open start menu'}
                 className={`
                   px-3 py-1.5 rounded transition-all duration-300 ease-out transform-gpu
                   hover:scale-110 active:scale-90 relative overflow-hidden
@@ -353,6 +349,7 @@ function App() {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={decreaseBrightness}
+                    aria-label="Decrease brightness"
                     className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
                       theme === 'dark'
                         ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -369,6 +366,7 @@ function App() {
                   </span>
                   <button
                     onClick={increaseBrightness}
+                    aria-label="Increase brightness"
                     className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
                       theme === 'dark'
                         ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -382,6 +380,7 @@ function App() {
 
                 <button
                   onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
                   className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
                     theme === 'dark'
                       ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -394,6 +393,7 @@ function App() {
                 
                 <button
                   onClick={toggleTheme}
+                  aria-label="Toggle theme"
                   className={`p-2 rounded transition-all duration-150 hover:scale-105 ${
                     theme === 'dark'
                       ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
@@ -406,6 +406,7 @@ function App() {
                 
                 <button
                   onClick={openTerminal}
+                  aria-label="Open terminal"
                   className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
                     theme === 'dark'
                       ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
