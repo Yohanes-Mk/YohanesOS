@@ -4,6 +4,7 @@ import {
   Palette,
   Gamepad2,
   Quote,
+  RefreshCw,
   Terminal,
   Power,
   X,
@@ -28,6 +29,33 @@ interface StartMenuProps {
   wallpaperAccents: WallpaperAccents;
 }
 
+const QUOTES: { text: string; author: string }[] = [
+  { text: 'The best way to predict the future is to invent it.', author: 'Alan Kay' },
+  { text: 'Simplicity is prerequisite for reliability.', author: 'Edsger Dijkstra' },
+  { text: 'Programs must be written for people to read, and only incidentally for machines to execute.', author: 'Harold Abelson' },
+  { text: 'Premature optimization is the root of all evil.', author: 'Donald Knuth' },
+  { text: 'Talk is cheap. Show me the code.', author: 'Linus Torvalds' },
+  { text: "The most damaging phrase in the language is: 'We've always done it this way.'", author: 'Grace Hopper' },
+  { text: 'First, solve the problem. Then, write the code.', author: 'John Johnson' },
+  { text: 'Any sufficiently advanced technology is indistinguishable from magic.', author: 'Arthur C. Clarke' },
+  { text: 'Machines take me by surprise with great frequency.', author: 'Alan Turing' },
+  { text: 'The question of whether a computer can think is no more interesting than the question of whether a submarine can swim.', author: 'Edsger Dijkstra' },
+  { text: 'We are drowning in information but starved for knowledge.', author: 'John Naisbitt' },
+  { text: "It's not a bug, it's an undocumented feature.", author: 'Anonymous' },
+  { text: 'The goal is to turn data into information, and information into insight.', author: 'Carly Fiorina' },
+  { text: 'AI is the new electricity.', author: 'Andrew Ng' },
+  { text: 'The best models are the ones you can actually ship.', author: 'Andrej Karpathy' },
+  { text: 'Make it work, make it right, make it fast.', author: 'Kent Beck' },
+  { text: "Code is like humor. When you have to explain it, it's bad.", author: 'Cory House' },
+  { text: 'Optimism is an occupational hazard of programming: feedback is the treatment.', author: 'Kent Beck' },
+  { text: 'Good code is its own best documentation.', author: 'Steve McConnell' },
+  { text: 'The function of good software is to make the complex appear to be simple.', author: 'Grady Booch' },
+  { text: 'The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.', author: 'Edsger Dijkstra' },
+  { text: 'If debugging is the process of removing software bugs, then programming must be the process of putting them in.', author: 'Edsger Dijkstra' },
+  { text: 'What I cannot create, I do not understand.', author: 'Richard Feynman' },
+  { text: 'The real problem is not whether machines think but whether men do.', author: 'B. F. Skinner' }
+];
+
 const StartMenu: React.FC<StartMenuProps> = ({
   theme,
   onClose,
@@ -41,7 +69,8 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const [showGame, setShowGame] = useState(false);
   const [showQuoteModal, setShowQuoteModal] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
-  const [currentQuote, setCurrentQuote] = useState('');
+  const [quoteIndex, setQuoteIndex] = useState(() => Math.floor(Math.random() * QUOTES.length));
+  const [seenIndices, setSeenIndices] = useState<number[]>([]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,22 +78,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
     }, 10);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  // Quotes rotation
-  useEffect(() => {
-    const quotes = [
-      "Code is poetry written in logic.",
-      "The best way to predict the future is to create it.",
-      "Simplicity is the ultimate sophistication.",
-      "Innovation distinguishes between a leader and a follower.",
-      "The only way to do great work is to love what you do.",
-      "Stay hungry, stay foolish.",
-      "Design is not just what it looks like - design is how it works."
-    ];
-    
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    setCurrentQuote(randomQuote);
   }, []);
 
   const handleClose = () => {
@@ -94,6 +107,22 @@ const StartMenu: React.FC<StartMenuProps> = ({
   const handleQuoteClick = () => {
     setShowQuoteModal(true);
   };
+
+  const nextQuote = () => {
+    const remaining = QUOTES
+      .map((_, index) => index)
+      .filter((index) => !seenIndices.includes(index) && index !== quoteIndex);
+    const pool =
+      remaining.length > 0
+        ? remaining
+        : QUOTES.map((_, index) => index).filter((index) => index !== quoteIndex);
+    const next = pool[Math.floor(Math.random() * pool.length)];
+
+    setSeenIndices((prev) => (remaining.length > 0 ? [...prev, quoteIndex] : [quoteIndex]));
+    setQuoteIndex(next);
+  };
+
+  const currentQuote = QUOTES[quoteIndex];
 
   const menuItems = [
     { id: 'about-os', label: 'About YohannesOS', icon: Monitor, action: handleAbout },
@@ -168,11 +197,27 @@ const StartMenu: React.FC<StartMenuProps> = ({
                style={{ color: wallpaperAccents.secondary }}>
             Daily Inspiration
           </div>
-          <p className={`text-sm italic leading-relaxed ${
+          <p className={`text-sm italic leading-relaxed mb-1 ${
             theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
           }`}>
-            "{currentQuote}"
+            "{currentQuote.text}"
           </p>
+          <div className="flex items-center justify-between gap-3">
+            <span className={`text-xs ${
+              theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+            }`}>
+              — {currentQuote.author}
+            </span>
+            <button
+              onClick={nextQuote}
+              aria-label="Show another quote"
+              className={`p-1 rounded transition-transform hover:scale-110 ${
+                theme === 'dark' ? 'text-[#71B7D5] hover:bg-[#096B90]/20' : 'text-gray-400 hover:bg-gray-100'
+              }`}
+            >
+              <RefreshCw size={14} />
+            </button>
+          </div>
         </div>
 
         {/* All Items */}
@@ -307,27 +352,46 @@ const StartMenu: React.FC<StartMenuProps> = ({
               <h3 className="text-xl font-bold mb-4" style={{ color: wallpaperAccents.primary }}>
                 Quote of the Day
               </h3>
-              <p className={`text-lg italic leading-relaxed mb-4 ${
+              <p className={`text-lg italic leading-relaxed mb-3 ${
                 theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
               }`}>
-                "{currentQuote}"
+                "{currentQuote.text}"
               </p>
-              <button
-                onClick={() => setShowQuoteModal(false)}
-                className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-white"
-                style={{ 
-                  background: `linear-gradient(to right, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})`,
-                  boxShadow: `0 4px 15px ${wallpaperAccents.glow}`
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 8px 25px ${wallpaperAccents.glow}`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = `0 4px 15px ${wallpaperAccents.glow}`;
-                }}
-              >
-                Close
-              </button>
+              <p className={`text-sm mb-6 ${
+                theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+              }`}>
+                — {currentQuote.author}
+              </p>
+              <div className="flex items-center justify-center gap-3">
+                <button
+                  onClick={nextQuote}
+                  aria-label="Show a new quote"
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 ${
+                    theme === 'dark'
+                      ? 'bg-[#042B44]/70 text-[#A1CCDC] border border-[#096B90]/30'
+                      : 'bg-gray-100 text-gray-700 border border-gray-200'
+                  }`}
+                >
+                  <RefreshCw size={16} />
+                  New Quote
+                </button>
+                <button
+                  onClick={() => setShowQuoteModal(false)}
+                  className="px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-white"
+                  style={{ 
+                    background: `linear-gradient(to right, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})`,
+                    boxShadow: `0 4px 15px ${wallpaperAccents.glow}`
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.boxShadow = `0 8px 25px ${wallpaperAccents.glow}`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = `0 4px 15px ${wallpaperAccents.glow}`;
+                  }}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
