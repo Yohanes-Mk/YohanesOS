@@ -1,11 +1,11 @@
 export const portfolioData = {
   about: {
     intro:
-      "I'm Yohannes, an Applied AI Engineer and CS/Econ student building LLM-powered backends, RAG pipelines, and full-stack AI systems. Incoming Tech Summer Analyst at Accenture — I've shipped everything from a production AI content aggregator demoed at NSBE to a full-stack anonymous social platform and a RAG admissions chatbot in production.",
+      "I'm Yohannes, an Applied AI Engineer and Computer Science student building LLM-powered backends, RAG systems, and full-stack AI products. My strongest work spans a production AI content aggregator demoed live at NSBE 2026, a multi-channel admissions chatbot with two-stage retrieval, and applied AI delivery during my completed Accenture internship.",
     highlights: [
-      "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026) — offer secured through NSBE 2026 career fair after demoing AI Event & Content Aggregator live to recruiters.",
-      "Built and shipped production-grade AI projects: an end-to-end LLM content pipeline ingesting 8 YouTube channels + 25 DMV tech event feeds with context-aware ranking, a RAG admissions chatbot (pgvector + two-stage retrieval), and a full-stack anonymous social platform. Each is fully defensible line-by-line.",
-      "Each project ships with production-ready APIs, monitoring layers, or Dockerized pipelines."
+      "Completed Accenture Technology Summer Analyst internship from June 8, 2026 to August 18, 2026, with production-facing accessibility and AI platform delivery work framed publicly through ClientRadar and supporting AI initiatives.",
+      "Built and shipped defensible AI projects: an end-to-end LLM content pipeline ingesting 8 YouTube channels plus 25 DMV tech event feeds, a multi-channel RAG admissions chatbot with pgvector and two-stage retrieval, and a full-stack anonymous social platform.",
+      "I focus on systems I can explain line-by-line: production APIs, monitoring layers, retrieval pipelines, and full-stack delivery."
     ],
     tags: [
       "RAG Pipelines",
@@ -15,17 +15,17 @@ export const portfolioData = {
       "Docker & DevOps"
     ],
     terminalHeadline:
-      "Applied AI Engineer · Incoming Accenture Tech Summer Analyst",
+      "Applied AI Engineer · Accenture Technology Summer Analyst Alum",
     terminalSummary: [
       "Applied AI Engineering: LLM pipelines, RAG systems,",
       "production backends, and full-stack AI products.",
-      "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026).",
-      "CS + Economics @ SCSU · 3.92 GPA · Graduating Dec 2027."
+      "Completed Accenture internship · Summer 2026.",
+      "B.S. Computer Science (AI/ML Track) @ SCSU · 3.92 GPA · Dec 2027."
     ],
     currentStatus:
-      "Incoming Accenture Tech Summer Analyst — Seattle, WA (Summer 2026)",
+      "Post-Accenture internship · Applied AI / SWE opportunities for Spring 2027",
     availability:
-      "Accenture Tech Summer Analyst (Summer 2026). Open to Fall 2026 internships, research collaborations, and side projects."
+      "Open to Spring 2027 internships, selective new-grad pipelines, research collaborations, and strong applied AI projects."
   },
   projects: [
     {
@@ -45,6 +45,24 @@ export const portfolioData = {
       fileDescription: "End-to-end AI content pipeline with curator agent and monitoring layer",
       githubLink: "https://github.com/Yohanes-Mk/ai-event-aggregator",
       terminalIcon: "📡",
+      featured: true
+    },
+    {
+      title: "Kibur RAG Admissions Chatbot",
+      status: "Partial",
+      terminalStatus: "PARTIAL",
+      stack: ["Python", "PostgreSQL", "pgvector", "Telegram", "Cross-Encoder Reranking", "SQLite"],
+      terminalStack: ["Python", "PostgreSQL", "pgvector", "Telegram", "SQLite"],
+      description: [
+        "Multi-channel admissions chatbot for prospective students across Telegram and email, built as the sole developer during a Jan-May 2026 CO-OP.",
+        "Two-stage retrieval pipeline uses all-MiniLM-L6-v2 for candidate retrieval and ms-marco-MiniLM-L-6-v2 cross-encoder reranking before generation.",
+        "Institutional knowledge base is embedded in PostgreSQL with pgvector, with a standalone SQLite-backed staff dashboard so non-technical staff can update content without touching code."
+      ],
+      terminalDescription:
+        "Multi-channel RAG chatbot with pgvector, two-stage retrieval, and staff dashboard tooling",
+      fileSlug: "kibur-rag-chatbot",
+      fileDescription: "Admissions RAG chatbot with pgvector and cross-encoder reranking",
+      terminalIcon: "🎓",
       featured: true
     },
     {
@@ -84,8 +102,8 @@ export const portfolioData = {
     },
     {
       title: "Real-Time Surveillance & Analytics System",
-      status: "Active",
-      terminalStatus: "IN PROGRESS",
+      status: "Partial",
+      terminalStatus: "PARTIAL",
       stack: ["Python", "YOLO", "MediaPipe", "Flask", "SQLite", "Streamlit", "Docker"],
       terminalStack: ["Python", "YOLO", "MediaPipe", "Flask", "Docker"],
       description: [
@@ -99,61 +117,24 @@ export const portfolioData = {
       fileDescription: "Multi-camera CV analytics with Mediapipe + OpenCV",
       githubLink:
         "https://github.com/Yohanes-Mk/Realtime-surveillance-system",
-      terminalIcon: "🎥",
-      featured: true
+      terminalIcon: "🎥"
     },
     {
-      title: "ResearchMate — Autonomous Research Assistant",
-      status: "Completed",
-      terminalStatus: "COMPLETED",
-      stack: ["Python", "Gemini LLM", "arXiv API", "PubMed API", "ReportLab"],
-      terminalStack: ["Python", "Gemini LLM", "arXiv API", "PubMed API"],
-      description: [
-        "Multi-agent pipeline orchestrating paper retrieval, summarization, and citation formatting across arXiv and PubMed APIs using Gemini LLM.",
-        "Generates curated PDF briefs per topic in under two minutes with ~85% relevance hit rate via validation and relevance filtering layers.",
-        "Earlier project — Gemini-based architecture. Demonstrates multi-agent orchestration and modular pipeline design."
-      ],
-      terminalDescription:
-        "Multi-agent pipeline summarizing literature into polished PDFs in under 2 minutes",
-      fileSlug: "researchmate",
-      fileDescription: "Autonomous literature review pipeline with Gemini + APIs",
-      githubLink: "https://github.com/Yohanes-Mk/ResearchMate",
-      terminalIcon: "🧠"
-    },
-    {
-      title: "Sign-Speech — Two-Way Visual Interpreter",
-      status: "R&D",
-      terminalStatus: "R&D",
+      title: "ASL Gesture Classifier",
+      status: "Partial",
+      terminalStatus: "PARTIAL",
       stack: ["TensorFlow", "MediaPipe", "OpenCV", "Streamlit"],
       terminalStack: ["TensorFlow", "MediaPipe", "OpenCV", "Streamlit"],
       description: [
-        "Builds independent ASL-to-speech and lip-reading speech-to-text pipelines inspired by LipNet.",
-        "Fusion layer in development to synchronize gesture and visual speech cues for real-time translation.",
-        "Accessible AI prototype empowering conversations between Deaf and hearing communities."
+        "Real-time ASL gesture classifier using MediaPipe Holistic keypoint extraction, 30-frame temporal windows, and an LSTM sequence model for live sign prediction.",
+        "Scoped down deliberately from an earlier two-way Sign-Speech concept so the portfolio only presents the slice I can defend deeply.",
+        "Streamlit-based live inference interface demonstrates the model pipeline from webcam capture to gesture classification."
       ],
       terminalDescription:
-        "Combines ASL gesture recognition and lip-reading for accessible communication",
-      fileSlug: "sign-speech",
-      fileDescription: "Two-way ASL gesture and lip-reading interpreter",
+        "MediaPipe + LSTM ASL classifier with live inference UI",
+      fileSlug: "asl-gesture-classifier",
+      fileDescription: "Scoped ASL gesture classifier built with MediaPipe and TensorFlow",
       terminalIcon: "🤟"
-    },
-    {
-      title: "2D → 3D Multi-View Generator",
-      status: "Completed",
-      terminalStatus: "COMPLETED",
-      stack: ["PyTorch", "Diffusers", "Zero123++", "Docker", "Streamlit"],
-      terminalStack: ["PyTorch", "Diffusers", "Zero123++", "Docker"],
-      description: [
-        "GPU-accelerated diffusion pipeline producing six consistent 3D-style renders from a single image.",
-        "Integrated Rembg and Meta SAM for background removal and segmentation-driven cleanup.",
-        "Packaged with Cog + Docker for reproducible deployments and cached model downloads."
-      ],
-      terminalDescription:
-        "Generates six consistent 3D views with optional background removal + SAM segmentation",
-      fileSlug: "2d-to-3d-generator",
-      fileDescription: "Zero123++-powered diffusion pipeline for multi-view renders",
-      githubLink: "https://github.com/Yohanes-Mk/2d-to-3d",
-      terminalIcon: "🖼️"
     },
     {
       title: "YohannesOS Portfolio",
@@ -242,8 +223,8 @@ export const portfolioData = {
   education: [
     {
       school: "St. Cloud State University",
-      degree: "B.S. Computer Science (AI/ML), B.A. Economics",
-      terminalDegree: "B.S. Computer Science (AI/ML) & B.A. Economics",
+      degree: "B.S. Computer Science (AI/ML Track)",
+      terminalDegree: "B.S. Computer Science (AI/ML Track)",
       gpa: "3.92",
       expected: "Dec 2027",
       location: "St. Cloud, MN",
@@ -274,7 +255,7 @@ export const portfolioData = {
       ],
       fileName: "scsu.txt",
       fileContent:
-        "St. Cloud State University — B.S. Computer Science (AI/ML), B.A. Economics • GPA 3.92 • Expected Dec 2027"
+        "St. Cloud State University — B.S. Computer Science (AI/ML Track) • GPA 3.92 • Expected Dec 2027"
     },
     {
       school: "University of Maryland, Baltimore County (UMBC)",
@@ -291,7 +272,7 @@ export const portfolioData = {
     }
   ],
   professionalDevelopment: [
-    { name: "Accenture Tech Summer Analyst", status: "Incoming — Summer 2026" },
+    { name: "Accenture Technology Summer Analyst", status: "Completed — Aug 18, 2026" },
     { name: "CodePath AI 110", status: "Completed" },
     { name: "AI4ALL Discover AI", status: "Graduate" },
     { name: "CodePath TIP 102", status: "Completed" },
@@ -303,16 +284,16 @@ export const portfolioData = {
   ],
   experience: [
     {
-      title: "Technology Architecture Analyst Intern",
+      title: "Technology Summer Analyst",
       company: "Accenture",
-      period: "May 2026 – Present",
+      period: "Jun 2026 – Aug 2026",
       location: "Seattle, Washington",
       points: [
-        "Incoming Tech Summer Analyst — offer secured through NSBE 2026 recruiting pipeline (Baltimore, March 2026) after demoing the AI Event & Content Aggregator live at the career fair.",
-        "Advanced through two interview rounds on April 24, 2026; verbal offer extended April 28, 2026.",
-        "Role sits within Accenture's Technology Architecture track of the Technology Summer Analyst program."
+        "Completed Accenture's Technology Summer Analyst internship from June 8, 2026 to August 18, 2026, staffed on the Avanade side while keeping the official Accenture title.",
+        "Built production-facing accessibility remediation for an internal AI presentation-generation platform, including a custom TypeScript and OOXML accessibility layer plus automated regression tests for screen-reader compatibility.",
+        "Contributed across AI platform workstreams including API integration, delivery readiness, and production-impact fixes, with public-safe framing centered on ClientRadar accessibility first and supporting AI initiatives second."
       ],
-      isActive: true
+      isActive: false
     },
     {
       title: "Freelance Full-Stack & AI Developer",
@@ -340,7 +321,7 @@ export const portfolioData = {
     {
       title: "Undergraduate Research Assistant — Brain-Computer Interface Lab",
       company: "St. Cloud State University",
-      period: "Jan 2025 – May 2025",
+      period: "Aug 2024 – May 2025",
       location: "St. Cloud, Minnesota",
       points: [
         "Developed EEG data preprocessing pipelines and real-time ML classifiers (logistic regression, k-NN) achieving sub-second latency for attention-state detection tasks.",
@@ -391,7 +372,7 @@ export const portfolioData = {
     githubDisplay: "github.com/Yohanes-Mk",
     location: "Minnesota, United States",
     status:
-      "Incoming Accenture Tech Summer Analyst · Open to Fall 2026 internships and research collaborations",
+      "Post-Accenture internship · Open to Spring 2027 internships, selective new-grad roles, and research collaborations",
     intro:
       "I'm always interested in discussing new projects, creative ideas, or opportunities to be part of your visions."
   },
@@ -399,14 +380,14 @@ export const portfolioData = {
     link: "/resume.pdf",
     summary: {
       experience: [
-        "Incoming Accenture Tech Summer Analyst (Seattle, Summer 2026)",
-        "AI/ML + full-stack delivery across research, education, and freelance clients",
-        "Built 5+ production AI projects — RAG pipelines, LLM agents, full-stack apps",
+        "Completed Accenture Technology Summer Analyst internship (Summer 2026)",
+        "Applied AI + full-stack delivery across consulting, research, education, and freelance work",
+        "Built flagship AI systems across LLM pipelines, RAG retrieval, and full-stack applications",
         "Mentored 50+ students through SI PASS and workshops"
       ],
       achievements: [
-        "Accenture offer landed via live project demo at NSBE 2026 Baltimore",
-        "Two-stage RAG retrieval (bi-encoder + cross-encoder) deployed in production",
+        "Accenture role originated from live AI Aggregator demo at NSBE 2026 Baltimore",
+        "Two-stage RAG retrieval design with bi-encoder plus cross-encoder reranking",
         "80% reduction in manual reporting for college SIS workflows",
         "Context-aware LLM curator agent with real-time profile-swap demo"
       ]
