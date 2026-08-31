@@ -128,14 +128,19 @@ const SectionTitle: React.FC<{ theme: "dark" | "light"; children: React.ReactNod
   children,
   wallpaperAccents,
 }) => (
-  <div className="text-center mb-12">
+  <div className="mb-10 text-left">
+    <div className={`mb-3 text-[11px] font-semibold uppercase tracking-[0.28em] ${
+      theme === "dark" ? "text-[#71B7D5]" : "text-gray-500"
+    }`}>
+      Portfolio Section
+    </div>
     <h2 className={`text-4xl font-bold mb-4 ${
-      theme === "dark" ? "text-[#A1CCDC]" : "text-gray-800"
+      theme === "dark" ? "text-white" : "text-gray-900"
     }`}>
       {children}
     </h2>
     <div 
-      className="w-24 h-1 mx-auto rounded-full bg-gradient-to-r"
+      className="h-1 w-24 rounded-full bg-gradient-to-r"
       style={{
         background: `linear-gradient(to right, ${wallpaperAccents.primary}80, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})`
       }}
@@ -179,11 +184,11 @@ const GlassCard: React.FC<{
 }> = ({ theme, children, className = "", hover = true }) => (
   <div
     className={`
-      relative overflow-hidden rounded-3xl backdrop-blur-xl border transition-all duration-500 ease-out
-      ${hover ? "hover:scale-[1.02] hover:-translate-y-1 hover:shadow-2xl" : ""}
+      relative overflow-hidden rounded-[1.75rem] backdrop-blur-xl border transition-all duration-300 ease-out surface-shadow
+      ${hover ? "hover:-translate-y-1 hover:shadow-2xl" : ""}
       ${theme === "dark"
-        ? "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
-        : "bg-white/40 border-white/20 hover:bg-white/60 hover:border-white/30"
+        ? "bg-white/6 border-white/10 hover:bg-white/9 hover:border-white/20"
+        : "bg-white/78 border-white/50 hover:bg-white hover:border-white/70"
       }
       ${className}
     `}
@@ -459,7 +464,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
       <Reveal delay={200}>
         <p className={`text-lg leading-relaxed text-center max-w-3xl mx-auto ${subText}`}>
-          Clean, modern technologies that power exceptional digital experiences.
+          Current tools and platforms I actually use for AI systems, backend services, and polished interfaces.
         </p>
       </Reveal>
 
@@ -690,7 +695,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
       <Reveal delay={200}>
         <p className={`text-lg leading-relaxed text-center max-w-3xl mx-auto ${subText}`}>
-          Real-world AI systems spanning surveillance, research intelligence, accessibility, and deployment-ready tooling.
+          A tighter project set centered on defensible AI systems, production-minded engineering, and full-stack execution.
         </p>
       </Reveal>
 
@@ -716,6 +721,10 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
                       {project.status}
                     </span>
                   </div>
+
+                  <p className={`mb-4 max-w-2xl text-sm leading-6 ${subText}`}>
+                    {project.fileDescription}
+                  </p>
                   
                   {/* Tech Stack Pills */}
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -781,8 +790,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
       <Reveal delay={200}>
         <p className={`text-lg leading-relaxed text-center max-w-3xl mx-auto ${subText}`}>
-          Hands-on roles across research labs, higher-ed operations, and student support where I built production AI systems,
-          automated workflows, and coached new developers.
+          Roles across consulting, research, education, and technical operations where I shipped software, improved systems, and supported users directly.
         </p>
       </Reveal>
 
@@ -825,7 +833,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
                 : "bg-green-100 border-green-200 text-green-700"
             }`}>
               <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
-              <span className="font-medium">Available for new opportunities</span>
+              <span className="font-medium">Open for Spring 2027 opportunities</span>
             </div>
           </div>
           
@@ -953,6 +961,16 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       ? Resume
       : null;
 
+  const sectionTitleMap: Record<NonNullable<ContentModalProps["type"]>, string> = {
+    about: "About",
+    projects: "Projects",
+    education: "Education",
+    skills: "Skills",
+    resume: "Resume",
+    contact: "Contact",
+    experience: "Experience",
+  };
+
   /* ------------ MODAL ------------- */
   return (
     <div
@@ -986,16 +1004,51 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
 
       {/* Enhanced Modal Card */}
       <div
-        className={`relative w-full max-w-6xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden backdrop-blur-xl border ${
+        className={`relative w-full max-w-6xl max-h-[90vh] overflow-hidden rounded-[2rem] backdrop-blur-2xl border surface-shadow ${
           theme === "dark" 
-            ? "bg-[#0f1820]/90 border-white/10" 
-            : "bg-white/90 border-white/20"
+            ? "bg-[#09161d]/92 border-white/10" 
+            : "bg-white/88 border-white/55"
         }`}
       >
+        <div className={`flex items-center justify-between border-b px-6 py-4 md:px-8 ${
+          theme === "dark" ? "border-white/10 bg-black/10" : "border-gray-200/70 bg-white/50"
+        }`}>
+          <div>
+            <div className={`text-[11px] uppercase tracking-[0.24em] ${
+              theme === "dark" ? "text-[#71B7D5]" : "text-gray-500"
+            }`}>
+              YohannesOS
+            </div>
+            <div className={`text-lg font-semibold tracking-tight ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}>
+              {sectionTitleMap[type]}
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className={`hidden sm:flex items-center gap-3 rounded-full px-3 py-1.5 text-xs ${
+              theme === "dark" ? "bg-white/6 text-[#A1CCDC]" : "bg-gray-900/5 text-gray-600"
+            }`}>
+              <span>Scroll progress</span>
+              <div className={`h-1.5 w-20 overflow-hidden rounded-full ${
+                theme === "dark" ? "bg-white/10" : "bg-gray-200"
+              }`}>
+                <div
+                  className="h-full rounded-full transition-all duration-200"
+                  style={{
+                    width: `${Math.max(progress * 100, 8)}%`,
+                    background: `linear-gradient(90deg, ${effectiveWallpaperAccents.primary}, ${effectiveWallpaperAccents.secondary})`,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Enhanced Close Button */}
         <button
           onClick={onClose}
-          className={`absolute top-6 right-6 p-3 rounded-full backdrop-blur-xl border transition-all duration-300 z-10 hover:scale-110 active:scale-95 ${
+          className={`absolute right-5 top-4 p-3 rounded-full backdrop-blur-xl border transition-all duration-300 z-10 hover:scale-110 active:scale-95 ${
             theme === "dark"
               ? "bg-white/5 border-white/10 hover:bg-white/10 text-white/70 hover:text-white"
               : "bg-white/20 border-white/20 hover:bg-white/40 text-gray-500 hover:text-gray-700"
@@ -1008,9 +1061,9 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
         {/* Enhanced Scroll Container */}
         <div
           ref={scrollRef}
-          className="p-8 md:p-12 overflow-y-auto snap-y snap-mandatory scroll-smooth custom-scrollbar max-h-[calc(90vh-4rem)]"
+          className="max-h-[calc(90vh-5rem)] overflow-y-auto p-8 md:p-12 scroll-smooth custom-scrollbar"
         >
-          <div className="snap-start">{content}</div>
+          <div>{content}</div>
         </div>
       </div>
     </div>
