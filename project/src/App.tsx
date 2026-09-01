@@ -254,7 +254,7 @@ function App() {
               }`}>YohannesOS</h1>
               <p className={`text-sm ${
                 theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-600'
-              }`}>v2.1.0</p>
+              }`}>v2.2.0</p>
             </div>
             
             {/* Progress bar */}
@@ -296,7 +296,6 @@ function App() {
       
       {appState === 'desktop' && (
         <div className="animate-in fade-in slide-in-from-bottom-2 duration-700 ease-out">
-          {/* Premium background overlay that matches wallpaper */}
           <div 
             className={`fixed inset-0 pointer-events-none transition-all duration-1000 ease-out bg-gradient-to-br ${wallpaperAccents.gradient}`}
             style={{
@@ -310,57 +309,73 @@ function App() {
           />
           
           {/* Taskbar */}
-          <div className={`fixed bottom-0 left-0 right-0 h-12 backdrop-blur-md border-t z-40 animate-in slide-in-from-bottom duration-500 delay-300 ease-out ${
+          <div className={`fixed bottom-0 left-0 right-0 z-40 animate-in slide-in-from-bottom duration-500 delay-300 ease-out ${
             theme === 'dark' 
               ? 'bg-[#08171E]/80 border-[#096B90]/30' 
               : 'bg-white/80 border-gray-300'
           }`}>
-            <div className="flex items-center justify-between h-full px-4">
-              {/* Left side - Start button */}
-              <button
-                onClick={toggleStartMenu}
-                aria-label={showStartMenu ? 'Close start menu' : 'Open start menu'}
-                className={`
-                  px-3 py-1.5 rounded transition-all duration-300 ease-out transform-gpu
-                  hover:scale-110 active:scale-90 relative overflow-hidden
-                  ${showStartMenu ? 'scale-110' : 'scale-100'}
-                  ${
-                  theme === 'dark'
-                    ? `text-[#A1CCDC] ${showStartMenu ? 'bg-[#096B90]/50 shadow-[0_0_30px_rgba(113,183,213,0.4)]' : 'hover:bg-[#096B90]/30'}`
-                    : `text-gray-700 ${showStartMenu ? 'bg-gray-200 shadow-lg' : 'hover:bg-gray-200'}`
-                  }
-                `}
-                style={{ willChange: 'transform' }}
-              >
-                {/* Glow effect */}
-                <div className={`
-                  absolute inset-0 rounded transition-all duration-300 ease-out
-                  ${showStartMenu || theme === 'dark' 
-                    ? 'bg-gradient-to-r from-[#096B90]/20 to-[#71B7D5]/20 opacity-100' 
-                    : 'opacity-0'
-                  }
-                `} />
-                
-                {/* Button content */}
-                <div className="relative z-10">
-                <Menu 
-                  size={16} 
-                  className={`transition-all duration-300 ease-out transform-gpu ${
-                    showStartMenu ? 'rotate-180 scale-110' : 'rotate-0 scale-100'
-                  }`}
-                  style={{ willChange: 'transform' }}
-                />
+            <div className={`border-t backdrop-blur-xl ${
+              theme === 'dark' ? 'border-white/10 bg-[#08171E]/72' : 'border-white/50 bg-white/72'
+            }`}>
+              <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={toggleStartMenu}
+                    aria-label={showStartMenu ? 'Close start menu' : 'Open start menu'}
+                    className={`
+                      relative inline-flex items-center gap-2 overflow-hidden rounded-full px-4 py-2 text-sm font-medium
+                      transition-all duration-300 hover:scale-[1.03] active:scale-95
+                      ${theme === 'dark'
+                        ? 'text-[#A1CCDC]'
+                        : 'text-gray-700'
+                      }
+                    `}
+                    style={{
+                      background: showStartMenu
+                        ? `linear-gradient(90deg, ${wallpaperAccents.primary}30, ${wallpaperAccents.secondary}25)`
+                        : theme === 'dark'
+                          ? 'rgba(255,255,255,0.06)'
+                          : 'rgba(255,255,255,0.75)',
+                      border: showStartMenu
+                        ? `1px solid ${wallpaperAccents.primary}55`
+                        : theme === 'dark'
+                          ? '1px solid rgba(255,255,255,0.10)'
+                          : '1px solid rgba(255,255,255,0.55)',
+                      boxShadow: showStartMenu ? `0 18px 30px -20px ${wallpaperAccents.glow}` : undefined
+                    }}
+                  >
+                    <Menu 
+                      size={16} 
+                      className={`transition-all duration-300 ${showStartMenu ? 'rotate-180' : ''}`}
+                    />
+                    <span>Command Center</span>
+                  </button>
+
+                  <div className={`hidden md:flex items-center gap-3 rounded-full px-4 py-2 text-sm ${
+                    theme === 'dark'
+                      ? 'bg-white/6 text-[#A1CCDC] border border-white/10'
+                      : 'bg-white/78 text-gray-700 border border-white/55'
+                  }`}>
+                    <div className="h-2 w-2 rounded-full bg-emerald-400" />
+                    <span>Applied AI portfolio workspace</span>
+                  </div>
                 </div>
-              </button>
-              
-              {/* Right side - Controls and clock */}
-              <div className="flex items-center gap-2">
-                {/* Brightness controls */}
-                <div className="flex items-center gap-1">
+
+                <div className="flex items-center gap-2">
+                  <div className={`hidden md:flex items-center gap-2 rounded-full px-3 py-2 text-xs ${
+                    theme === 'dark'
+                      ? 'bg-white/6 text-[#A1CCDC] border border-white/10'
+                      : 'bg-white/78 text-gray-600 border border-white/55'
+                  }`}>
+                    <span>{WALLPAPER_NAMES[wallpaperIndex]}</span>
+                    <span>·</span>
+                    <span>{brightness}%</span>
+                  </div>
+
                   <button
                     onClick={decreaseBrightness}
                     aria-label="Decrease brightness"
-                    className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
+                    className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
                       theme === 'dark'
                         ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
                         : 'hover:bg-gray-200 text-gray-700'
@@ -369,7 +384,7 @@ function App() {
                   >
                     <Minus size={14} />
                   </button>
-                  <span className={`text-xs font-mono px-1 ${
+                  <span className={`text-xs font-mono px-1 hidden sm:block ${
                     theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
                   }`}>
                     {brightness}%
@@ -377,7 +392,7 @@ function App() {
                   <button
                     onClick={increaseBrightness}
                     aria-label="Increase brightness"
-                    className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
+                    className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
                       theme === 'dark'
                         ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
                         : 'hover:bg-gray-200 text-gray-700'
@@ -386,55 +401,58 @@ function App() {
                   >
                     <Plus size={14} />
                   </button>
-                </div>
 
-                <button
-                  onClick={toggleMute}
-                  aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
-                  className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
+                  <button
+                    onClick={toggleMute}
+                    aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
+                    className={`p-2 rounded-full transition-all duration-200 hover:scale-105 ${
+                      theme === 'dark'
+                        ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
+                        : 'hover:bg-gray-200 text-gray-700'
+                    }`}
+                    title={isMuted ? 'Unmute' : 'Mute'}
+                  >
+                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                  </button>
+                  
+                  <button
+                    onClick={toggleTheme}
+                    aria-label="Toggle theme"
+                    className={`p-2 rounded-full transition-all duration-150 hover:scale-105 ${
+                      theme === 'dark'
+                        ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
+                        : 'hover:bg-gray-200 text-gray-700'
+                    }`}
+                    title="Toggle theme"
+                  >
+                    {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                  </button>
+                  
+                  <button
+                    onClick={openTerminal}
+                    aria-label="Open terminal"
+                    className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition-all duration-200 hover:scale-105 ${
+                      theme === 'dark'
+                        ? 'bg-white/6 text-[#A1CCDC] hover:bg-[#096B90]/24 border border-white/10'
+                        : 'bg-white/78 text-gray-700 hover:bg-white border border-white/55'
+                    }`}
+                    title="Open Terminal"
+                  >
+                    <Terminal size={16} />
+                    <span className="hidden sm:inline">Terminal</span>
+                  </button>
+                  
+                  <div className={`rounded-full px-3 py-2 text-sm font-mono ${
                     theme === 'dark'
-                      ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
-                      : 'hover:bg-gray-200 text-gray-700'
-                  }`}
-                  title={isMuted ? 'Unmute' : 'Mute'}
-                >
-                  {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                </button>
-                
-                <button
-                  onClick={toggleTheme}
-                  aria-label="Toggle theme"
-                  className={`p-2 rounded transition-all duration-150 hover:scale-105 ${
-                    theme === 'dark'
-                      ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
-                      : 'hover:bg-gray-200 text-gray-700'
-                  }`}
-                  title="Toggle theme"
-                >
-                  {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-                </button>
-                
-                <button
-                  onClick={openTerminal}
-                  aria-label="Open terminal"
-                  className={`p-2 rounded transition-all duration-200 hover:scale-105 ${
-                    theme === 'dark'
-                      ? 'hover:bg-[#096B90]/30 text-[#A1CCDC]'
-                      : 'hover:bg-gray-200 text-gray-700'
-                  }`}
-                  title="Open Terminal"
-                >
-                  <Terminal size={16} />
-                </button>
-                
-                <div className={`px-3 py-1.5 text-sm font-mono ${
-                  theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
-                }`}>
-                  {currentTime.toLocaleTimeString('en-US', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
-                  })}
+                      ? 'bg-white/6 text-[#A1CCDC] border border-white/10'
+                      : 'bg-white/78 text-gray-700 border border-white/55'
+                  }`}>
+                    {currentTime.toLocaleTimeString('en-US', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: false
+                    })}
+                  </div>
                 </div>
               </div>
             </div>

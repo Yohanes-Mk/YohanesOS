@@ -47,7 +47,7 @@ const fileSystem: Record<'/', FileSystemDirectory> = {
           ])
         ),
         'documents': {
-          'resume.pdf': { type: 'file', content: 'Yohannes Resume - Full-Stack Developer' },
+          'resume.pdf': { type: 'file', content: 'Yohannes Resume - Applied AI, Backend, and Full-Stack Engineering' },
           'cover-letter.txt': { type: 'file', content: 'Professional cover letter template' }
         },
         'skills': Object.fromEntries(
@@ -81,15 +81,12 @@ const fileSystem: Record<'/', FileSystemDirectory> = {
     },
     'etc': {
       'hostname': { type: 'file', content: 'yohannes-os' },
-      'os-release': { type: 'file', content: 'YohannesOS 2.1.0' }
+      'os-release': { type: 'file', content: 'YohannesOS 2.2.0' }
     }
   }
 };
 
 let currentPath = '/home/yohannes';
-
-const getProjectTitleBySlug = (fileSlug: string) =>
-  portfolioData.projects.find((project) => project.fileSlug === fileSlug)?.title ?? fileSlug;
 
 const formatProjectLines = () => [
   '╭─────────────────────────────────────────╮',
@@ -167,6 +164,10 @@ const formatContactLines = () => [
   ''
 ];
 
+const featuredProjectLines = portfolioData.projects
+  .slice(0, 3)
+  .map((project) => `• ${project.title} - ${project.terminalDescription}`);
+
 const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlock }) => {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<TerminalEntry[]>([]);
@@ -180,8 +181,9 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlo
       id: 0,
       input: '',
       output: [
-        'YohannesOS Terminal v2.1.0',
-        'Welcome to YohannesOS! Type "help" for available commands.',
+        'YohannesOS Terminal v2.2.0',
+        'Applied AI portfolio workspace loaded.',
+        'Type "help" for available commands.',
         'Current directory: /home/yohannes',
         ''
       ],
@@ -267,9 +269,7 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlo
       ...portfolioData.about.terminalSummary,
       '',
       'Recent highlights:',
-      `• ${getProjectTitleBySlug('ai-event-aggregator')} demoed live at NSBE 2026`,
-      `• ${getProjectTitleBySlug('researchmate').split(' — ')[0]} multi-agent literature review engine (~85% topic relevance)`,
-      `• ${getProjectTitleBySlug('sign-speech').split(' — ')[0]} interpreter bridging ASL gestures and lip-reading in real time`,
+      ...featuredProjectLines,
       '',
       `Currently: ${portfolioData.about.currentStatus}`,
       `Status: ${portfolioData.about.availability}`,
@@ -495,14 +495,13 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlo
   return (
     <div className={`fixed inset-0 z-50 flex flex-col ${
       theme === 'dark' 
-        ? 'bg-gradient-to-br from-[#08171E] via-[#042B44] to-[#096B90]' 
-        : 'bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300'
+        ? 'bg-gradient-to-br from-[#051018] via-[#07202e] to-[#0a3247]' 
+        : 'bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50'
     }`}>
-      {/* Terminal header */}
-      <div className={`flex items-center justify-between px-4 py-2 border-b ${
+      <div className={`flex items-center justify-between px-5 py-3 border-b ${
         theme === 'dark' 
-          ? 'bg-[#08171E]/90 border-[#096B90]/30 backdrop-blur-sm' 
-          : 'bg-white/90 border-gray-300 backdrop-blur-sm'
+          ? 'bg-[#08171E]/88 border-white/10 backdrop-blur-xl' 
+          : 'bg-white/88 border-gray-200 backdrop-blur-xl'
       }`}>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -511,6 +510,11 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlo
           <span className={`ml-4 font-mono text-sm ${
             theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
           }`}>YohannesOS Terminal</span>
+          <span className={`hidden rounded-full px-2 py-1 text-[11px] uppercase tracking-[0.2em] md:inline ${
+            theme === 'dark' ? 'bg-white/8 text-[#71B7D5]' : 'bg-slate-100 text-slate-500'
+          }`}>
+            v2.2.0
+          </span>
         </div>
         <button
           onClick={onClose}
@@ -525,46 +529,74 @@ const TerminalMode: React.FC<TerminalModeProps> = ({ theme, onClose, onAdminUnlo
         </button>
       </div>
 
-      {/* Terminal content */}
-      <div 
-        ref={terminalRef}
-        className={`flex-1 p-4 overflow-y-auto font-mono text-sm ${
-          theme === 'dark' 
-            ? 'bg-[#08171E]/80 backdrop-blur-sm' 
-            : 'bg-white/80 backdrop-blur-sm'
-        }`}
-      >
-        {history.map((entry) => (
-          <div key={entry.id} className="mb-2">
-            {entry.input && (
-              <div className="flex">
-                <span className={theme === 'dark' ? 'text-[#71B7D5]' : 'text-blue-600'}>{getPrompt()} </span>
-                <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{entry.input}</span>
-              </div>
-            )}
-            {entry.output.map((line, index) => (
-              <div key={index} className={theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'}>{line}</div>
-            ))}
+      <div className="grid flex-1 lg:grid-cols-[18rem_1fr]">
+        <aside className={`hidden border-r p-5 lg:block ${
+          theme === 'dark'
+            ? 'border-white/10 bg-[#08171E]/72'
+            : 'border-gray-200 bg-white/72'
+        }`}>
+          <div className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${
+            theme === 'dark' ? 'text-[#71B7D5]' : 'text-slate-500'
+          }`}>
+            Quick Guide
           </div>
-        ))}
+          <div className={`mt-4 space-y-4 text-sm leading-6 ${
+            theme === 'dark' ? 'text-[#A1CCDC]' : 'text-slate-700'
+          }`}>
+            <div>
+              <div className="font-semibold">Start here</div>
+              <div>`about`, `projects`, `skills`, `education`, `contact`</div>
+            </div>
+            <div>
+              <div className="font-semibold">Explore files</div>
+              <div>`cd projects`, `ls`, `cat ai_llm.txt`, `tree`</div>
+            </div>
+            <div>
+              <div className="font-semibold">Current focus</div>
+              <div>Applied AI, backend APIs, recruiter-facing proof, and terminal shortcuts.</div>
+            </div>
+          </div>
+        </aside>
 
-        {/* Input line */}
-        <form onSubmit={handleSubmit} className="flex">
-          <span className={theme === 'dark' ? 'text-[#71B7D5]' : 'text-blue-600'}>{getPrompt()} </span>
-          <input
-            ref={inputRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className={`flex-1 bg-transparent outline-none ${
-              theme === 'dark' 
-                ? 'text-[#A1CCDC] caret-[#71B7D5]' 
-                : 'text-gray-800 caret-gray-600'
-            } focus:outline-none`}
-            autoComplete="off"
-            spellCheck="false"
-          />
-        </form>
+        <div 
+          ref={terminalRef}
+          className={`overflow-y-auto p-5 font-mono text-sm ${
+            theme === 'dark' 
+              ? 'bg-[#08171E]/60 backdrop-blur-xl' 
+              : 'bg-white/68 backdrop-blur-xl'
+          }`}
+        >
+          {history.map((entry) => (
+            <div key={entry.id} className="mb-3">
+              {entry.input && (
+                <div className="flex flex-wrap">
+                  <span className={theme === 'dark' ? 'text-[#71B7D5]' : 'text-blue-600'}>{getPrompt()} </span>
+                  <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{entry.input}</span>
+                </div>
+              )}
+              {entry.output.map((line, index) => (
+                <div key={index} className={theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'}>{line}</div>
+              ))}
+            </div>
+          ))}
+
+          <form onSubmit={handleSubmit} className="flex">
+            <span className={theme === 'dark' ? 'text-[#71B7D5]' : 'text-blue-600'}>{getPrompt()} </span>
+            <input
+              ref={inputRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className={`flex-1 bg-transparent outline-none ${
+                theme === 'dark' 
+                  ? 'text-[#A1CCDC] caret-[#71B7D5]' 
+                  : 'text-gray-800 caret-gray-600'
+              } focus:outline-none`}
+              autoComplete="off"
+              spellCheck="false"
+            />
+          </form>
+        </div>
       </div>
     </div>
   );

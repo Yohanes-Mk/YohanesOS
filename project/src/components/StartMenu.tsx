@@ -194,7 +194,6 @@ const StartMenu: React.FC<StartMenuProps> = ({
 
   return (
     <>
-      {/* Backdrop */}
       <div 
         className={`fixed inset-0 z-30 transition-all duration-300 ease-out ${
           isVisible ? 'opacity-100' : 'opacity-0'
@@ -202,18 +201,17 @@ const StartMenu: React.FC<StartMenuProps> = ({
         onClick={handleClose}
       />
       
-      {/* Start Menu */}
       <div 
         className={`
-          fixed bottom-12 left-4 w-80 rounded-lg shadow-2xl border z-40
+          fixed bottom-20 left-4 z-40 w-[22rem] rounded-[1.75rem] border
           transition-all duration-400 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] transform-gpu
           ${isVisible 
             ? 'opacity-100 translate-y-0 scale-100' 
             : 'opacity-0 translate-y-8 scale-95'
           }
           ${theme === 'dark'
-            ? 'bg-[#08171E]/95 border-[#096B90]/30 backdrop-blur-xl'
-            : 'bg-white/95 border-gray-200 backdrop-blur-xl'
+            ? 'bg-[#08171E]/95 border-white/10 backdrop-blur-2xl'
+            : 'bg-white/95 border-white/50 backdrop-blur-2xl'
           }
         `}
         style={{
@@ -222,16 +220,23 @@ const StartMenu: React.FC<StartMenuProps> = ({
           boxShadow: `0 25px 50px -12px ${wallpaperAccents.glow}`
         }}
       >
-        {/* Header */}
-        <div className={`p-4 border-b transition-all duration-300 ease-out ${
-          theme === 'dark' ? 'border-[#096B90]/20' : 'border-gray-200'
+        <div className={`p-5 border-b transition-all duration-300 ease-out ${
+          theme === 'dark' ? 'border-white/10' : 'border-gray-200/70'
         } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         style={{ transitionDelay: isVisible ? '100ms' : '250ms' }}>
           <div className="flex items-center justify-between">
-            <h3 className={`font-semibold transition-colors duration-200`}
-                style={{ color: wallpaperAccents.primary }}>
-              YohannesOS
-            </h3>
+            <div>
+              <div className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${
+                theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+              }`}>
+                Command Center
+              </div>
+              <h3 className={`mt-1 text-lg font-semibold ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                YohannesOS
+              </h3>
+            </div>
             <button
               onClick={handleClose}
               aria-label="Close start menu"
@@ -246,26 +251,65 @@ const StartMenu: React.FC<StartMenuProps> = ({
           </div>
         </div>
 
-        {/* Quote Display */}
-        <div className={`p-4 border-b transition-all duration-300 ease-out ${
-          theme === 'dark' ? 'border-[#096B90]/20' : 'border-gray-200'
+        <div className={`p-5 border-b transition-all duration-300 ease-out ${
+          theme === 'dark' ? 'border-white/10' : 'border-gray-200/70'
         } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         style={{ transitionDelay: isVisible ? '150ms' : '200ms' }}>
-          <div className={`text-xs font-medium mb-2 transition-colors duration-200`}
-               style={{ color: wallpaperAccents.secondary }}>
-            Daily Inspiration
-          </div>
-          <p className={`text-sm italic leading-relaxed mb-1 ${
-            theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+          <div className={`mb-2 text-[11px] font-semibold uppercase tracking-[0.22em] ${
+            theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
           }`}>
-            "{currentQuote.text}"
-          </p>
-          <div className="flex items-center justify-between gap-3">
-            <span className={`text-xs ${
-              theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+            Workspace Status
+          </div>
+          <div className={`rounded-2xl border p-4 ${
+            theme === 'dark'
+              ? 'border-white/10 bg-white/5'
+              : 'border-white/60 bg-gray-50'
+          }`}>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${
+                theme === 'dark'
+                  ? 'bg-[#042B44]/60 text-[#A1CCDC]'
+                  : 'bg-white text-gray-700'
+              }`}>
+                <div className="h-2 w-2 rounded-full bg-emerald-400" />
+                Recruiter-ready refresh
+              </span>
+              <span className={`text-xs ${
+                theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+              }`}>
+                {currentWallpaperName}
+              </span>
+            </div>
+            <p className={`text-sm leading-relaxed ${
+              theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
             }`}>
-              — {currentQuote.author}
-            </span>
+              Cleaner UI, stronger resume language, updated skills taxonomy, and a tighter project story.
+            </p>
+          </div>
+        </div>
+
+        <div className={`p-5 border-b transition-all duration-300 ease-out ${
+          theme === 'dark' ? 'border-white/10' : 'border-gray-200/70'
+        } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+        style={{ transitionDelay: isVisible ? '180ms' : '180ms' }}>
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${
+                theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+              }`}>
+                Quote
+              </div>
+              <p className={`mt-2 text-sm italic leading-relaxed ${
+                theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
+              }`}>
+                "{currentQuote.text}"
+              </p>
+              <span className={`mt-2 block text-xs ${
+                theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+              }`}>
+                — {currentQuote.author}
+              </span>
+            </div>
             <button
               onClick={nextQuote}
               aria-label="Show another quote"
@@ -278,8 +322,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
           </div>
         </div>
 
-        {/* All Items */}
-        <div className="p-2 max-h-80 overflow-y-auto">
+        <div className="max-h-80 overflow-y-auto p-3">
           <div className="space-y-1">
             {menuItems.map((item, index) => (
               <button
@@ -287,7 +330,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 onClick={() => handleItemClick(item.action)}
                 aria-label={item.label}
                 className={`
-                  w-full flex items-center gap-3 p-3 rounded-lg text-left
+                  w-full flex items-center gap-3 rounded-2xl p-3.5 text-left
                   transition-all duration-100 ease-out transform hover:scale-[1.02] active:scale-95 will-change-transform
                   ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'}
                   ${theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'}
@@ -381,7 +424,7 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <p className={`text-sm leading-relaxed ${
                   theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
                 }`}>
-                  YohannesOS is my portfolio reimagined as a playful operating system: part desktop toy, part terminal showcase, part proof that technical work can still feel human.
+                  YohannesOS is my portfolio shaped like a workspace: a cleaner operating-system shell for presenting applied AI, backend systems, and product-minded engineering work.
                 </p>
               </div>
 
@@ -389,8 +432,8 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 <div className={`rounded-xl p-3 ${
                   theme === 'dark' ? 'bg-[#042B44]/35 text-[#A1CCDC]' : 'bg-gray-50 text-gray-700'
                 }`}>
-                  <div className="text-xs uppercase tracking-wide opacity-70">Version</div>
-                  <div className="mt-1 font-semibold">2.1.0</div>
+                <div className="text-xs uppercase tracking-wide opacity-70">Version</div>
+                  <div className="mt-1 font-semibold">2.2.0</div>
                 </div>
                 <div className={`rounded-xl p-3 ${
                   theme === 'dark' ? 'bg-[#042B44]/35 text-[#A1CCDC]' : 'bg-gray-50 text-gray-700'
@@ -404,8 +447,8 @@ const StartMenu: React.FC<StartMenuProps> = ({
                 theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-700'
               }`}>
                 <p><strong>Built with:</strong> React, TypeScript, Tailwind CSS, and a lot of interface curiosity.</p>
-                <p><strong>Favorite touches:</strong> Terminal easter eggs, interactive start menu tools, animated desktop transitions, and wallpaper-driven theming.</p>
-                <p><strong>Creator:</strong> Yohannes, building polished AI/software experiences that still leave room for personality.</p>
+                <p><strong>Current direction:</strong> recruiter-facing portfolio, dashboard hierarchy, stronger writing, and terminal personality without the clutter.</p>
+                <p><strong>Creator:</strong> Yohannes, building polished AI and software experiences that still leave room for personality.</p>
               </div>
 
               <p className={`text-xs leading-relaxed ${
