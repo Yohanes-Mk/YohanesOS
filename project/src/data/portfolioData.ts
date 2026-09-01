@@ -1,9 +1,10 @@
 export const portfolioData = {
   about: {
     intro:
-      "I'm Yohannes, a Computer Science student focused on Applied AI engineering, backend systems, and full-stack product delivery. I build production-minded software that connects LLM workflows, retrieval systems, APIs, and user-facing tools, with recent work spanning Accenture, Kibur College, research infrastructure, and solo AI products.",
+      "I'm Yohannes, a Computer Science student focused on Applied AI engineering, backend systems, and full-stack product delivery. I build production-minded software across LLM workflows, retrieval systems, APIs, cloud integrations, and user-facing tools, with recent work spanning Accenture, Kibur College, research infrastructure, and solo AI products.",
     highlights: [
       "Completed Accenture's Technology Summer Analyst internship on August 18, 2026, delivering release-critical accessibility and platform engineering work for an enterprise AI presentation-generation system.",
+      "Worked across applied AI initiatives on real cloud infrastructure, including serverless AWS integrations, Azure-based document generation, and a human-in-the-loop community AI agent.",
       "Built defensible AI systems across solo, client, and research environments: The Stack, a multi-channel admissions RAG chatbot with pgvector and reranking, and backend services for real operational workflows.",
       "My strongest work sits at the intersection of LLM pipelines, retrieval architecture, backend APIs, cloud deployment, and product-minded implementation."
     ],
@@ -192,9 +193,12 @@ export const portfolioData = {
       { name: "LangChain", icon: "Layers" },
       { name: "Azure OpenAI", icon: "Cloud" },
       { name: "Azure Cognitive Search", icon: "Cloud" },
+      { name: "Azure Blob Storage", icon: "Cloud" },
       { name: "AWS Lambda", icon: "Cloud" },
+      { name: "API Gateway", icon: "Cloud" },
       { name: "OOXML", icon: "FileCode" },
       { name: "Accessibility", icon: "Monitor" },
+      { name: "NVDA Testing", icon: "Monitor" },
       { name: "GitHub Actions", icon: "GitBranch" },
       { name: "Streamlit", icon: "Monitor" }
     ],
@@ -212,6 +216,7 @@ export const portfolioData = {
       { name: "Render", icon: "Globe" },
       { name: "Firebase", icon: "Database" },
       { name: "Figma", icon: "Palette" },
+      { name: "Scrum", icon: "Layers" },
       { name: "Tailwind", icon: "Palette" },
       { name: "Vite", icon: "Zap" }
     ],
@@ -238,7 +243,7 @@ export const portfolioData = {
       },
       {
         label: "🛠️  Tooling & Quality",
-        items: ["Claude Code", "OpenAI Codex", "GitHub Copilot", "Jest", "OOXML", "Accessibility", "Git", "Linux"]
+        items: ["Claude Code", "OpenAI Codex", "GitHub Copilot", "Jest", "OOXML", "Accessibility", "NVDA Testing", "Git", "Linux", "Scrum"]
       }
     ],
     files: {
@@ -247,7 +252,7 @@ export const portfolioData = {
       "frontend.txt": "React, TypeScript, Tailwind CSS, Streamlit, HTML/CSS, PySide6/QML, Unity",
       "ml_cv.txt": "OpenCV, MediaPipe, YOLO, TensorFlow, PyTorch, Scikit-learn",
       "cloud.txt": "AWS Lambda, API Gateway, Azure OpenAI, Azure Cognitive Search, Azure Blob Storage, GitHub Actions, Render, Vercel",
-      "tooling.txt": "Claude Code, OpenAI Codex, GitHub Copilot, Jest, OOXML, Accessibility, Git, Linux"
+      "tooling.txt": "Claude Code, OpenAI Codex, GitHub Copilot, Jest, OOXML, Accessibility, NVDA Testing, Git, Linux, Scrum"
     }
   },
   education: [
@@ -305,6 +310,8 @@ export const portfolioData = {
   ],
   professionalDevelopment: [
     { name: "Accenture Technology Summer Analyst", status: "Completed — Aug 18, 2026" },
+    { name: "AWS Cloud Certification", status: "Completed" },
+    { name: "Scrum Certification", status: "Completed" },
     { name: "CodePath AI 110", status: "Completed" },
     { name: "AI4ALL Discover AI", status: "Graduate" },
     { name: "CodePath TIP 102", status: "Completed" },
@@ -412,7 +419,7 @@ export const portfolioData = {
     link: "/resume.pdf",
     summary: {
       experience: [
-        "Accenture Technology Summer Analyst with production accessibility and TypeScript/OOXML delivery experience",
+        "Accenture Technology Summer Analyst with production accessibility, TypeScript/OOXML delivery, and cloud integration experience",
         "AI admissions assistant and sole builder of a multi-channel RAG chatbot with pgvector and reranking",
         "Applied AI and backend engineering across consulting, research, education, and freelance software delivery",
         "Mentored students through SI PASS while balancing full-time technical coursework"
@@ -421,7 +428,7 @@ export const portfolioData = {
         "Resolved release-blocking accessibility issues for an enterprise AI presentation-generation platform",
         "Built The Stack and demoed it live at NSBE 2026 Baltimore",
         "Designed two-stage RAG retrieval with bi-encoder recall and cross-encoder reranking",
-        "Reduced manual operational processing by about 85% through Python automation"
+        "Earned AWS and Scrum certifications during Accenture onboarding"
       ]
     }
   }
