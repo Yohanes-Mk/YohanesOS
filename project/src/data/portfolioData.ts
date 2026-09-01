@@ -1,25 +1,25 @@
 export const portfolioData = {
   about: {
     intro:
-      "I'm Yohannes, an Applied AI Engineer and Computer Science student building LLM-powered backends, RAG systems, and full-stack AI products. My strongest work spans a production AI content aggregator demoed live at NSBE 2026, a multi-channel admissions chatbot with two-stage retrieval, and applied AI delivery during my completed Accenture internship.",
+      "I'm Yohannes, a Computer Science student focused on Applied AI engineering, backend systems, and full-stack product delivery. I build production-minded software that connects LLM workflows, retrieval systems, APIs, and user-facing tools, with recent work spanning Accenture, Kibur College, research infrastructure, and solo AI products.",
     highlights: [
-      "Completed Accenture Technology Summer Analyst internship from June 8, 2026 to August 18, 2026, with production-facing accessibility and AI platform delivery work framed publicly through ClientRadar and supporting AI initiatives.",
-      "Built and shipped defensible AI projects: an end-to-end LLM content pipeline ingesting 8 YouTube channels plus 25 DMV tech event feeds, a multi-channel RAG admissions chatbot with pgvector and two-stage retrieval, and a full-stack anonymous social platform.",
-      "I focus on systems I can explain line-by-line: production APIs, monitoring layers, retrieval pipelines, and full-stack delivery."
+      "Completed Accenture's Technology Summer Analyst internship on August 18, 2026, delivering release-critical accessibility and platform engineering work for an enterprise AI presentation-generation system.",
+      "Built defensible AI systems across solo, client, and research environments: The Stack, a multi-channel admissions RAG chatbot with pgvector and reranking, and backend services for real operational workflows.",
+      "My strongest work sits at the intersection of LLM pipelines, retrieval architecture, backend APIs, cloud deployment, and product-minded implementation."
     ],
     tags: [
-      "RAG Pipelines",
-      "LLM Engineering",
-      "Python & FastAPI",
-      "React & Full-Stack",
-      "Docker & DevOps"
+      "Applied AI",
+      "RAG & Retrieval",
+      "Python Backends",
+      "Cloud & APIs",
+      "Full-Stack Delivery"
     ],
     terminalHeadline:
-      "Applied AI Engineer · Accenture Technology Summer Analyst Alum",
+      "Applied AI Engineer · Backend + Full-Stack Builder",
     terminalSummary: [
-      "Applied AI Engineering: LLM pipelines, RAG systems,",
-      "production backends, and full-stack AI products.",
-      "Completed Accenture internship · Summer 2026.",
+      "Applied AI, backend APIs, and full-stack product delivery.",
+      "Built production-minded systems across Accenture, Kibur,",
+      "research infrastructure, and solo LLM products.",
       "B.S. Computer Science (AI/ML Track) @ SCSU · 3.92 GPA · Dec 2027."
     ],
     currentStatus:
@@ -29,23 +29,40 @@ export const portfolioData = {
   },
   projects: [
     {
-      title: "AI Event & Content Aggregator",
+      title: "The Stack — AI Event & Content Aggregator",
       status: "Live",
       terminalStatus: "LIVE",
       stack: ["Python", "PostgreSQL", "SQLAlchemy", "OpenAI API", "Streamlit", "Docker"],
       terminalStack: ["Python", "PostgreSQL", "OpenAI API", "Streamlit", "Docker"],
       description: [
-        "End-to-end solo AI pipeline — ingests 8 YouTube channels and 25 iCal event feeds via feedparser/icalendar, summarizes with gpt-4o-mini structured output, and delivers personalized HTML digests by email.",
-        "Context-aware curator agent re-ranks the same content pool differently per user profile (engineer vs. founder vs. PM) using LLM reasoning over a live user context document — swappable live via Streamlit console.",
-        "Production monitoring layer with run lifecycle tracking, per-stage metrics, and per-item error capture — pipeline degrades gracefully on failures. Demoed live at NSBE 2026 Baltimore."
+        "Designed and built a solo end-to-end AI content pipeline that ingests YouTube channels and iCal event feeds, summarizes with OpenAI gpt-4o-mini structured output, and delivers personalized HTML digests by email.",
+        "Built a context-aware curator agent that re-ranks the same content pool differently per user profile using LLM reasoning over a live user context document.",
+        "Engineered a production-style monitoring layer with run lifecycle tracking, per-stage metrics, and per-item error capture so the pipeline degrades gracefully instead of aborting. Demoed live at NSBE 2026."
       ],
       terminalDescription:
-        "LLM pipeline with context-aware ranking, production monitoring, and live Streamlit demo. NSBE 2026 flagship project.",
+        "Solo LLM pipeline with context-aware ranking, monitoring, and NSBE 2026 demo",
       fileSlug: "ai-event-aggregator",
-      fileDescription: "End-to-end AI content pipeline with curator agent and monitoring layer",
+      fileDescription: "Flagship solo AI pipeline for personalized event and content curation",
       githubLink: "https://github.com/Yohanes-Mk/ai-event-aggregator",
       terminalIcon: "📡",
       featured: true
+    },
+    {
+      title: "AI Donor-Discovery Platform",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["Python", "LLM APIs", "REST Integrations", "Human-in-the-Loop"],
+      terminalStack: ["Python", "LLM APIs", "REST Integrations"],
+      description: [
+        "Built the AI pipeline and API integrations behind a team-built platform that finds corporate-donor prospects from public data, ranks them by fit, and drafts outreach for staff approval.",
+        "The platform surfaces personalized volunteering and donation suggestions by cross-referencing calendar and event information rather than treating fundraising as a generic lead list.",
+        "Designed with explicit human oversight so final decisions stay with nonprofit staff instead of being automated away."
+      ],
+      terminalDescription:
+        "Accenture team project for donor discovery, ranking, and human-reviewed outreach",
+      fileSlug: "ai-donor-discovery-platform",
+      fileDescription: "Team-built Accenture platform for donor prospecting and responsible AI workflows",
+      terminalIcon: "🤝"
     },
     {
       title: "Kibur RAG Admissions Chatbot",
@@ -54,12 +71,12 @@ export const portfolioData = {
       stack: ["Python", "PostgreSQL", "pgvector", "Telegram", "Cross-Encoder Reranking", "SQLite"],
       terminalStack: ["Python", "PostgreSQL", "pgvector", "Telegram", "SQLite"],
       description: [
-        "Multi-channel admissions chatbot for prospective students across Telegram and email, built as the sole developer during a Jan-May 2026 CO-OP.",
-        "Two-stage retrieval pipeline uses all-MiniLM-L6-v2 for candidate retrieval and ms-marco-MiniLM-L-6-v2 cross-encoder reranking before generation.",
-        "Institutional knowledge base is embedded in PostgreSQL with pgvector, with a standalone SQLite-backed staff dashboard so non-technical staff can update content without touching code."
+        "Built a multi-channel RAG-based admissions chatbot handling prospective student queries over Telegram and email as the sole developer across the full pipeline.",
+        "Designed a two-stage retrieval system using all-MiniLM-L6-v2 for candidate retrieval and a cross-encoder for reranking before LLM generation.",
+        "Embedded the institutional knowledge base into PostgreSQL with pgvector and added retrieval routing plus a standalone SQLite-backed staff dashboard for non-technical updates."
       ],
       terminalDescription:
-        "Multi-channel RAG chatbot with pgvector, two-stage retrieval, and staff dashboard tooling",
+        "Multi-channel RAG chatbot with pgvector, reranking, and staff dashboard tooling",
       fileSlug: "kibur-rag-chatbot",
       fileDescription: "Admissions RAG chatbot with pgvector and cross-encoder reranking",
       terminalIcon: "🎓",
@@ -140,7 +157,7 @@ export const portfolioData = {
       title: "YohannesOS Portfolio",
       status: "Live",
       terminalStatus: "LIVE",
-      stack: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+      stack: ["React", "TypeScript", "Tailwind CSS", "Vite", "Interactive UI"],
       terminalStack: ["React", "TypeScript", "Tailwind CSS"],
       description: [
         "Desktop-inspired personal OS with start menu, wallpaper system, and immersive animations.",
@@ -158,66 +175,79 @@ export const portfolioData = {
   skills: {
     professional: [
       { name: "Python", icon: "Terminal" },
+      { name: "TypeScript", icon: "FileCode" },
       { name: "FastAPI", icon: "Zap" },
       { name: "Flask", icon: "Server" },
       { name: "React", icon: "Code2" },
-      { name: "TypeScript", icon: "FileCode" },
       { name: "PostgreSQL", icon: "Database" },
+      { name: "SQLAlchemy", icon: "Database" },
+      { name: "pgvector", icon: "Database" },
       { name: "MongoDB", icon: "Database" },
       { name: "Docker", icon: "Box" },
       { name: "REST APIs", icon: "Globe" },
       { name: "OpenAI API", icon: "Zap" },
       { name: "Anthropic API", icon: "Zap" },
       { name: "RAG Pipelines", icon: "Layers" },
+      { name: "Agentic AI", icon: "Layers" },
       { name: "LangChain", icon: "Layers" },
-      { name: "pgvector", icon: "Database" },
-      { name: "SQLAlchemy", icon: "Database" },
-      { name: "AWS", icon: "Cloud" },
+      { name: "Azure OpenAI", icon: "Cloud" },
+      { name: "Azure Cognitive Search", icon: "Cloud" },
+      { name: "AWS Lambda", icon: "Cloud" },
+      { name: "OOXML", icon: "FileCode" },
+      { name: "Accessibility", icon: "Monitor" },
       { name: "GitHub Actions", icon: "GitBranch" },
       { name: "Streamlit", icon: "Monitor" }
     ],
     tools: [
       { name: "VS Code", icon: "Monitor" },
       { name: "Claude Code", icon: "Terminal" },
+      { name: "OpenAI Codex", icon: "Terminal" },
+      { name: "GitHub Copilot", icon: "Github" },
       { name: "Git", icon: "GitBranch" },
       { name: "GitHub", icon: "Github" },
       { name: "Postman", icon: "Smartphone" },
       { name: "Linux", icon: "Terminal" },
-      { name: "Figma", icon: "Palette" },
+      { name: "Jest", icon: "Code2" },
       { name: "Vercel", icon: "Globe" },
       { name: "Render", icon: "Globe" },
       { name: "Firebase", icon: "Database" },
+      { name: "Figma", icon: "Palette" },
       { name: "Tailwind", icon: "Palette" },
       { name: "Vite", icon: "Zap" }
     ],
     terminalCategories: [
       {
         label: "🧠  AI & LLM Engineering",
-        items: ["RAG Pipelines", "LangChain", "OpenAI API", "Anthropic API", "sentence-transformers", "pgvector", "Prompt Engineering"]
+        items: ["RAG Pipelines", "Agentic AI", "LangChain", "OpenAI API", "Anthropic API", "sentence-transformers", "pgvector", "Prompt Engineering"]
       },
       {
         label: "⚙️  Backend & APIs",
-        items: ["FastAPI", "Flask", "Python", "PostgreSQL", "SQLAlchemy", "MongoDB", "SQLite", "REST", "Docker"]
+        items: ["Python", "FastAPI", "Flask", "REST APIs", "PostgreSQL", "SQLAlchemy", "MongoDB", "SQLite", "Docker"]
+      },
+      {
+        label: "☁️  Cloud & Platform",
+        items: ["AWS Lambda", "API Gateway", "Azure OpenAI", "Azure Cognitive Search", "Azure Blob Storage", "GitHub Actions", "Render", "Vercel"]
       },
       {
         label: "🎨  Frontend & UX",
-        items: ["React", "TypeScript", "Tailwind CSS", "Streamlit", "HTML/CSS"]
+        items: ["React", "TypeScript", "Tailwind CSS", "Streamlit", "HTML/CSS", "PySide6/QML", "Unity"]
       },
       {
         label: "🔬  ML & Computer Vision",
         items: ["OpenCV", "MediaPipe", "YOLO", "TensorFlow", "PyTorch", "Scikit-learn"]
       },
       {
-        label: "🛠️  DevOps & Tooling",
-        items: ["GitHub Actions", "Docker", "Linux", "AWS", "Vercel", "Render", "Git"]
+        label: "🛠️  Tooling & Quality",
+        items: ["Claude Code", "OpenAI Codex", "GitHub Copilot", "Jest", "OOXML", "Accessibility", "Git", "Linux"]
       }
     ],
     files: {
-      "ai_llm.txt": "RAG Pipelines, LangChain, OpenAI API, Anthropic API, sentence-transformers, pgvector, Prompt Engineering",
-      "backend.txt": "Python, FastAPI, Flask, PostgreSQL, SQLAlchemy, MongoDB, SQLite, Docker, REST APIs",
-      "frontend.txt": "React, TypeScript, Tailwind CSS, Streamlit, HTML/CSS",
-      "ml_cv.txt": "OpenCV, MediaPipe, YOLO, TensorFlow, PyTorch, Scikit-learn, Diffusers",
-      "cloud.txt": "AWS, Docker, GitHub Actions, Vercel, Render, Firebase"
+      "ai_llm.txt": "RAG Pipelines, Agentic AI, LangChain, OpenAI API, Anthropic API, sentence-transformers, pgvector, Prompt Engineering",
+      "backend.txt": "Python, FastAPI, Flask, REST APIs, PostgreSQL, SQLAlchemy, MongoDB, SQLite, Docker",
+      "frontend.txt": "React, TypeScript, Tailwind CSS, Streamlit, HTML/CSS, PySide6/QML, Unity",
+      "ml_cv.txt": "OpenCV, MediaPipe, YOLO, TensorFlow, PyTorch, Scikit-learn",
+      "cloud.txt": "AWS Lambda, API Gateway, Azure OpenAI, Azure Cognitive Search, Azure Blob Storage, GitHub Actions, Render, Vercel",
+      "tooling.txt": "Claude Code, OpenAI Codex, GitHub Copilot, Jest, OOXML, Accessibility, Git, Linux"
     }
   },
   education: [
@@ -229,6 +259,7 @@ export const portfolioData = {
       expected: "Dec 2027",
       location: "St. Cloud, MN",
       coursework: [
+        "Data Structures & Algorithms",
         "AI & Neural Networks",
         "Distributed Systems",
         "Operating Systems",
@@ -236,6 +267,7 @@ export const portfolioData = {
         "Object-Oriented Software Development",
         "Programming Language Concepts",
         "Computer Architecture",
+        "Software Systems",
         "Linear Algebra",
         "Probability & Statistics"
       ],
@@ -245,12 +277,12 @@ export const portfolioData = {
         "Student Government Tech Fee Committee"
       ],
       terminalCoursework: [
-        "AI & Neural Networks · Distributed Systems · Operating Systems",
-        "Database Theory & Design · OOP Software Development",
-        "Programming Language Concepts · Linear Algebra · Statistics"
+        "Data Structures & Algorithms · AI & Neural Networks · Distributed Systems",
+        "Operating Systems · Database Theory · OOP Software Development",
+        "Programming Language Concepts · Computer Architecture · Statistics"
       ],
       terminalPrograms: [
-        "AI4ALL Discover AI · CodePath AI 110 · CodePath TIP 102 & Web 101",
+        "AI4ALL Discover AI · CodePath AI 110 · CodePath TIP 102 · Web 101",
         "NSBE · Cloud Computing Club · Student Government Tech Fee Committee"
       ],
       fileName: "scsu.txt",
@@ -289,9 +321,9 @@ export const portfolioData = {
       period: "Jun 2026 – Aug 2026",
       location: "Seattle, Washington",
       points: [
-        "Completed Accenture's Technology Summer Analyst internship from June 8, 2026 to August 18, 2026, staffed on the Avanade side while keeping the official Accenture title.",
-        "Built production-facing accessibility remediation for an internal AI presentation-generation platform, including a custom TypeScript and OOXML accessibility layer plus automated regression tests for screen-reader compatibility.",
-        "Contributed across AI platform workstreams including API integration, delivery readiness, and production-impact fixes, with public-safe framing centered on ClientRadar accessibility first and supporting AI initiatives second."
+        "Owned a release-critical accessibility workstream for an enterprise client-intelligence platform supporting ~30,000 internal accounts and data spanning a 9,000+ global client portfolio, addressing 10+ defects identified through external accessibility testing.",
+        "Engineered a custom accessibility layer in the TypeScript/OOXML generation pipeline to overcome core-library limitations, restructuring presentation generation and building automated regression tests for screen-reader compatibility.",
+        "Resolved the full set of release-blocking accessibility issues and cleared the platform for production deployment, enabling its broader client-intelligence capabilities to reach teams across the firm's global client portfolio."
       ],
       isActive: false
     },
@@ -301,9 +333,9 @@ export const portfolioData = {
       period: "Fall 2025 – Present",
       location: "Remote",
       points: [
-        "Building a role-based water treatment client management system (So Safe) with automated SMS/email notifications via Twilio and SendGrid — three isolated user roles: Technician, Customer, Admin.",
-        "Rebuilding Kibur College's website (full rebrand) and developing a RAG chatbot over institutional documents using pgvector and cross-encoder re-ranking.",
-        "Building website and AI feature integration for BeteSeb Academy."
+        "Building client-facing software across AI, automation, and web delivery, with projects spanning role-based operations tooling, institutional website rebuilds, and AI feature integration.",
+        "Developing systems that connect backend workflows, notifications, retrieval layers, and non-technical admin tooling for real users.",
+        "Using freelance work as a proving ground for shipping scoped software quickly while keeping implementation honest and defensible."
       ],
       isActive: true
     },
@@ -315,7 +347,7 @@ export const portfolioData = {
       points: [
         "Built a multi-channel RAG-based admissions chatbot handling prospective student queries over Telegram and email as the sole developer across the full pipeline.",
         "Designed two-stage retrieval system: all-MiniLM-L6-v2 for candidate retrieval + ms-marco-MiniLM-L-6-v2 cross-encoder re-ranking before LLM generation — improved answer precision over single-stage retrieval.",
-        "Embedded institutional knowledge base into PostgreSQL with pgvector; built standalone staff dashboard (SQLite-backed, own subdomain) enabling non-technical staff to update the knowledge base without touching code."
+        "Embedded institutional knowledge base into PostgreSQL with pgvector; implemented retrieval routing to resolve common queries before invoking the LLM and built a standalone SQLite-backed staff dashboard."
       ]
     },
     {
@@ -324,10 +356,10 @@ export const portfolioData = {
       period: "Aug 2024 – May 2025",
       location: "St. Cloud, Minnesota",
       points: [
-        "Developed EEG data preprocessing pipelines and real-time ML classifiers (logistic regression, k-NN) achieving sub-second latency for attention-state detection tasks.",
+        "Contributed to Avatar, a research platform integrating OpenBCI EEG headsets with robotics systems for real-time control and reliable server-side data handling.",
         "Maintained and debugged the Avatar platform's EEG data anonymization pipeline, fixing file organization logic to correctly classify brainwave recordings by thought category for IRB-compliant ML training.",
-        "Implemented RSA key management scripts for a shared AI HPC server; resolved PySide6/QML UI inconsistencies across an 8-tab drone/robot/model control application.",
-        "Maintained Ubuntu compute nodes, resolved merge conflicts, and supported deployment workflows for a multi-contributor research platform."
+        "Implemented RSA key management scripts for a shared AI HPC server and resolved UI inconsistencies across an 8-tab PySide6/QML desktop application.",
+        "Debugged deployment tracebacks, resolved merge conflicts, and maintained Linux and Ubuntu compute infrastructure for a multi-contributor research platform."
       ]
     },
     {
@@ -347,9 +379,9 @@ export const portfolioData = {
       period: "Fall 2023 – Spring 2024",
       location: "Baltimore, Maryland",
       points: [
-        "Built Python + Google Sheets automation adopted as the standard attendance tracker for 200+ program participants.",
-        "Maintained internal websites, event pages, and digital collateral while coordinating multi-department communications.",
-        "Designed brochures and social assets with Adobe tools to support recruitment and alumni outreach."
+        "Built a Python + Google Sheets API automation tool for recurring operational workflows and event attendance, reducing manual record processing by about 85%.",
+        "Updated and maintained the CWIT website, improving content accuracy and usability with HTML and CSS.",
+        "Built Flask and FastAPI services with RBAC and CI support for student records workflows."
       ]
     },
     {
@@ -374,22 +406,22 @@ export const portfolioData = {
     status:
       "Post-Accenture internship · Open to Spring 2027 internships, selective new-grad roles, and research collaborations",
     intro:
-      "I'm always interested in discussing new projects, creative ideas, or opportunities to be part of your visions."
+      "I’m interested in applied AI, backend, and software engineering opportunities where I can ship real systems, learn fast, and grow with a strong team."
   },
   resume: {
     link: "/resume.pdf",
     summary: {
       experience: [
-        "Completed Accenture Technology Summer Analyst internship (Summer 2026)",
-        "Applied AI + full-stack delivery across consulting, research, education, and freelance work",
-        "Built flagship AI systems across LLM pipelines, RAG retrieval, and full-stack applications",
-        "Mentored 50+ students through SI PASS and workshops"
+        "Accenture Technology Summer Analyst with production accessibility and TypeScript/OOXML delivery experience",
+        "AI admissions assistant and sole builder of a multi-channel RAG chatbot with pgvector and reranking",
+        "Applied AI and backend engineering across consulting, research, education, and freelance software delivery",
+        "Mentored students through SI PASS while balancing full-time technical coursework"
       ],
       achievements: [
-        "Accenture role originated from live AI Aggregator demo at NSBE 2026 Baltimore",
-        "Two-stage RAG retrieval design with bi-encoder plus cross-encoder reranking",
-        "80% reduction in manual reporting for college SIS workflows",
-        "Context-aware LLM curator agent with real-time profile-swap demo"
+        "Resolved release-blocking accessibility issues for an enterprise AI presentation-generation platform",
+        "Built The Stack and demoed it live at NSBE 2026 Baltimore",
+        "Designed two-stage RAG retrieval with bi-encoder recall and cross-encoder reranking",
+        "Reduced manual operational processing by about 85% through Python automation"
       ]
     }
   }
