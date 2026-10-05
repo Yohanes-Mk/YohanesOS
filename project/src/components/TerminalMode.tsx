@@ -47,7 +47,7 @@ const fileSystem: Record<'/', FileSystemDirectory> = {
           ])
         ),
         'documents': {
-          'resume.pdf': { type: 'file', content: 'Yohannes Resume - Applied AI, Backend, and Full-Stack Engineering' },
+          'resume.pdf': { type: 'file', content: 'Yohannes Resume - Product Software Engineering' },
           'cover-letter.txt': { type: 'file', content: 'Professional cover letter template' }
         },
         'skills': Object.fromEntries(

@@ -94,6 +94,83 @@ const skillIconMap = {
 const getSkillIcon = (icon: string) =>
   skillIconMap[icon as keyof typeof skillIconMap] ?? Code2;
 
+const projectShowcases: Record<string, { src: string; href: string; label: string }> = {
+  "The Stack — AI Event & Content Aggregator": {
+    src: "https://raw.githubusercontent.com/Yohanes-Mk/the-stack/main/docs/showcase/events-digest-full.gif",
+    href: "https://github.com/Yohanes-Mk/the-stack",
+    label: "Open The Stack demo"
+  },
+  "RidgeRunner — Unity Time-Trial Racer": {
+    src: "https://raw.githubusercontent.com/Yohanes-Mk/RidgeRunner/main/docs/ridge-runner-demo.gif",
+    href: "https://github.com/Yohanes-Mk/RidgeRunner",
+    label: "Open RidgeRunner demo"
+  }
+};
+
+interface ProjectVisualProps {
+  project: {
+    title: string;
+    terminalIcon: string;
+    terminalStatus: string;
+    stack: string[];
+  };
+  theme: "dark" | "light";
+}
+
+const ProjectVisual: React.FC<ProjectVisualProps> = ({ project, theme }) => {
+  const showcase = projectShowcases[project.title];
+
+  if (showcase) {
+    return (
+      <a
+        href={showcase.href}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={showcase.label}
+        className="group relative block overflow-hidden rounded-2xl border border-white/10 bg-[#03131d]"
+      >
+        <img
+          src={showcase.src}
+          alt={`${project.title} demonstration`}
+          className="h-56 w-full object-cover object-top transition duration-700 group-hover:scale-[1.03] md:h-72"
+          loading="lazy"
+        />
+        <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-[#03131d]/95 via-[#03131d]/55 to-transparent px-5 pb-4 pt-12 text-white">
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#A1CCDC]">Live artifact</span>
+          <span className="inline-flex items-center gap-2 text-sm font-medium">View demo <ExternalLink size={15} /></span>
+        </div>
+      </a>
+    );
+  }
+
+  return (
+    <div className={`relative overflow-hidden rounded-2xl border px-5 py-4 ${
+      theme === "dark"
+        ? "border-white/10 bg-[#03131d]/65"
+        : "border-slate-200 bg-slate-50"
+    }`}>
+      <div className="absolute -right-5 -top-8 text-8xl opacity-10" aria-hidden="true">{project.terminalIcon}</div>
+      <div className="relative flex items-center justify-between gap-4">
+        <div>
+          <p className={`mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] ${
+            theme === "dark" ? "text-[#71B7D5]" : "text-blue-600"
+          }`}>Project signal</p>
+          <div className="flex flex-wrap gap-2">
+            {project.stack.slice(0, 4).map((item) => (
+              <span key={item} className={`rounded-full px-2.5 py-1 text-xs ${
+                theme === "dark" ? "bg-white/8 text-[#A1CCDC]" : "bg-white text-slate-700"
+              }`}>{item}</span>
+            ))}
+          </div>
+        </div>
+        <span className={`rounded-full border px-3 py-1 text-[10px] font-semibold tracking-[0.16em] ${
+          theme === "dark" ? "border-[#71B7D5]/30 text-[#71B7D5]" : "border-blue-200 text-blue-700"
+        }`}>{project.terminalStatus}</span>
+      </div>
+    </div>
+  );
+};
+
 /* -------------------------------------------------------
    Enhanced UI Components
 ------------------------------------------------------- */
@@ -423,29 +500,52 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
       </Reveal>
 
       <Reveal delay={200}>
-        <GlassCard theme={theme} className="p-8">
-          <p className={`text-lg leading-relaxed mb-6 ${subText}`}>
-            {portfolioData.about.intro}
-          </p>
-
-          {portfolioData.about.highlights.map((highlight) => (
-            <p key={highlight} className={`${mainText} mb-6`}>
-              {highlight}
-            </p>
-          ))}
-
-          <div className="flex flex-wrap gap-3">
-            {portfolioData.about.tags.map((tag, index) => (
-              <Pill
-                key={tag}
-                theme={theme}
-                text={tag}
-                featured={index === 0}
-                wallpaperAccents={effectiveWallpaperAccents}
+        <div className="grid gap-6 lg:grid-cols-[minmax(220px,0.72fr)_minmax(0,1.28fr)]">
+          <GlassCard theme={theme} className="min-h-[390px] p-3" hover={false}>
+            <div className="relative h-full overflow-hidden rounded-[1.3rem]">
+              <img
+                src="/images/yohannes-nsbe-2026.png"
+                alt="Yohannes Nigusse at the 2026 NSBE Annual Convention"
+                className="h-full min-h-[360px] w-full object-cover object-center"
               />
-            ))}
-          </div>
-        </GlassCard>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#03131d]/95 via-[#03131d]/35 to-transparent px-5 pb-5 pt-16 text-white">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A1CCDC]">Applied AI &amp; Backend</p>
+                <p className="mt-1 text-sm text-white/80">St. Cloud, Minnesota</p>
+              </div>
+            </div>
+          </GlassCard>
+
+          <GlassCard theme={theme} className="p-8">
+            <p className={`text-xl leading-relaxed mb-7 ${subText}`}>
+              {portfolioData.about.intro}
+            </p>
+
+            <div className="space-y-4">
+              {portfolioData.about.highlights.map((highlight, index) => (
+                <div key={highlight} className={`flex gap-4 rounded-2xl p-4 ${
+                  theme === "dark" ? "bg-white/5" : "bg-white/55"
+                }`}>
+                  <span className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-semibold ${
+                    theme === "dark" ? "bg-[#71B7D5]/15 text-[#71B7D5]" : "bg-blue-100 text-blue-700"
+                  }`}>0{index + 1}</span>
+                  <p className={`${mainText} leading-6`}>{highlight}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-7 flex flex-wrap gap-3">
+              {portfolioData.about.tags.map((tag, index) => (
+                <Pill
+                  key={tag}
+                  theme={theme}
+                  text={tag}
+                  featured={index === 0}
+                  wallpaperAccents={effectiveWallpaperAccents}
+                />
+              ))}
+            </div>
+          </GlassCard>
+        </div>
       </Reveal>
     </div>
   );
@@ -703,6 +803,9 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
         {portfolioData.projects.map((project, index) => (
           <Reveal key={project.title} delay={300 + index * 100}>
             <GlassCard theme={theme} className={`p-6 ${project.featured ? 'ring-2 ring-[#71B7D5]/30' : ''}`}>
+              <div className="mb-5">
+                <ProjectVisual project={project} theme={theme} />
+              </div>
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -833,7 +936,7 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
                 : "bg-green-100 border-green-200 text-green-700"
             }`}>
               <div className="w-2 h-2 rounded-full bg-current animate-pulse" />
-              <span className="font-medium">Open for Spring 2027 opportunities</span>
+              <span className="font-medium">Open for Summer 2027 opportunities</span>
             </div>
           </div>
           
@@ -899,22 +1002,30 @@ const ContentModal: React.FC<ContentModalProps> = ({ type, theme, onClose, wallp
               Download Resume
             </h3>
             <p className={`${subText}`}>
-              Get the complete overview of my experience and skills
+              Product Software resume — full-stack delivery, backend systems, and applied AI
             </p>
           </div>
           
           <EnhancedButton
             theme={theme}
             onClick={() => {
-              window.open("/resume.pdf", "_blank");
+              window.open(portfolioData.resume.link, "_blank");
             }}
             icon={<Download size={20} />}
             variant="primary"
             wallpaperAccents={effectiveWallpaperAccents}
           >
-            Download PDF Resume
+            Download Product Software Resume
           </EnhancedButton>
           
+          <div className="mt-4 flex flex-wrap justify-center gap-4">
+            {portfolioData.resume.alternatives.map((resume) => (
+              <a key={resume.link} href={resume.link} target="_blank" rel="noreferrer" className={`text-sm underline underline-offset-4 ${subText}`}>
+                {resume.label}
+              </a>
+            ))}
+          </div>
+
           <div className="mt-8 pt-8 border-t border-white/10">
             <h4 className={`text-lg font-semibold mb-4 ${mainText}`}>
               Quick Summary

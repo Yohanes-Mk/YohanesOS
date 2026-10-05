@@ -1,32 +1,45 @@
-# Yohannes Nigusse – Portfolio
+# YohannesOS
 
-Applied AI Engineer and CS/Econ student building LLM-powered backends, RAG pipelines, and full-stack AI systems. Incoming Tech Summer Analyst at Accenture — I've shipped everything from a production AI content aggregator demoed at NSBE to a full-stack anonymous social platform and a RAG admissions chatbot in production.
+An OS-inspired portfolio for Yohannes Nigusse, built with React, TypeScript, Tailwind CSS, and Vite. Includes a Power On landing screen, desktop app launcher, interactive terminal, taskbar, and portfolio sections.
 
-## About Me
-- **Applied AI Engineer** — building LLM pipelines, RAG systems, and production AI backends.
-- **Incoming Accenture Tech Summer Analyst** (Seattle, Summer 2026) — offer secured through NSBE 2026 career fair after demoing the AI Event & Content Aggregator live.
-- **CS + Economics @ SCSU** — 3.92 GPA, graduating Dec 2027.
-- Each project ships with production-ready APIs, monitoring layers, or Dockerized pipelines.
+Yohannes builds backend systems, full-stack products, and applied AI workflows. He completed Accenture's Technology Summer Analyst internship in August 2026 and serves as Vice President of NSBE. B.S. Computer Science (AI/ML Track), St. Cloud State University; GPA 3.92; expected graduation December 2027.
 
-## Featured Projects
-- **AI Event & Content Aggregator** – End-to-end LLM pipeline ingesting 8 YouTube channels and 25 iCal event feeds with gpt-4o-mini, context-aware curator agent, and production monitoring. Demoed live at NSBE 2026 Baltimore.
-- **NearbyTalk — Anonymous Local Social Platform** – Full-stack platform (Yik Yak-style) with .edu verification, JWT auth, threaded posts, and karma tracking. React + FastAPI + MongoDB.
-- **Fleet Command: Strategic Conquest** – 4X strategy game with Claude API-powered AI opponents. Full game state serialized to JSON for LLM decision-making. Built as SE 482 final project at SCSU.
-- **Real-Time Surveillance & Analytics System** – Multi-stage CV pipeline: YOLO object detection → MediaPipe pose estimation → centroid tracker. Flask API with real-time email and WhatsApp alerts. Streamlit analytics dashboard. Containerized with Docker.
-- **Kibur College RAG Admissions Chatbot** – Multi-channel chatbot handling prospective student queries over Telegram and email. Two-stage retrieval (bi-encoder + cross-encoder re-ranking) over PostgreSQL + pgvector. Production deployment with non-technical staff dashboard.
+## Run locally
 
-## Setup
-1. `cd project`
-2. `npm install`
-3. `npm run dev`
+Install Node.js and npm, then run from the repository root:
 
-## Usage
-- `npm run dev` – start the development server
-- `npm run build` – create a production build
+```bash
+cd project
+npm ci
+npm run dev -- --host localhost
+```
+
+Open the local URL printed by Vite, usually http://localhost:5173.
+
+## Build and checks
+
+Run these commands from `project/`:
+
+```bash
+npm run build
+npm run lint
+npm run preview
+```
+
+The production build is written to `project/dist/`. The standalone TypeScript check (`npx tsc --noEmit -p tsconfig.app.json`) currently reports existing UI typing issues.
+
+## Project structure
+
+- `project/src/components/` — landing screen, desktop, modals, terminal, and menus.
+- `project/src/data/portfolioData.ts` — portfolio content shared by the UI and terminal.
+- `project/public/` — committed resumes, photos, and favicons copied into production builds.
+
+Projects begin with The Stack and RidgeRunner, followed by NimbusQueue and CampusMarket. Additional projects cover database concurrency, inventory management, retrieval, and other software work.
+
+The default resume is `project/public/Yohannes_Nigusse_Product_Software_Resume.pdf`. Backend and enterprise resume alternatives are also available. `resume.pdf` and the older named resume URL are compatibility copies of the Product Software resume. Update those copies together when replacing the default resume.
+
+Local editor settings, agent configuration, CodeGraph indexes, dependencies, and build output are ignored by Git.
 
 ## Contact
-Yohannes Nigusse  
-[yohanigusse@gmail.com](mailto:yohanigusse@gmail.com) • [LinkedIn](https://www.linkedin.com/in/yohs)
 
-## License
-MIT License
+[yohanigusse@gmail.com](mailto:yohanigusse@gmail.com) · [LinkedIn](https://www.linkedin.com/in/yohs) · [GitHub](https://github.com/Yohanes-Mk)

@@ -22,9 +22,9 @@ const RippleEffect: React.FC<{ x: number; y: number; color: string }> = ({ x, y,
 // Tooltip component
 const Tooltip: React.FC<{ text: string; children: React.ReactNode; theme: 'dark' | 'light' }> = ({ text, children, theme }) => {
   const [isVisible, setIsVisible] = useState(false);
-  
+
   return (
-    <div 
+    <div
       className="relative"
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
@@ -34,8 +34,8 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode; theme: 'dark'
         <div className={`
           absolute -top-12 left-1/2 transform -translate-x-1/2 px-3 py-1.5 rounded-lg text-xs font-medium
           whitespace-nowrap pointer-events-none z-50 animate-in fade-in slide-in-from-bottom-2 duration-200
-          ${theme === 'dark' 
-            ? 'bg-[#08171E]/95 text-[#A1CCDC] border border-[#096B90]/30' 
+          ${theme === 'dark'
+            ? 'bg-[#08171E]/95 text-[#A1CCDC] border border-[#096B90]/30'
             : 'bg-white/95 text-gray-700 border border-gray-200'
           }
           backdrop-blur-sm shadow-lg
@@ -54,7 +54,7 @@ const Tooltip: React.FC<{ text: string; children: React.ReactNode; theme: 'dark'
 const GeometricOverlay: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: WallpaperAccents }> = ({ wallpaperAccents }) => (
   <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
     {/* Floating geometric shapes */}
-    <div 
+    <div
       className="absolute w-32 h-32 opacity-5 animate-float-slow"
       style={{
         top: '10%',
@@ -64,7 +64,7 @@ const GeometricOverlay: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wa
         animationDelay: '0s'
       }}
     />
-    <div 
+    <div
       className="absolute w-24 h-24 opacity-5 animate-float-slow"
       style={{
         bottom: '20%',
@@ -74,7 +74,7 @@ const GeometricOverlay: React.FC<{ theme: 'dark' | 'light'; wallpaperAccents: Wa
         animationDelay: '2s'
       }}
     />
-    <div 
+    <div
       className="absolute w-20 h-20 opacity-5 animate-float-slow"
       style={{
         top: '60%',
@@ -119,7 +119,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     const newRipple = { id: Date.now(), x, y, color };
-    
+
     setRipples(prev => [...prev, newRipple]);
     setTimeout(() => {
       setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
@@ -128,153 +128,106 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
 
   const iconItems = [
     // Featured row (top)
-    { 
-      id: 'about', 
-      label: 'About Me', 
-      icon: User, 
+    {
+      id: 'about',
+      label: 'About Me',
+      icon: User,
       featured: true,
       tooltip: 'Learn about my background and experience',
       onClick: () => setActiveContent('about')
     },
-    { 
-      id: 'projects', 
-      label: 'Projects', 
-      icon: Briefcase, 
+    {
+      id: 'projects',
+      label: 'Projects',
+      icon: Briefcase,
       featured: true,
       tooltip: 'Explore my latest work and projects',
       onClick: () => setActiveContent('projects')
     },
     // Second row
-    { 
-      id: 'linkedin', 
-      label: 'LinkedIn', 
-      icon: Linkedin, 
+    {
+      id: 'linkedin',
+      label: 'LinkedIn',
+      icon: Linkedin,
       featured: false,
       tooltip: 'Connect with me on LinkedIn',
       onClick: () => window.open('https://www.linkedin.com/in/yohs', '_blank')
     },
-    { 
-      id: 'experience', 
-      label: 'Experience', 
-      icon: BriefcaseAlt, 
+    {
+      id: 'experience',
+      label: 'Experience',
+      icon: BriefcaseAlt,
       featured: false,
       tooltip: 'View my professional experience',
       onClick: () => setActiveContent('experience')
     },
-    { 
-      id: 'education', 
-      label: 'Education', 
-      icon: GraduationCap, 
+    {
+      id: 'education',
+      label: 'Education',
+      icon: GraduationCap,
       featured: false,
       tooltip: 'See my educational background',
       onClick: () => setActiveContent('education')
     },
     // Third row
-    { 
-      id: 'contact', 
-      label: 'Contact', 
-      icon: Mail, 
+    {
+      id: 'contact',
+      label: 'Contact',
+      icon: Mail,
       featured: false,
       tooltip: 'Get in touch with me',
       onClick: () => setActiveContent('contact')
     },
-    { 
-      id: 'skills', 
-      label: 'Skills', 
-      icon: Code, 
+    {
+      id: 'skills',
+      label: 'Skills',
+      icon: Code,
       featured: false,
       tooltip: 'Discover my technical skills',
       onClick: () => setActiveContent('skills')
     },
-    { 
-      id: 'resume', 
-      label: 'Resume', 
-      icon: FileText, 
+    {
+      id: 'resume',
+      label: 'Resume',
+      icon: FileText,
       featured: false,
       tooltip: 'Download my resume',
       onClick: () => setActiveContent('resume')
     }
   ];
 
-  const featuredItems = iconItems.filter(item => item.featured);
-  const utilityItems = iconItems.filter(item => !item.featured);
-
   if (isMobile) {
     return (
       <div className="min-h-screen pt-8 pb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out">
         <GeometricOverlay theme={theme} wallpaperAccents={wallpaperAccents} />
-        
+
         {/* Mobile Phone Frame */}
         <div className="max-w-sm mx-auto px-4">
           {/* Phone Header */}
-          <div className={`mb-6 rounded-[2rem] border p-5 backdrop-blur-xl surface-shadow ${
-            theme === 'dark'
-              ? 'bg-[#042B44]/40 border-white/10 text-[#A1CCDC]'
-              : 'bg-white/50 border-white/40 text-gray-800'
-          }`}>
-            <div className="mb-4 flex items-center justify-between">
-              <div className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${
-                theme === 'dark'
-                  ? 'bg-white/8 text-[#A1CCDC]'
-                  : 'bg-gray-900/5 text-gray-700'
-              }`}>
-                <Smartphone className="h-3.5 w-3.5" />
-                Mobile Launcher
-              </div>
-              <div className={`text-[11px] uppercase tracking-[0.22em] ${
-                theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
-              }`}>
-                2026 Refresh
-              </div>
-            </div>
-            <h2 className="text-left text-2xl font-semibold tracking-tight text-balance">
-              YohannesOS, rebuilt as a cleaner portfolio launcher.
-            </h2>
-            <p className={`mt-2 text-left text-sm leading-6 ${
-              theme === 'dark' ? 'text-[#A1CCDC]/78' : 'text-gray-600'
+          <div className="text-center mb-6">
+            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 ${
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-[#096B90] to-[#71B7D5]'
+                : 'bg-gradient-to-br from-gray-600 to-gray-800'
             }`}>
-              Quick access to work, experience, and contact info with less visual clutter.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {["AI Systems", "Production Work", "Spring 2027 Search"].map((label) => (
-                <span
-                  key={label}
-                  className={`rounded-full px-3 py-1 text-xs font-medium ${
-                    theme === 'dark'
-                      ? 'bg-white/8 text-[#A1CCDC]'
-                      : 'bg-white/80 text-gray-700'
-                  }`}
-                >
-                  {label}
-                </span>
-              ))}
+              <Smartphone className="w-8 h-8 text-white" />
             </div>
+            <h2 className={`text-xl font-bold ${
+              theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
+            }`}>
+              YohannesOS Mobile
+            </h2>
           </div>
-          
+
           {/* Phone App Grid */}
-          <div className={`panel-grid rounded-[2rem] p-6 backdrop-blur-xl border surface-shadow ${
+          <div className={`rounded-3xl p-6 backdrop-blur-xl border ${
             theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
           } ${
             theme === 'dark'
-              ? 'bg-[#042B44]/30 border-white/10'
-              : 'bg-white/45 border-white/40'
+              ? 'bg-[#042B44]/30 border-[#096B90]/20'
+              : 'bg-white/40 border-gray-200'
           }`}>
-            <div className="relative mb-5 flex items-center justify-between">
-              <div>
-                <div className={`text-[11px] uppercase tracking-[0.24em] ${
-                  theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
-                }`}>
-                  Apps
-                </div>
-                <div className="text-lg font-semibold tracking-tight">Open a section</div>
-              </div>
-              <div className={`rounded-full px-3 py-1 text-xs ${
-                theme === 'dark' ? 'bg-white/8 text-[#A1CCDC]' : 'bg-gray-900/5 text-gray-600'
-              }`}>
-                {iconItems.length} items
-              </div>
-            </div>
-            <div className="relative grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               {iconItems.map((item, index) => (
                 <Tooltip key={item.id} text={item.tooltip || item.label} theme={theme}>
                   <button
@@ -283,17 +236,17 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
                       item.onClick();
                     }}
                     aria-label={item.label}
-                    style={{ 
+                    style={{
                       animationDelay: `${300 + index * 100}ms`,
                       animationDuration: `${4 + (index % 3)}s`
                     }}
                     className={`
                       relative overflow-hidden animate-float group
                       w-full aspect-square rounded-2xl flex flex-col items-center justify-center gap-2
-                      transition-all duration-200 ease-out transform hover:scale-[1.03] active:scale-95
+                      transition-all duration-200 ease-out transform hover:scale-105 active:scale-95
                       ${theme === 'dark'
-                        ? 'bg-[#042B44]/45 hover:bg-[#096B90]/26 border border-white/10'
-                        : 'bg-white/72 hover:bg-white border border-white/50'
+                        ? 'bg-[#042B44]/40 hover:bg-[#096B90]/30 border border-[#096B90]/15'
+                        : 'bg-white/60 hover:bg-white border border-gray-200'
                       }
                       backdrop-blur-sm hover:shadow-lg
                     `}
@@ -307,7 +260,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
                     {ripples.map(ripple => (
                       <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} color={ripple.color} />
                     ))}
-                    
+
                     {/* App Icon */}
                     <div className={`
                       p-2 rounded-xl transition-all duration-200 ease-out group-hover:scale-110 group-hover:rotate-12
@@ -316,13 +269,13 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
                         : 'bg-gray-100'
                       }
                     `}>
-                      <item.icon 
-                        size={20} 
+                      <item.icon
+                        size={20}
                         style={{ color: wallpaperAccents.primary }}
                         className="transition-colors duration-200"
                       />
                     </div>
-                    
+
                     {/* App Label */}
                     <span className={`text-xs font-medium text-center leading-tight ${
                       theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
@@ -333,7 +286,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
                 </Tooltip>
               ))}
             </div>
-            
+
             {/* Phone Home Indicator */}
             <div className="flex justify-center mt-6">
               <div className={`w-32 h-1 rounded-full ${
@@ -341,12 +294,12 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
               }`} />
             </div>
           </div>
-          
+
           {/* Phone Status Bar Simulation */}
           <div className="text-center mt-4">
             <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs ${
-              theme === 'dark' 
-                ? 'bg-[#042B44]/30 text-[#71B7D5]' 
+              theme === 'dark'
+                ? 'bg-[#042B44]/30 text-[#71B7D5]'
                 : 'bg-white/30 text-gray-600'
             }`}>
               <div className="w-1 h-1 rounded-full bg-current" />
@@ -354,7 +307,7 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
             </div>
           </div>
         </div>
-        
+
         {activeContent && (
           <ContentModal
             type={activeContent}
@@ -367,183 +320,194 @@ const Desktop: React.FC<DesktopProps> = ({ theme, wallpaperAccents }) => {
     );
   }
 
+  // Desktop layout
+  const featuredItems = iconItems.filter(item => item.featured);
+  const secondRowItems = iconItems.slice(2, 5);
+  const thirdRowItems = iconItems.slice(5);
+
   return (
-    <div className="min-h-screen flex items-center justify-center pb-16 px-6">
+    <div className="relative min-h-screen flex items-center justify-center pb-40 pt-8 px-6">
       <GeometricOverlay theme={theme} wallpaperAccents={wallpaperAccents} />
-      <div className="w-full max-w-6xl">
-        <div className={`panel-grid relative overflow-hidden rounded-[2rem] border p-6 md:p-8 backdrop-blur-2xl surface-shadow ${
-          theme === 'dark'
-            ? 'bg-[#03141d]/62 border-white/10'
-            : 'bg-white/45 border-white/45'
-        }`}>
-          <div className="relative mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-2xl">
-              <div className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${
-                theme === 'dark'
-                  ? 'bg-white/8 text-[#A1CCDC]'
-                  : 'bg-gray-900/5 text-gray-700'
-              }`}>
-                <div className="h-2 w-2 rounded-full" style={{ backgroundColor: wallpaperAccents.primary }} />
-                Desktop Portfolio
-              </div>
-              <h1 className={`text-4xl font-semibold tracking-tight md:text-5xl ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                A cleaner launcher for work that matters.
-              </h1>
-              <p className={`mt-4 max-w-xl text-base leading-7 text-balance ${
-                theme === 'dark' ? 'text-[#A1CCDC]/80' : 'text-gray-600'
-              }`}>
-                Open featured projects, experience, and contact details from a single OS-style surface updated for the current search cycle.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-              {["Applied AI", "Production Systems", "Updated Aug 2026"].map((pill) => (
-                <div
-                  key={pill}
-                  className={`rounded-2xl border px-4 py-3 text-sm font-medium ${
-                    theme === 'dark'
-                      ? 'border-white/10 bg-white/6 text-[#A1CCDC]'
-                      : 'border-white/50 bg-white/80 text-gray-700'
-                  }`}
-                >
-                  {pill}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="grid gap-5 sm:grid-cols-2">
-              {featuredItems.map((item, index) => (
-                <Tooltip key={item.id} text={item.tooltip || item.label} theme={theme}>
-                  <button
-                    onClick={(e) => {
-                      createRipple(e, wallpaperAccents.primary);
-                      item.onClick();
-                    }}
-                    aria-label={item.label}
-                    className={`group relative overflow-hidden rounded-[1.75rem] border p-7 text-left transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.01] ${
-                      theme === 'dark'
-                        ? 'border-white/10 bg-white/6 hover:bg-white/10'
-                        : 'border-white/50 bg-white/80 hover:bg-white'
-                    }`}
-                    style={{ animationDelay: `${160 + index * 100}ms` }}
+      <div className="text-center">
+        {/* Desktop grid */}
+        <div className="space-y-8">
+          {/* Featured row - larger tiles */}
+          <div className="flex gap-6 justify-center animate-in slide-in-from-top-4 duration-700 delay-100 ease-out">
+            {featuredItems.map((item, index) => (
+              <Tooltip key={item.id} text={item.tooltip || item.label} theme={theme}>
+                <button
+                key={item.id}
+                onClick={(e) => {
+                  createRipple(e, wallpaperAccents.primary);
+                  item.onClick();
+                }}
+                aria-label={item.label}
+                className={`
+                  relative overflow-hidden
+                  group relative p-8 w-40 h-40 rounded-2xl animate-in slide-in-from-top-4
+                  transition-all duration-200 ease-out transform hover:scale-105 hover:-translate-y-2 active:scale-95
+                  border-2 border-transparent hover:border-opacity-30
+                  ${theme === 'dark'
+                    ? 'bg-[#042B44]/50 hover:bg-[#096B90]/30'
+                    : 'bg-white/70 hover:bg-white'
+                  }
+                  backdrop-blur-sm hover:shadow-2xl
+                `}
+                style={{
+                  animationDelay: `${200 + index * 150}ms`,
+                  '--hover-border-color': wallpaperAccents.primary,
+                  '--hover-shadow': `0 25px 50px -12px ${wallpaperAccents.glow}`,
+                } as React.CSSProperties & { [key: string]: string }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = wallpaperAccents.primary + '50';
+                  e.currentTarget.style.boxShadow = `0 25px 50px -12px ${wallpaperAccents.glow}`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.boxShadow = '';
+                }}
+              >
+                {ripples.map(ripple => (
+                  <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} color={ripple.color} />
+                ))}
+                <div className="flex flex-col items-center gap-4">
+                  <item.icon
+                    size={44}
+                    className="transition-all duration-200 ease-out group-hover:scale-110"
+                    style={{
+                      color: theme === 'dark' ? '#71B7D5' : '#6B7280',
+                      '--hover-color': wallpaperAccents.primary
+                    } as React.CSSProperties & { [key: string]: string }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = `0 25px 50px -18px ${wallpaperAccents.glow}`;
+                      e.currentTarget.style.color = wallpaperAccents.primary;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '';
+                      e.currentTarget.style.color = theme === 'dark' ? '#71B7D5' : '#6B7280';
                     }}
-                  >
-                    {ripples.map(ripple => (
-                      <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} color={ripple.color} />
-                    ))}
-                    <div
-                      className="absolute inset-x-0 top-0 h-1"
-                      style={{ background: `linear-gradient(90deg, ${wallpaperAccents.primary}, ${wallpaperAccents.secondary})` }}
-                    />
-                    <div className={`mb-10 inline-flex rounded-2xl border p-3 ${
-                      theme === 'dark' ? 'border-white/10 bg-[#071b25]' : 'border-gray-200 bg-gray-50'
-                    }`}>
-                      <item.icon size={30} style={{ color: wallpaperAccents.primary }} />
-                    </div>
-                    <div className={`mb-2 text-xs uppercase tracking-[0.22em] ${
-                      theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
-                    }`}>
-                      Featured
-                    </div>
-                    <div className={`text-2xl font-semibold tracking-tight ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
-                      {item.label}
-                    </div>
-                    <div className={`mt-3 text-sm leading-6 ${
-                      theme === 'dark' ? 'text-[#A1CCDC]/78' : 'text-gray-600'
-                    }`}>
-                      {item.tooltip}
-                    </div>
-                  </button>
-                </Tooltip>
-              ))}
-            </div>
-
-            <div className={`rounded-[1.75rem] border p-5 ${
-              theme === 'dark'
-                ? 'border-white/10 bg-white/6'
-                : 'border-white/50 bg-white/75'
-            }`}>
-              <div className="mb-5 flex items-center justify-between">
-                <div>
-                  <div className={`text-[11px] uppercase tracking-[0.22em] ${
-                    theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
+                  />
+                  <span className={`text-base font-medium ${
+                    theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
                   }`}>
-                    Shortcuts
-                  </div>
-                  <div className={`text-lg font-semibold tracking-tight ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    Everything else
-                  </div>
+                    {item.label}
+                  </span>
                 </div>
-                <div className={`rounded-full px-3 py-1 text-xs ${
-                  theme === 'dark' ? 'bg-white/8 text-[#A1CCDC]' : 'bg-gray-900/5 text-gray-600'
-                }`}>
-                  {utilityItems.length} apps
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                {utilityItems.map((item, index) => (
-                  <Tooltip key={item.id} text={item.tooltip || item.label} theme={theme}>
-                    <button
-                      onClick={(e) => {
-                        createRipple(e, wallpaperAccents.primary);
-                        item.onClick();
-                      }}
-                      aria-label={item.label}
-                      className={`group relative overflow-hidden rounded-2xl border p-4 text-left transition-all duration-200 hover:-translate-y-1 hover:scale-[1.01] ${
-                        theme === 'dark'
-                          ? 'border-white/10 bg-[#042B44]/34 hover:bg-[#096B90]/18'
-                          : 'border-white/50 bg-white/78 hover:bg-white'
-                      }`}
-                      style={{ animationDelay: `${320 + index * 70}ms` }}
-                    >
-                      {ripples.map(ripple => (
-                        <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} color={ripple.color} />
-                      ))}
-                      <div className="mb-4 flex items-center justify-between">
-                        <div className={`rounded-xl p-2.5 ${
-                          theme === 'dark' ? 'bg-white/8' : 'bg-gray-100'
-                        }`}>
-                          <item.icon size={20} style={{ color: wallpaperAccents.primary }} />
-                        </div>
-                        <div className={`text-[10px] uppercase tracking-[0.22em] ${
-                          theme === 'dark' ? 'text-[#71B7D5]' : 'text-gray-500'
-                        }`}>
-                          Open
-                        </div>
-                      </div>
-                      <div className={`text-sm font-semibold ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}>
-                        {item.label}
-                      </div>
-                      <div className={`mt-1 text-xs leading-5 ${
-                        theme === 'dark' ? 'text-[#A1CCDC]/72' : 'text-gray-600'
-                      }`}>
-                        {item.tooltip}
-                      </div>
-                    </button>
-                  </Tooltip>
+                {/* Dynamic glow effect */}
+                <div
+                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out scale-105"
+                  style={{ backgroundColor: wallpaperAccents.glow }}
+                />
+              </button>
+              </Tooltip>
+            ))}
+          </div>
+
+          {/* Second row */}
+          <div className="flex gap-6 justify-center animate-in slide-in-from-bottom-4 duration-700 delay-300 ease-out">
+            {secondRowItems.map((item, index) => (
+              <Tooltip key={item.id} text={item.tooltip || item.label} theme={theme}>
+                <button
+                key={item.id}
+                onClick={(e) => {
+                  createRipple(e, wallpaperAccents.primary);
+                  item.onClick();
+                }}
+                aria-label={item.label}
+                style={{ animationDelay: `${400 + index * 100}ms` }}
+                className={`
+                  relative overflow-hidden
+                  group relative p-5 w-32 h-32 rounded-xl animate-in slide-in-from-bottom-4
+                  transition-all duration-200 ease-out transform hover:scale-105 hover:-translate-y-1 active:scale-95
+                  ${theme === 'dark'
+                    ? 'bg-[#042B44]/40 hover:bg-[#096B90]/25 border border-[#096B90]/15'
+                    : 'bg-white/60 hover:bg-white border border-gray-200'
+                  }
+                  backdrop-blur-sm
+                `}
+              >
+                {ripples.map(ripple => (
+                  <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} color={ripple.color} />
                 ))}
-              </div>
-            </div>
+                <div className="flex flex-col items-center gap-3">
+                  <item.icon
+                    size={32}
+                    className={`transition-all duration-200 ease-out group-hover:scale-110 ${
+                      theme === 'dark' ? 'text-[#71B7D5] group-hover:text-[#A1CCDC]' : 'text-gray-600 group-hover:text-gray-800'
+                    }`}
+                  />
+                  <span className={`text-sm font-medium ${
+                    theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
+                  }`}>
+                    {item.label}
+                  </span>
+                </div>
+              </button>
+              </Tooltip>
+            ))}
+          </div>
+
+          {/* Third row */}
+          <div className="flex gap-5 justify-center animate-in slide-in-from-bottom-4 duration-700 delay-500 ease-out">
+            {thirdRowItems.map((item, index) => (
+              <Tooltip key={item.id} text={item.tooltip || item.label} theme={theme}>
+                <button
+                key={item.id}
+                onClick={(e) => {
+                  createRipple(e, wallpaperAccents.primary);
+                  item.onClick();
+                }}
+                aria-label={item.label}
+                style={{ animationDelay: `${600 + index * 100}ms` }}
+                className={`
+                  relative overflow-hidden
+                  group relative p-4 w-28 h-28 rounded-xl animate-in slide-in-from-bottom-4
+                  transition-all duration-200 ease-out transform hover:scale-105 hover:-translate-y-1 active:scale-95
+                  ${theme === 'dark'
+                    ? 'bg-[#042B44]/40 hover:bg-[#096B90]/25 border border-[#096B90]/15'
+                    : 'bg-white/60 hover:bg-white border border-gray-200'
+                  }
+                  backdrop-blur-sm
+                `}
+              >
+                {ripples.map(ripple => (
+                  <RippleEffect key={ripple.id} x={ripple.x} y={ripple.y} color={ripple.color} />
+                ))}
+                <div className="flex flex-col items-center gap-2">
+                  <item.icon
+                    size={28}
+                    className={`transition-all duration-200 ease-out group-hover:scale-110 ${
+                      theme === 'dark' ? 'text-[#71B7D5] group-hover:text-[#A1CCDC]' : 'text-gray-600 group-hover:text-gray-800'
+                    }`}
+                  />
+                  <span className={`text-xs font-medium leading-tight text-center ${
+                    theme === 'dark' ? 'text-[#A1CCDC]' : 'text-gray-800'
+                  }`}>
+                    {item.label}
+                  </span>
+                </div>
+              </button>
+              </Tooltip>
+            ))}
           </div>
         </div>
       </div>
-      
+
+      <div className={`absolute bottom-24 left-8 flex items-center gap-3 rounded-2xl border p-3 backdrop-blur-xl surface-shadow ${
+        theme === 'dark'
+          ? 'border-white/10 bg-[#03141d]/64 text-[#A1CCDC]'
+          : 'border-white/55 bg-white/72 text-gray-700'
+      }`}>
+        <img
+          src="/images/yohannes-headshot.png"
+          alt="Yohannes Nigusse"
+          className="h-11 w-11 rounded-xl object-cover"
+        />
+        <div>
+          <div className={`text-sm font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Yohannes Nigusse</div>
+          <div className="text-xs">Applied AI · Backend Systems</div>
+        </div>
+      </div>
+
       {activeContent && (
         <ContentModal
           type={activeContent}

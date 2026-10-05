@@ -1,8 +1,29 @@
+# Dependencies and build output
 node_modules/
 dist/
-project/dist/
-project/dist/assets/
+*.tsbuildinfo
+
+# Local environment and logs
+.env
+.env.*
+!.env.example
+*.log
 .DS_Store
+
+# Local editor, agent, and generated index files
+.vscode/
+.codex/
+.codegraph/
+.cavemanrc
+CLAUDE.md
+.github/copilot-instructions.md
 CODEX_TASKS.md
-assets/
+
+# Scratch artifacts
+/tmp/
+/output/
+/assets/
 *.pdf
+
+# PDFs served by the portfolio must be committed
+!/project/public/*.pdf

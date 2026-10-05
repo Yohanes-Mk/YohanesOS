@@ -1,32 +1,35 @@
 export const portfolioData = {
   about: {
     intro:
-      "I'm Yohannes, a Computer Science student focused on Applied AI engineering, backend systems, and full-stack product delivery. I build production-minded software across LLM workflows, retrieval systems, APIs, cloud integrations, and user-facing tools, with recent work spanning Accenture, Kibur College, research infrastructure, and solo AI products.",
+      "I'm Yohannes Nigusse, a software engineer building backend systems, full-stack products, and applied AI workflows. My work spans enterprise software at Accenture, admissions tooling at Kibur College, research infrastructure, and team-led course projects. I focus on clear architecture, automated testing, and reliable delivery, and I serve as Vice President of the National Society of Black Engineers.",
     highlights: [
-      "Completed Accenture's Technology Summer Analyst internship on August 18, 2026, delivering release-critical accessibility and platform engineering work for an enterprise AI presentation-generation system.",
-      "Worked across applied AI initiatives on real cloud infrastructure, including serverless AWS integrations, Azure-based document generation, and a human-in-the-loop community AI agent.",
-      "Built defensible AI systems across solo, client, and research environments: The Stack, a multi-channel admissions RAG chatbot with pgvector and reranking, and backend services for real operational workflows.",
-      "My strongest work sits at the intersection of LLM pipelines, retrieval architecture, backend APIs, cloud deployment, and product-minded implementation."
+      "I completed Accenture's Technology Summer Analyst internship on August 18, 2026, where I shipped release-critical accessibility and platform engineering work for an enterprise AI presentation-generation system.",
+      "I’ve worked on applied AI workflows across real cloud infrastructure, including AWS Lambda and API Gateway integrations, Azure-based document generation and search flows, and human-in-the-loop AI systems.",
+      "I build defensible systems across solo, client, and research environments, including The Stack, a multi-channel admissions RAG chatbot with pgvector and reranking, and backend services that support real operational workflows.",
+      "I care most about building systems that are technically honest, useful in production, and clear about where AI should assist versus where people should stay in control."
     ],
     tags: [
-      "Applied AI",
+      "Applied AI Systems",
+      "Backend Architecture",
       "RAG & Retrieval",
-      "Python Backends",
-      "Cloud & APIs",
-      "Full-Stack Delivery"
+      "Cloud Integrations",
+      "Product Delivery",
+      "Software Architecture",
+      "NSBE Vice President"
     ],
     terminalHeadline:
-      "Applied AI Engineer · Backend + Full-Stack Builder",
+      "Software Engineer · Backend Systems · Applied AI",
     terminalSummary: [
-      "Applied AI, backend APIs, and full-stack product delivery.",
+      "Software engineering, backend systems, and applied AI.",
       "Built production-minded systems across Accenture, Kibur,",
-      "research infrastructure, and solo LLM products.",
+      "research infrastructure, and independent LLM products.",
+      "Vice President, National Society of Black Engineers.",
       "B.S. Computer Science (AI/ML Track) @ SCSU · 3.92 GPA · Dec 2027."
     ],
     currentStatus:
-      "Post-Accenture internship · Applied AI / SWE opportunities for Spring 2027",
+      "Post-Accenture internship · focused on applied AI, backend engineering, and Summer 2027 opportunities",
     availability:
-      "Open to Spring 2027 internships, selective new-grad pipelines, research collaborations, and strong applied AI projects."
+      "Open to Summer 2027 internships, selective new-grad pipelines, research collaborations, and serious applied AI builds."
   },
   projects: [
     {
@@ -38,15 +41,101 @@ export const portfolioData = {
       description: [
         "Designed and built a solo end-to-end AI content pipeline that ingests YouTube channels and iCal event feeds, summarizes with OpenAI gpt-4o-mini structured output, and delivers personalized HTML digests by email.",
         "Built a context-aware curator agent that re-ranks the same content pool differently per user profile using LLM reasoning over a live user context document.",
-        "Engineered a production-style monitoring layer with run lifecycle tracking, per-stage metrics, and per-item error capture so the pipeline degrades gracefully instead of aborting. Demoed live at NSBE 2026."
+        "Built run tracking, stage metrics, structured JSON logs, and item-level error isolation. Across 500 runs on a reproducible input set, 96.4% completed successfully; monitoring traced degraded and failed cases to API rate limits. Demoed live at NSBE 2026."
       ],
       terminalDescription:
         "Solo LLM pipeline with context-aware ranking, monitoring, and NSBE 2026 demo",
-      fileSlug: "ai-event-aggregator",
-      fileDescription: "Flagship solo AI pipeline for personalized event and content curation",
-      githubLink: "https://github.com/Yohanes-Mk/ai-event-aggregator",
+      fileSlug: "the-stack",
+      fileDescription: "Flagship solo AI pipeline for personalized event and content curation under The Stack",
+      githubLink: "https://github.com/Yohanes-Mk/the-stack",
       terminalIcon: "📡",
       featured: true
+    },
+    {
+      title: "RidgeRunner — Unity Time-Trial Racer",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["Unity 6", "C#", "WheelCollider", "Race Telemetry"],
+      terminalStack: ["Unity 6", "C#", "Race Telemetry"],
+      description: [
+        "Built a playable time-trial racing prototype with ordered checkpoint and lap-state logic, live minimap, best-lap tracking, and off-track penalties.",
+        "Implemented session timing, split telemetry, and a tuned Unity WheelCollider-based vehicle controller for arcade-style handling.",
+        "Shipped a Windows build and gameplay demo as a completed game-development project."
+      ],
+      terminalDescription:
+        "Playable Unity time-trial racer with checkpoint logic, telemetry, and gameplay demo",
+      fileSlug: "ridge-runner",
+      fileDescription: "Unity 6 time-trial racer with a playable build and gameplay demo",
+      githubLink: "https://github.com/Yohanes-Mk/RidgeRunner",
+      terminalIcon: "🏁",
+      featured: false
+    },
+    {
+      title: "NimbusQueue — Distributed Task Queue",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["Python", "FastAPI", "PostgreSQL", "Docker", "GCP", "GitHub Actions"],
+      terminalStack: ["Python", "FastAPI", "PostgreSQL", "Docker", "GCP", "GitHub Actions"],
+      description: [
+        "Backend lead on a four-person CSCI 312 distributed-systems course team, building asynchronous job processing across three GCP workers.",
+        "Load-tested 5,000 mixed-duration jobs: three workers reduced queue-drain time by 62% versus one worker and improved P95 processing latency from 450 ms to 110 ms.",
+        "Terminated the active coordinator during a 2,500-job test; PostgreSQL-backed leader election restored processing in 3.4 seconds with no duplicated or lost jobs. Docker Compose and GitHub Actions gated redeploys on 42 integration tests."
+      ],
+      terminalDescription: "Backend lead on a four-person CSCI 312 distributed-systems course team, building asynchronous job processing across three GCP workers.",
+      fileSlug: "nimbusqueue",
+      fileDescription: "NimbusQueue — Distributed Task Queue",
+      terminalIcon: "☁️",
+      featured: true
+    },
+    {
+      title: "CampusMarket — Campus Marketplace",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["Python", "FastAPI", "React", "PostgreSQL", "Docker", "GitHub Actions"],
+      terminalStack: ["Python", "FastAPI", "React", "PostgreSQL", "Docker", "GitHub Actions"],
+      description: [
+        "Lead developer on a five-person CSCI 430 software-architecture course team, directing listing and search workflows across React, FastAPI, and PostgreSQL.",
+        "Applied SOLID principles and Factory, Observer, and Strategy patterns to separate responsibilities. Used Claude Code to scaffold CRUD boilerplate and conducted 20+ pull-request reviews focused on requirements, edge cases, and code quality.",
+        "Configured automated tests on every pull request with GitHub Actions, helping raise team test coverage from under 30% to over 75% before final submission."
+      ],
+      terminalDescription: "Lead developer on a five-person CSCI 430 software-architecture course team, directing listing and search workflows across React, FastAPI, and PostgreSQL.",
+      fileSlug: "campusmarket",
+      fileDescription: "CampusMarket — Campus Marketplace",
+      terminalIcon: "🛒",
+      featured: true
+    },
+    {
+      title: "ConcurrentBank — Database Concurrency Lab",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["PostgreSQL", "Python", "SQLAlchemy"],
+      terminalStack: ["PostgreSQL", "Python", "SQLAlchemy"],
+      description: [
+        "Solo CSCI 411 database course project exploring transaction isolation, deadlocks, and crash recovery. Stress-tested 1,500 concurrent financial transactions and reproduced a non-repeatable read under Read Committed; post-change Repeatable Read runs showed no occurrences.",
+        "Reproduced PostgreSQL 40P01 deadlocks across 50 runs, then enforced consistent lock ordering and automated retries, with no deadlocks across 50 post-change runs.",
+        "Validated WAL crash recovery during a 500-transaction workload: 312 committed transactions remained durable and 188 interrupted transactions remained uncommitted."
+      ],
+      terminalDescription: "Solo CSCI 411 database course project exploring transaction isolation, deadlocks, and crash recovery. Stress-tested 1,500 concurrent financial transactions and reproduced a non-repeatable read under Read Committed; post-change Repeatable Read runs showed no occurrences.",
+      fileSlug: "concurrentbank",
+      fileDescription: "ConcurrentBank — Database Concurrency Lab",
+      terminalIcon: "🏦",
+      featured: false
+    },
+    {
+      title: "InvenTrack — Inventory Management",
+      status: "Completed",
+      terminalStatus: "COMPLETED",
+      stack: ["Python", "SQLAlchemy", "SQLite", "Streamlit"],
+      terminalStack: ["Python", "SQLAlchemy", "SQLite", "Streamlit"],
+      description: [
+        "Solo CSCI 331 software-systems course project for tracking inventory, reorder points, and transactions using Streamlit, SQLAlchemy, and SQLite.",
+        "Separated domain logic from storage to support in-memory testing. Unit and integration tests caught two reorder-point data-integrity bugs before the course demo."
+      ],
+      terminalDescription: "Solo CSCI 331 software-systems course project for tracking inventory, reorder points, and transactions using Streamlit, SQLAlchemy, and SQLite.",
+      fileSlug: "inventrack",
+      fileDescription: "InvenTrack — Inventory Management",
+      terminalIcon: "📦",
+      featured: false
     },
     {
       title: "AI Donor-Discovery Platform",
@@ -69,19 +158,19 @@ export const portfolioData = {
       title: "Kibur RAG Admissions Chatbot",
       status: "Partial",
       terminalStatus: "PARTIAL",
-      stack: ["Python", "PostgreSQL", "pgvector", "Telegram", "Cross-Encoder Reranking", "SQLite"],
-      terminalStack: ["Python", "PostgreSQL", "pgvector", "Telegram", "SQLite"],
+      stack: ["Python", "PostgreSQL", "pgvector", "Telegram", "Cross-Encoder Reranking", "SQLite", "Gemini API"],
+      terminalStack: ["Python", "PostgreSQL", "pgvector", "Telegram", "SQLite", "Gemini API"],
       description: [
-        "Built a multi-channel RAG-based admissions chatbot handling prospective student queries over Telegram and email as the sole developer across the full pipeline.",
+        "Sole developer of a Telegram/email admissions RAG assistant using PostgreSQL/pgvector and Gemini, validated in an owner-confirmed pilot with 84 queries from 12 users.",
         "Designed a two-stage retrieval system using all-MiniLM-L6-v2 for candidate retrieval and a cross-encoder for reranking before LLM generation.",
-        "Embedded the institutional knowledge base into PostgreSQL with pgvector and added retrieval routing plus a standalone SQLite-backed staff dashboard for non-technical updates."
+        "On a separate 75-question benchmark, 68/75 retrieved expected top-five context and 70/75 answers were correct or partially correct (owner-confirmed). A SQLite dashboard enabled approximately 12 staff to update institutional knowledge without code changes."
       ],
       terminalDescription:
         "Multi-channel RAG chatbot with pgvector, reranking, and staff dashboard tooling",
       fileSlug: "kibur-rag-chatbot",
       fileDescription: "Admissions RAG chatbot with pgvector and cross-encoder reranking",
       terminalIcon: "🎓",
-      featured: true
+      featured: false
     },
     {
       title: "NearbyTalk — Anonymous Local Social Platform",
@@ -200,7 +289,16 @@ export const portfolioData = {
       { name: "Accessibility", icon: "Monitor" },
       { name: "NVDA Testing", icon: "Monitor" },
       { name: "GitHub Actions", icon: "GitBranch" },
-      { name: "Streamlit", icon: "Monitor" }
+      { name: "Streamlit", icon: "Monitor" },
+      { name: "GCP", icon: "Cloud" },
+      { name: "Gemini API", icon: "Zap" },
+      { name: "Redis", icon: "Database" },
+      { name: "Distributed Systems", icon: "Layers" },
+      { name: "Software Architecture", icon: "Layers" },
+      { name: "Database Transactions", icon: "Database" },
+      { name: "Integration Testing", icon: "Code2" },
+      { name: "Regression Testing", icon: "Code2" },
+      { name: "Observability", icon: "Monitor" }
     ],
     tools: [
       { name: "VS Code", icon: "Monitor" },
@@ -209,29 +307,29 @@ export const portfolioData = {
       { name: "GitHub Copilot", icon: "Github" },
       { name: "Git", icon: "GitBranch" },
       { name: "GitHub", icon: "Github" },
-      { name: "Postman", icon: "Smartphone" },
       { name: "Linux", icon: "Terminal" },
+      { name: "Clockwise", icon: "Monitor" },
       { name: "Jest", icon: "Code2" },
       { name: "Vercel", icon: "Globe" },
       { name: "Render", icon: "Globe" },
-      { name: "Firebase", icon: "Database" },
-      { name: "Figma", icon: "Palette" },
+      { name: "AWS Console", icon: "Cloud" },
+      { name: "Azure Portal", icon: "Cloud" },
       { name: "Scrum", icon: "Layers" },
-      { name: "Tailwind", icon: "Palette" },
-      { name: "Vite", icon: "Zap" }
+      { name: "GitHub Actions", icon: "GitBranch" },
+      { name: "Docker Desktop", icon: "Box" }
     ],
     terminalCategories: [
       {
         label: "🧠  AI & LLM Engineering",
-        items: ["RAG Pipelines", "Agentic AI", "LangChain", "OpenAI API", "Anthropic API", "sentence-transformers", "pgvector", "Prompt Engineering"]
+        items: ["RAG Pipelines", "Agentic AI", "LangChain", "OpenAI API", "Gemini API", "Anthropic API", "sentence-transformers", "pgvector", "Prompt Engineering"]
       },
       {
         label: "⚙️  Backend & APIs",
-        items: ["Python", "FastAPI", "Flask", "REST APIs", "PostgreSQL", "SQLAlchemy", "MongoDB", "SQLite", "Docker"]
+        items: ["Python", "FastAPI", "Flask", "REST APIs", "PostgreSQL", "SQLAlchemy", "MongoDB", "SQLite", "Redis", "Distributed Systems", "Database Transactions", "Docker"]
       },
       {
         label: "☁️  Cloud & Platform",
-        items: ["AWS Lambda", "API Gateway", "Azure OpenAI", "Azure Cognitive Search", "Azure Blob Storage", "GitHub Actions", "Render", "Vercel"]
+        items: ["GCP", "AWS Lambda", "API Gateway", "Azure OpenAI", "Azure Cognitive Search", "Azure Blob Storage", "GitHub Actions", "Render", "Vercel"]
       },
       {
         label: "🎨  Frontend & UX",
@@ -243,16 +341,16 @@ export const portfolioData = {
       },
       {
         label: "🛠️  Tooling & Quality",
-        items: ["Claude Code", "OpenAI Codex", "GitHub Copilot", "Jest", "OOXML", "Accessibility", "NVDA Testing", "Git", "Linux", "Scrum"]
+        items: ["Claude Code", "OpenAI Codex", "GitHub Copilot", "Jest", "Unit Testing", "Integration Testing", "Regression Testing", "Code Review", "Observability", "OOXML", "Accessibility", "NVDA Testing", "Git", "Linux", "GitHub Actions", "Scrum"]
       }
     ],
     files: {
-      "ai_llm.txt": "RAG Pipelines, Agentic AI, LangChain, OpenAI API, Anthropic API, sentence-transformers, pgvector, Prompt Engineering",
-      "backend.txt": "Python, FastAPI, Flask, REST APIs, PostgreSQL, SQLAlchemy, MongoDB, SQLite, Docker",
+      "ai_llm.txt": "RAG Pipelines, Agentic AI, LangChain, Gemini API, OpenAI API, Anthropic API, sentence-transformers, pgvector, Prompt Engineering",
+      "backend.txt": "Python, FastAPI, Flask, REST APIs, PostgreSQL, SQLAlchemy, MongoDB, SQLite, Redis, Distributed Systems, Database Transactions, Docker",
       "frontend.txt": "React, TypeScript, Tailwind CSS, Streamlit, HTML/CSS, PySide6/QML, Unity",
       "ml_cv.txt": "OpenCV, MediaPipe, YOLO, TensorFlow, PyTorch, Scikit-learn",
-      "cloud.txt": "AWS Lambda, API Gateway, Azure OpenAI, Azure Cognitive Search, Azure Blob Storage, GitHub Actions, Render, Vercel",
-      "tooling.txt": "Claude Code, OpenAI Codex, GitHub Copilot, Jest, OOXML, Accessibility, NVDA Testing, Git, Linux, Scrum"
+      "cloud.txt": "GCP, AWS Lambda, API Gateway, Azure OpenAI, Azure Cognitive Search, Azure Blob Storage, GitHub Actions, Render, Vercel",
+      "tooling.txt": "Unit Testing, Integration Testing, Regression Testing, Code Review, Observability, Software Architecture, Claude Code, OpenAI Codex, GitHub Copilot, Jest, OOXML, Accessibility, NVDA Testing, Git, Linux, GitHub Actions, Scrum"
     }
   },
   education: [
@@ -273,11 +371,12 @@ export const portfolioData = {
         "Programming Language Concepts",
         "Computer Architecture",
         "Software Systems",
+        "Software Design & Architecture",
         "Linear Algebra",
         "Probability & Statistics"
       ],
       activities: [
-        "NSBE (National Society of Black Engineers)",
+        "Vice President, NSBE (National Society of Black Engineers)",
         "Cloud Computing Club",
         "Student Government Tech Fee Committee"
       ],
@@ -288,7 +387,7 @@ export const portfolioData = {
       ],
       terminalPrograms: [
         "AI4ALL Discover AI · CodePath AI 110 · CodePath TIP 102 · Web 101",
-        "NSBE · Cloud Computing Club · Student Government Tech Fee Committee"
+        "NSBE Vice President · Cloud Computing Club · Student Government Tech Fee Committee"
       ],
       fileName: "scsu.txt",
       fileContent:
@@ -316,10 +415,12 @@ export const portfolioData = {
     { name: "AI4ALL Discover AI", status: "Graduate" },
     { name: "CodePath TIP 102", status: "Completed" },
     { name: "CodePath Web Development 101", status: "Completed" },
-    { name: "NSBE", status: "Active Member" },
+    { name: "NSBE", status: "Vice President" },
     { name: "Cloud Computing Club", status: "Active Member" },
     { name: "Student Government Tech Fee Committee", status: "Active Member" },
-    { name: "ColorStack", status: "Active Member" }
+    { name: "ColorStack", status: "Affiliate" },
+    { name: "Monte Johnson CS Scholarship", status: "Recipient" },
+    { name: "Duane Joyer Memorial Scholarship", status: "Recipient" }
   ],
   experience: [
     {
@@ -328,9 +429,10 @@ export const portfolioData = {
       period: "Jun 2026 – Aug 2026",
       location: "Seattle, Washington",
       points: [
-        "Owned a release-critical accessibility workstream for an enterprise client-intelligence platform supporting ~30,000 internal accounts and data spanning a 9,000+ global client portfolio, addressing 10+ defects identified through external accessibility testing.",
-        "Engineered a custom accessibility layer in the TypeScript/OOXML generation pipeline to overcome core-library limitations, restructuring presentation generation and building automated regression tests for screen-reader compatibility.",
-        "Resolved the full set of release-blocking accessibility issues and cleared the platform for production deployment, enabling its broader client-intelligence capabilities to reach teams across the firm's global client portfolio."
+        "Resolved 10+ externally reported accessibility defects in TypeScript/OOXML-generated PowerPoint decks backed by Azure storage/search, unblocking a production release milestone for approximately 30,000 internal accounts.",
+        "Engineered a custom accessibility layer in the generation pipeline and authored 11 Jest regression rules to prevent screen-reader compatibility regressions.",
+        "Validated fixes across 8 formal scenarios using automated regression testing and NVDA, covering reading order, alt text, title structure, navigation, footnotes, and malformed bullets; delivered sign-off evidence clearing the release gate.",
+        "Extended the pricing tool's production API integration layer to carry additional inputs into structured recommendation documents and migrated document generation to AWS Lambda/API Gateway."
       ],
       isActive: false
     },
@@ -347,14 +449,15 @@ export const portfolioData = {
       isActive: true
     },
     {
-      title: "AI Admissions Assistant — CO-OP",
+      title: "Software Engineering Intern",
       company: "Kibur College",
       period: "Jan 2026 – May 2026",
       location: "Remote — Addis Ababa, Ethiopia",
       points: [
-        "Built a multi-channel RAG-based admissions chatbot handling prospective student queries over Telegram and email as the sole developer across the full pipeline.",
-        "Designed two-stage retrieval system: all-MiniLM-L6-v2 for candidate retrieval + ms-marco-MiniLM-L-6-v2 cross-encoder re-ranking before LLM generation — improved answer precision over single-stage retrieval.",
-        "Embedded institutional knowledge base into PostgreSQL with pgvector; implemented retrieval routing to resolve common queries before invoking the LLM and built a standalone SQLite-backed staff dashboard."
+        "Sole developer of a Telegram/email RAG admissions assistant combining semantic retrieval in PostgreSQL/pgvector with Gemini synthesis; validated in an owner-confirmed pilot with 84 queries from 12 users.",
+        "Built a separate 75-question benchmark: 68/75 retrieved expected top-five context and 70/75 answers were correct or partially correct (owner-confirmed). Used seven failed-context cases to guide retrieval tuning.",
+        "Designed relational schema, vector indexing, and retrieval routing; built a SQLite dashboard enabling approximately 12 staff to update institutional knowledge without code changes.",
+        "Co-designed a shared-nothing distributed backend across 60+ repurposed campus computers, modeling capacity planning, quorum-based availability, and fault-isolated scaling without cloud infrastructure spend."
       ]
     },
     {
@@ -363,21 +466,9 @@ export const portfolioData = {
       period: "Aug 2024 – May 2025",
       location: "St. Cloud, Minnesota",
       points: [
-        "Contributed to Avatar, a research platform integrating OpenBCI EEG headsets with robotics systems for real-time control and reliable server-side data handling.",
-        "Maintained and debugged the Avatar platform's EEG data anonymization pipeline, fixing file organization logic to correctly classify brainwave recordings by thought category for IRB-compliant ML training.",
-        "Implemented RSA key management scripts for a shared AI HPC server and resolved UI inconsistencies across an 8-tab PySide6/QML desktop application.",
-        "Debugged deployment tracebacks, resolved merge conflicts, and maintained Linux and Ubuntu compute infrastructure for a multi-contributor research platform."
-      ]
-    },
-    {
-      title: "Software Engineering Intern — SIS/LMS",
-      company: "Kibur College",
-      period: "Summer 2024",
-      location: "Remote — Addis Ababa, Ethiopia",
-      points: [
-        "Developed Flask/FastAPI microservices for enrollment, grade submission, and course registration secured with Firebase Auth + RBAC.",
-        "Automated reporting workflows for 800+ student records, cutting manual compilation time by ≈80%.",
-        "Documented OpenAPI specs and delivered CI-ready endpoints with idempotent database writes and error tracing."
+        "Diagnosed EEG sample-rate mismatches and implemented metadata-driven polyphase resampling, restoring 14 previously failed recordings across 3 runs; all 14 produced valid 8-channel PSD features for the anonymized dataset.",
+        "Wrote RSA key-management scripts that automated key expiry and blocked post-login authorized_keys changes across two workstations and one storage server, hardening access controls for four researchers.",
+        "Corrected tab resizing, active-state indicators, and button alignment across an eight-tab PySide6/QML research interface, restoring consistent drone, robot, and model controls."
       ]
     },
     {
@@ -386,7 +477,7 @@ export const portfolioData = {
       period: "Fall 2023 – Spring 2024",
       location: "Baltimore, Maryland",
       points: [
-        "Built a Python + Google Sheets API automation tool for recurring operational workflows and event attendance, reducing manual record processing by about 85%.",
+        "Automated recurring attendance tracking for 50–100 participants per session with Python and the Google Sheets API, reducing manual record processing by approximately 85%.",
         "Updated and maintained the CWIT website, improving content accuracy and usability with HTML and CSS.",
         "Built Flask and FastAPI services with RBAC and CI support for student records workflows."
       ]
@@ -411,24 +502,28 @@ export const portfolioData = {
     githubDisplay: "github.com/Yohanes-Mk",
     location: "Minnesota, United States",
     status:
-      "Post-Accenture internship · Open to Spring 2027 internships, selective new-grad roles, and research collaborations",
+      "Post-Accenture internship · Open to Summer 2027 internships, selective new-grad roles, and research collaborations",
     intro:
       "I’m interested in applied AI, backend, and software engineering opportunities where I can ship real systems, learn fast, and grow with a strong team."
   },
   resume: {
-    link: "/resume.pdf",
+    link: "/Yohannes_Nigusse_Product_Software_Resume.pdf",
+    alternatives: [
+      { label: "Backend & Infrastructure", link: "/YOHANNES_RESUME_BACKEND_INFRASTRUCTURE.pdf" },
+      { label: "Enterprise Software Engineering", link: "/YOHANNES_RESUME_ENTERPRISE_SWE.pdf" }
+    ],
     summary: {
       experience: [
-        "Accenture Technology Summer Analyst with production accessibility, TypeScript/OOXML delivery, and cloud integration experience",
-        "AI admissions assistant and sole builder of a multi-channel RAG chatbot with pgvector and reranking",
-        "Applied AI and backend engineering across consulting, research, education, and freelance software delivery",
-        "Mentored students through SI PASS while balancing full-time technical coursework"
+        "Accenture Technology Summer Analyst: 10+ accessibility fixes, 11 Jest regression rules, and 8 formal NVDA validation scenarios",
+        "Sole builder of a multi-channel admissions RAG chatbot with pgvector, cross-encoder reranking, and non-technical staff update tooling",
+        "Team lead on CampusMarket and NimbusQueue, delivering full-stack architecture and tested distributed job processing",
+        "Vice President, National Society of Black Engineers; B.S. Computer Science (AI/ML Track), 3.92 GPA"
       ],
       achievements: [
         "Resolved release-blocking accessibility issues for an enterprise AI presentation-generation platform",
-        "Built The Stack and demoed it live at NSBE 2026 Baltimore",
-        "Designed two-stage RAG retrieval with bi-encoder recall and cross-encoder reranking",
-        "Earned AWS and Scrum certifications during Accenture onboarding"
+        "The Stack: 96.4% successful runs across a reproducible 500-run reliability test; demoed at NSBE 2026",
+        "NimbusQueue: 62% faster queue drain across three workers and 3.4-second failover in a 2,500-job test",
+        "CampusMarket: helped raise team test coverage from under 30% to over 75%; Monte Johnson CS and Duane Joyer Memorial scholarship recipient"
       ]
     }
   }
