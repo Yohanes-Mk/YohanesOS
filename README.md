@@ -1,8 +1,31 @@
 # YohannesOS
 
-An OS-inspired portfolio for Yohannes Nigusse, built with React, TypeScript, Tailwind CSS, and Vite. Includes a Power On landing screen, desktop app launcher, interactive terminal, taskbar, and portfolio sections.
+[YohannesOS](https://yohanes-os.vercel.app/) is an OS-inspired portfolio for Yohannes Nigusse, built with React, TypeScript, Tailwind CSS, and Vite. Includes a Power On landing screen, desktop app launcher, interactive terminal, taskbar, and portfolio sections.
 
 Yohannes builds backend systems, full-stack products, and applied AI workflows. He completed Accenture's Technology Summer Analyst internship in August 2026 and serves as Vice President of NSBE. B.S. Computer Science (AI/ML Track), St. Cloud State University; GPA 3.92; expected graduation December 2027.
+
+## Showcase
+
+These screenshots document the previous UI design; the current site restores the simpler Power On landing screen and app grid.
+
+### Desktop
+
+| Landing | Workspace |
+| --- | --- |
+| ![YohannesOS desktop landing screen](docs/showcase/desktop-landing.png) | ![YohannesOS desktop workspace](docs/showcase/desktop-workspace.png) |
+
+### Mobile
+
+| Landing | Workspace |
+| --- | --- |
+| ![YohannesOS mobile landing screen](docs/showcase/mobile-landing.png) | ![YohannesOS mobile workspace](docs/showcase/mobile-workspace.png) |
+
+## What It Includes
+
+- Desktop and phone-first portfolio launchers with distinct interaction models.
+- Project, experience, education, skills, contact, and resume surfaces.
+- A terminal mode for browsing the same portfolio data from a command-line interface.
+- Shared portfolio data for the desktop sections and terminal, with supplied resume PDFs available for download.
 
 ## Run locally
 
